@@ -12,16 +12,24 @@ CREATE TABLE insurance(
     PRIMARY KEY (insurance_id)
 );
 
-CREATE TABLE user(
-	user_id INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE citizen(
+    citizen_id INT NOT NULL AUTO_INCREMENT,
     email VARCHAR(254),
-    username VARCHAR(50),
-    password CHAR(96),
     last_name VARCHAR(50) NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     insurance_id INT,
-    PRIMARY KEY (user_id),
-    CONSTRAINT fk_user_insurance FOREIGN KEY (insurance_id) REFERENCES insurance (insurance_id) ON UPDATE CASCADE
+    PRIMARY KEY (citizen_id),
+    CONSTRAINT fk_citizen_insurance FOREIGN KEY (insurance_id) REFERENCES insurance (insurance_id) ON UPDATE CASCADE
+);
+
+CREATE TABLE staff(
+	staff_id INT NOT NULL AUTO_INCREMENT,
+    email VARCHAR(254) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    password CHAR(96) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (staff_id)
 );
 
 CREATE TABLE role(
@@ -30,14 +38,14 @@ CREATE TABLE role(
     PRIMARY KEY (role_id)
 );
 
-CREATE TABLE user_role(
-	user_id INT NOT NULL,
+CREATE TABLE staff_role(
+	staff_id INT NOT NULL,
     role_id INT NOT NULL,
     granted_by INT NOT NULL,
-    PRIMARY KEY (user_id, role_id),
-    CONSTRAINT fk_user_role_userid FOREIGN KEY (user_id) REFERENCES user (user_id) ON UPDATE CASCADE,
-    CONSTRAINT fk_user_role_roleid FOREIGN KEY (role_id) REFERENCES role (role_id) ON UPDATE CASCADE,
-    CONSTRAINT fk_user_role_grantedby FOREIGN KEY (granted_by) REFERENCES user (user_id) ON UPDATE CASCADE
+    PRIMARY KEY (staff_id, role_id),
+    CONSTRAINT fk_staff_role_staffid FOREIGN KEY (staff_id) REFERENCES staff (staff_id) ON UPDATE CASCADE,
+    CONSTRAINT fk_staff_role_roleid FOREIGN KEY (role_id) REFERENCES role (role_id) ON UPDATE CASCADE,
+    CONSTRAINT fk_staff_role_grantedby FOREIGN KEY (granted_by) REFERENCES staff (staff_id) ON UPDATE CASCADE
 );
 
 CREATE TABLE state(
@@ -60,7 +68,7 @@ CREATE TABLE staff_location(
 	staff_id INT NOT NULL,
     location_id INT NOT NULL,
     PRIMARY KEY (staff_id, location_id),
-    CONSTRAINT fk_staff_location_staff FOREIGN KEY (staff_id) REFERENCES user (user_id) ON UPDATE CASCADE,
+    CONSTRAINT fk_staff_location_staff FOREIGN KEY (staff_id) REFERENCES staff (staff_id) ON UPDATE CASCADE,
     CONSTRAINT fk_staff_location_location FOREIGN KEY (location_id) REFERENCES location (location_id) ON UPDATE CASCADE
 );
 
@@ -107,13 +115,13 @@ CREATE TABLE timeslot(
     location_id INT,
     dose_id INT,
     date DATETIME,
-    status INT,
+    status_id INT,
     PRIMARY KEY (timeslot_id),
-    CONSTRAINT fk_timeslot_user_staff FOREIGN KEY (staff_id) REFERENCES user (user_id) ON UPDATE CASCADE,
-    CONSTRAINT fk_timeslot_user_citizen FOREIGN KEY (citizen_id) REFERENCES user (user_id) ON UPDATE CASCADE,
+    CONSTRAINT fk_timeslot_staff FOREIGN KEY (staff_id) REFERENCES staff (staff_id) ON UPDATE CASCADE,
+    CONSTRAINT fk_timeslot_citizen FOREIGN KEY (citizen_id) REFERENCES citizen (citizen_id) ON UPDATE CASCADE,
     CONSTRAINT fk_timeslot_location FOREIGN KEY (location_id) REFERENCES location (location_id) ON UPDATE CASCADE,
     CONSTRAINT fk_timeslot_dose FOREIGN KEY (dose_id) REFERENCES dose (dose_id) ON UPDATE CASCADE,
-    CONSTRAINT fk_timeslot_status FOREIGN KEY (status) REFERENCES timeslot_status (status_id) ON UPDATE CASCADE
+    CONSTRAINT fk_timeslot_status FOREIGN KEY (status_id) REFERENCES timeslot_status (status_id) ON UPDATE CASCADE
 );
 
 CREATE TABLE change_history(
@@ -125,5 +133,5 @@ CREATE TABLE change_history(
     change_date DATETIME NOT NULL,
     changed_by INT NOT NULL,
     PRIMARY KEY (change_id),
-    CONSTRAINT fk_history_user FOREIGN KEY (changed_by) REFERENCES user (user_id) ON UPDATE CASCADE
+    CONSTRAINT fk_history_staff FOREIGN KEY (changed_by) REFERENCES staff (staff_id) ON UPDATE CASCADE
 );
