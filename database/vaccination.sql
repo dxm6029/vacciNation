@@ -115,3 +115,15 @@ CREATE TABLE timeslot(
     CONSTRAINT fk_timeslot_dose FOREIGN KEY (dose_id) REFERENCES dose (dose_id) ON UPDATE CASCADE,
     CONSTRAINT fk_timeslot_status FOREIGN KEY (status) REFERENCES timeslot_status (status_id) ON UPDATE CASCADE
 );
+
+CREATE TABLE change_history(
+	change_id INT NOT NULL AUTO_INCREMENT,
+	change_table VARCHAR(50) NOT NULL,
+    change_row VARCHAR(50) NOT NULL,
+    old_val VARCHAR(254) NOT NULL,
+    new_val VARCHAR(254) NOT NULL,
+    change_date DATETIME NOT NULL,
+    changed_by INT NOT NULL,
+    PRIMARY KEY (change_id),
+    CONSTRAINT fk_history_user FOREIGN KEY (changed_by) REFERENCES user (user_id) ON UPDATE CASCADE
+);
