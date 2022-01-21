@@ -1,5 +1,6 @@
 import './App.css';
 import ToggleSwitch from "./components/toggleSwitch";
+import NavBar from './components/navBar';
 
 function App() {
   return (
@@ -10,6 +11,24 @@ function App() {
             leftLabel="English"
             rightLabel="Español" />
         </div>
+
+        <div className="title">
+          Is it time for 
+          <div className="line2"> 
+            your COVID vaccine?
+          </div>
+        </div>
+
+        <NavBar 
+          links = {[
+            ["/app.js", "Home"],
+            ["/fakeURL.js", "Schedule Appointment"],
+            ["/fakeLink.js", "FAQ"],
+            ["/fakeLink.js", "Report Reaction"]
+
+          ]}
+        />
+
         
       </div>
     </div>
