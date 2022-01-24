@@ -7,7 +7,7 @@ namespace VacciNation
         public SqlConnection OpenConnection(){
 
             // should update connection string to make more secure
-            string connetionString = "server=db.VacciNation.com;port=3306;database=vaccination;uid=student;Pwd=student;";
+            string connetionString = "Server= \"db.VacciNation.com\"; Port=3306; Database= \"vaccination\"; Uid= \"student\"; Pwd=\"student\";";
 
             try{
                 SqlConnection conn = new SqlConnection(connetionString);
