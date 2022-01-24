@@ -1,13 +1,11 @@
- 
 using System;
-using System.Windows.Forms;
 using System.Data.SqlClient;
 namespace VacciNation
 {
     public class Connect
     {
         public SqlConnection OpenConnection(){
-            string connetionString = "Data Source=ServerName;Initial Catalog=DatabaseName;User ID=UserName;Password=Password";
+            string connetionString = "Server=db.VacciNation.com;Database=vaccination;Uid=student;Pwd=student;";
 
             try{
                 SqlConnection conn = new SqlConnection(connetionString);
@@ -16,6 +14,7 @@ namespace VacciNation
                 return conn;
             } catch(Exception e){
                 Console.WriteLine("The connection did not open");
+                Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
                 return null;
             }
@@ -31,10 +30,6 @@ namespace VacciNation
                 Console.WriteLine(e.StackTrace);
                 return false;
             }
-        }
-
-        public SqlConnection GetConnection(){
-            return conn;
         }
 
     }
