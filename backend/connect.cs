@@ -12,7 +12,7 @@ namespace VacciNation
             // "User id=student;" +
             // "Password=student;";
 
-            string server = "db.VacciNation.com";
+            string server = "192.168.1.5"; //"db.VacciNation.com";
             string database = "vaccination";
             string uid = "student";
             string password = "student";
