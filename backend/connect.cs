@@ -16,7 +16,11 @@ namespace VacciNation
             string database = "vaccination";
             string uid = "student";
             string password = "student";
-            string connetionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
+            //string connetionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
+            string connetionString = "Server=db.VacciNation.com; " +
+                  " Port = 3306; "+
+                  " DATABASE=vaccination; " + 
+                  " UID=student;Password=student;";
 
             try{
                 MySqlConnection conn = new MySqlConnection(connetionString);
