@@ -1,16 +1,22 @@
 using System;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 namespace VacciNation
 {
     public class Connect
     {
-        public SqlConnection OpenConnection(){
+        public MySqlConnection OpenConnection(){
 
             // should update connection string to make more secure
-            string connetionString = "Server= \"db.VacciNation.com\"; Database= \"vaccination\"; Uid= \"student\"; Pwd=\"student\";";
+            //string connetionString = "Server= \"db.VacciNation.com\"; Database= \"vaccination\"; Uid= \"student\"; Pwd=\"student\";";
+
+            string server = "db.VacciNation.com";
+            string database = "vaccination";
+            string uid = "student";
+            string password = "student";
+            string connetionString= "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
 
             try{
-                SqlConnection conn = new SqlConnection(connetionString);
+                MySqlConnection conn = new MySqlConnection(connetionString);
                 conn.Open();
                 Console.WriteLine("The connection is open");
                 return conn;
@@ -22,7 +28,7 @@ namespace VacciNation
             }
         }
 
-        public Boolean CloseConnection(SqlConnection conn){
+        public Boolean CloseConnection(MySqlConnection conn){
             try{
                 conn.Close();
                 Console.WriteLine("The connection is closed");
