@@ -14,7 +14,7 @@ namespace VacciNation
 
             string server = "192.168.1.5"; //"db.VacciNation.com";
             string database = "vaccination";
-            string uid = "student";
+            string uid = "root";
             string password = "student";
             int port = 3306;
             string connetionString = "SERVER=" + server + ";" + "Port = " + port + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
