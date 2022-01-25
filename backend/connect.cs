@@ -1,27 +1,39 @@
 using System;
 using MySql.Data.MySqlClient; 
+using System.IO;
 namespace VacciNation
 {
     public class Connect
     {
+
+        public static void Load(string filePath)
+        {
+            if (!File.Exists(filePath))
+                return;
+
+            foreach (var line in File.ReadAllLines(filePath))
+            {
+                var parts = line.Split(
+                    '=',
+                    StringSplitOptions.RemoveEmptyEntries);
+
+                if (parts.Length != 2)
+                    continue;
+
+                Environment.SetEnvironmentVariable(parts[0], parts[1]);
+            }
+        }
+
         public MySqlConnection OpenConnection(){
 
-            // should update connection string to make more secure
-            // string connetionString = "Server=db.VacciNation.com, 3306;" +
-            // "Database=vaccination;" +
-            // "User id=student;" +
-            // "Password=student;";
+            Load("../server.env");
 
-            string server = "192.168.1.5"; //"db.VacciNation.com";
-            string database = "vaccination";
-            string uid = "root";
-            string password = "student";
-            int port = 3306;
+            string server = Environment.GetEnvironmentVariable("DB_IP");
+            string database = Environment.GetEnvironmentVariable("DB_NAME");
+            string uid = Environment.GetEnvironmentVariable("DB_USER");
+            string password = Environment.GetEnvironmentVariable("DB_PWD");
+            int port = Int32.Parse(Environment.GetEnvironmentVariable("DB_PORT"));
             string connetionString = "SERVER=" + server + ";" + "Port = " + port + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
-            // string connetionString = "Server=db.VacciNation.com; " +
-            //       " Port = 3306; "+
-            //       " DATABASE=vaccination; " + 
-            //       " UID=student;Password=student;";
 
             try{
                 MySqlConnection conn = new MySqlConnection(connetionString);
