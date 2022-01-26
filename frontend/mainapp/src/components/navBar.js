@@ -1,15 +1,21 @@
 import './navBar.css';
+import { BrowserRouter, Link, Routes, Route } from 'react-router-dom';
+import Schedule from './schedule';
 
 function NavBar(props) {
+
   return (
     <div className="navBar">
-        <ul>
-            {props.links.map((link, index) => (
-                <li key={index}> 
-                    <a href={link[0]} key={index}> {link[1]} </a>
-                </li>
-            ))}
-        </ul>  
+        <BrowserRouter>
+          {props.links.map((link, index) => (
+              <Link to={link[0]} className="link">{link[1]}</Link>
+          ))}
+
+          <Routes>
+            <Route path="/Schedule" element={<Schedule />} />
+            
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

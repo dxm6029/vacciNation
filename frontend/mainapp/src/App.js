@@ -1,36 +1,12 @@
 import './App.css';
-import ToggleSwitch from "./components/toggleSwitch";
-import NavBar from './components/navBar';
+import Home from './components/Home';
+import { BrowserRouter, Link, Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <div className="header">
-        <div className="toggle"> 
-          <ToggleSwitch 
-            leftLabel="English"
-            rightLabel="Español" />
-        </div>
-
-        <div className="title">
-          Is it time for 
-          <div className="line2"> 
-            your COVID vaccine?
-          </div>
-        </div>
-
-        <NavBar 
-          links = {[
-            ["/app.js", "Home"],
-            ["/fakeURL.js", "Schedule Appointment"],
-            ["/fakeLink.js", "FAQ"],
-            ["/fakeLink.js", "Report Reaction"]
-
-          ]}
-        />
-
-        
-      </div>
+    <div>
+        <Home />
+          
     </div>
   );
 }
