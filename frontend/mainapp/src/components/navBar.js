@@ -13,7 +13,6 @@ function NavBar(props) {
 
           <Routes>
             <Route path="/Schedule" element={<Schedule />} />
-            
         </Routes>
       </BrowserRouter>
     </div>
@@ -21,11 +20,3 @@ function NavBar(props) {
 }
 
 export default NavBar;
-
-
-/* 
-{props.links.map((link) => (
-                <li> 
-                    <a href={link.href}> {link.title} </a>
-                </li>
-            ))} */
