@@ -15,14 +15,14 @@ namespace VacciNationAPI.Controllers{
                 var conn = connection.OpenConnection();
                 var status = connection.CloseConnection(conn);
                 if(status){
-                    return "SUCCESS: Opened and Closed DB connection without issues";
+                    return "200: Opened and Closed DB connection without issues";
                 }
                 else{
-                   return "ERROR: Unable to close DB connection";
+                   return "400: Unable to close DB connection";
                 }
             }
             catch(Exception e){
-                return "ERROR: " + e.StackTrace;
+                return "400: " + e.StackTrace;
             }
         }
 

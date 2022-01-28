@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace VacciNationAPI
 {
@@ -41,8 +44,15 @@ namespace VacciNationAPI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "VacciNationAPI v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("swagger.json", "VacciNationAPI v1"));
             }
+
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(
+                    System.IO.Path.Combine(Directory.GetCurrentDirectory(), @"swagger")),
+                RequestPath = new PathString("/swagger")
+            });
 
             app.UseHttpsRedirection();
 
