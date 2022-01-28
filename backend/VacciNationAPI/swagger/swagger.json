@@ -43,6 +43,74 @@
         }
       }
     },
+    "/UserStaff/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "get a staff user by their id",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "id of staff member - could get from something like session storage or cookies?",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/UserCitizen/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "get a citizen user by their id",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "id of citizen member - could get from something like session storage or cookies?",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
     "/UserStaff": {
       "get": {
         "tags": [
@@ -335,6 +403,45 @@
           }
         ],
         "responses": {
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Authenticate": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "authenticate a staff member",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "citizen auth info to be authenticated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Authenticate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "probably some kind of token that contains info about user? like name or id or something?"
+          },
           "400": {
             "description": "json here - can adjust response code"
           },
@@ -1117,6 +1224,17 @@
         "insurance_id": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "Authenticate": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
         }
       }
     },
