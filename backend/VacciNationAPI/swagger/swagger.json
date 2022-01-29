@@ -7,12 +7,16 @@
   },
   "tags": [
     {
-      "name": "database",
+      "name": "Database",
       "description": "basic database connection functions"
     },
     {
-      "name": "User Account",
-      "description": "Access to User Accounts"
+      "name": "User",
+      "description": "Add/Update/Modify/View User Accounts"
+    },
+    {
+      "name": "Sample",
+      "description": "Sample requests from example swagger doc for our reference as we build this out more"
     }
   ],
   "schemes": [
@@ -22,11 +26,13 @@
     "/DBConnect": {
       "get": {
         "tags": [
-          "pet"
+          "Database"
         ],
         "summary": "test the ability to connect to our database",
         "description": "",
-        "operationId": "addPet",
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "DB connection created, opened, and closed successfully"
@@ -35,10 +41,423 @@
             "description": "DB connection could not close or exception was thrown"
           }
         }
+      }
+    },
+    "/UserStaff/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "get a staff user by their id",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "id of staff member - could get from something like session storage or cookies?",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/UserCitizen/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "get a citizen user by their id",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "id of citizen member - could get from something like session storage or cookies?",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/UserStaff": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "get a staff user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "username",
+            "description": "username of staff member",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "description": "email of staff member",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
       },
       "put": {
         "tags": [
-          "pet"
+          "User"
+        ],
+        "summary": "update a staff user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Staff object that needs to be updated in the application (all fields optional aside from unique identifiers)",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Staff"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "delete a staff user",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "username",
+            "description": "username of staff member",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "description": "email of staff member",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "add a staff user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Staff object that needs to be added to the application",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Staff"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/UserCitizen": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "get a citizen user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "first_name",
+            "description": "first name of citizen",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "last_name",
+            "description": "first name of citizen",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "description": "email of citizen",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "update a citizen user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Citizen object that needs to be updated in the application (all fields optional aside from unique identifiers)",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Citizen"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "delete a citizen user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "first_name",
+            "description": "first name of citizen",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "last_name",
+            "description": "first name of citizen",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "description": "email of citizen",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "add a citizen user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "citizen object that needs to be added to the application",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Citizen"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Authenticate": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "authenticate a staff member",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "citizen auth info to be authenticated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Authenticate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "probably some kind of token that contains info about user? like name or id or something?"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Sample": {
+      "put": {
+        "tags": [
+          "Sample"
         ],
         "summary": "Update an existing pet",
         "description": "",
@@ -64,13 +483,13 @@
         ],
         "responses": {
           "400": {
-            "description": "Invalid ID supplied"
+            "description": "json here - can adjust response code"
           },
           "404": {
-            "description": "Pet not found"
+            "description": "json here - can adjust response code"
           },
           "405": {
-            "description": "Validation exception"
+            "description": "json here - can adjust response code"
           }
         },
         "security": [
@@ -86,7 +505,7 @@
     "/pet/findByStatus": {
       "get": {
         "tags": [
-          "pet"
+          "Sample"
         ],
         "summary": "Finds Pets by status",
         "description": "Multiple status values can be provided with comma separated strings",
@@ -141,7 +560,7 @@
     "/pet/{petId}": {
       "get": {
         "tags": [
-          "pet"
+          "Sample"
         ],
         "summary": "Find pet by ID",
         "description": "Returns a single pet",
@@ -182,7 +601,7 @@
       },
       "post": {
         "tags": [
-          "pet"
+          "Sample"
         ],
         "summary": "Updates a pet in the store with form data",
         "description": "",
@@ -234,7 +653,7 @@
       },
       "delete": {
         "tags": [
-          "pet"
+          "Sample"
         ],
         "summary": "Deletes a pet",
         "description": "",
@@ -280,7 +699,7 @@
     "/pet/{petId}/uploadImage": {
       "post": {
         "tags": [
-          "pet"
+          "Sample"
         ],
         "summary": "uploads an image",
         "description": "",
@@ -336,7 +755,7 @@
     "/store/inventory": {
       "get": {
         "tags": [
-          "store"
+          "Sample"
         ],
         "summary": "Returns pet inventories by status",
         "description": "Returns a map of status codes to quantities",
@@ -367,7 +786,7 @@
     "/store/order": {
       "post": {
         "tags": [
-          "store"
+          "Sample"
         ],
         "summary": "Place an order for a pet",
         "description": "",
@@ -403,7 +822,7 @@
     "/store/order/{orderId}": {
       "get": {
         "tags": [
-          "store"
+          "Sample"
         ],
         "summary": "Find purchase order by ID",
         "description": "For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions",
@@ -441,7 +860,7 @@
       },
       "delete": {
         "tags": [
-          "store"
+          "Sample"
         ],
         "summary": "Delete purchase order by ID",
         "description": "For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors",
@@ -474,7 +893,7 @@
     "/user": {
       "post": {
         "tags": [
-          "user"
+          "Sample"
         ],
         "summary": "Create user",
         "description": "This can only be done by the logged in user.",
@@ -504,7 +923,7 @@
     "/user/createWithArray": {
       "post": {
         "tags": [
-          "user"
+          "Sample"
         ],
         "summary": "Creates list of users with given input array",
         "description": "",
@@ -537,7 +956,7 @@
     "/user/createWithList": {
       "post": {
         "tags": [
-          "user"
+          "Sample"
         ],
         "summary": "Creates list of users with given input array",
         "description": "",
@@ -570,7 +989,7 @@
     "/user/login": {
       "get": {
         "tags": [
-          "user"
+          "Sample"
         ],
         "summary": "Logs user into the system",
         "description": "",
@@ -623,7 +1042,7 @@
     "/user/logout": {
       "get": {
         "tags": [
-          "user"
+          "Sample"
         ],
         "summary": "Logs out current logged in user session",
         "description": "",
@@ -643,7 +1062,7 @@
     "/user/{username}": {
       "get": {
         "tags": [
-          "user"
+          "Sample"
         ],
         "summary": "Get user by user name",
         "description": "",
@@ -678,7 +1097,7 @@
       },
       "put": {
         "tags": [
-          "user"
+          "Sample"
         ],
         "summary": "Updated user",
         "description": "This can only be done by the logged in user.",
@@ -716,7 +1135,7 @@
       },
       "delete": {
         "tags": [
-          "user"
+          "Sample"
         ],
         "summary": "Delete user",
         "description": "This can only be done by the logged in user.",
@@ -762,6 +1181,63 @@
     }
   },
   "definitions": {
+    "Staff": {
+      "type": "object",
+      "properties": {
+        "staff_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "email": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        }
+      }
+    },
+    "Citizen": {
+      "type": "object",
+      "properties": {
+        "citizen_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "email": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "insurance_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Authenticate": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
     "Order": {
       "type": "object",
       "properties": {
