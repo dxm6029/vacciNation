@@ -13,6 +13,7 @@ namespace VacciNationAPI.Controllers{
 
         [HttpPost]
         public IActionResult AddStaffMember([FromBody] string email, string username, string password, string lastName, string firstName) {
+            Console.WriteLine("started");
             // assumes that password is hashed on the frontend
             bool result = us.insertStaffMember(email, username, password, lastName, firstName);
 
@@ -24,40 +25,24 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
-        /*
+        // [HttpGet]
+        // public IActionResult GetUserStaffWithoutID(){
+        //     try{
 
-public IActionResult Create([FromBody] Product product) {
-            if(product == null || !ModelState.IsValid){
-                return BadRequest();
-            }
-
-            // here we will return 201 with a LocationHeader
-            // specifying the URI of the newly created object
-            // in our case won't exist, we are not actually inserting
-            // anything
-            return CreatedAtRoute("GetProduct", new {id = product.Id}, product);
-
-        }
-        */
-
-        [HttpGet]
-        public IActionResult GetUserStaffWithoutID(){
-            try{
-
-                // call DB function here that returns staff info
-                Staff staff = new Staff(1, "", "", "", "");
+        //         // call DB function here that returns staff info
+        //         Staff staff = new Staff(1, "", "", "", "");
 
 
-                if(staff == null){
-                    return NotFound();
-                }
+        //         if(staff == null){
+        //             return NotFound();
+        //         }
                 
-                return new ObjectResult(staff);
-            }
-            catch(Exception e){
-                return BadRequest();;
-            }
-        }
+        //         return new ObjectResult(staff);
+        //     }
+        //     catch(Exception e){
+        //         return BadRequest();;
+        //     }
+        // }
 
     } // userstaff controller class
 
