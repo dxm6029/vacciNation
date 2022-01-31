@@ -15,7 +15,7 @@ namespace VacciNationAPI.Controllers{
         public IActionResult AddStaffMember([FromBody] Staff staffInfo) {
             Console.WriteLine("started");
             // assumes that password is hashed on the frontend
-            bool result = us.insertStaffMember(staffInfo.GetEmail(), staffInfo.GetUsername(), staffInfo.GetPassword(), staffInfo.GetLastName(), staffInfo.GetFirstName());
+            bool result = us.insertStaffMember(staffInfo.email, staffInfo.username, staffInfo.password, staffInfo.last_name, staffInfo.first_name);
 
             if(result){
                 return Accepted();
