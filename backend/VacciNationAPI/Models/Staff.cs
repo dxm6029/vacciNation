@@ -3,24 +3,24 @@ namespace VacciNationAPI.Models
 
     public class Staff {
 
-        public int id;
+        public int staff_id;
         public string email;
         public string username;
         public string password;
-        public string lastName;
-        public string firstName;
+        public string last_name;
+        public string first_name;
 
-        public Staff(int id, string email, string username, string password, string lastName, string firstName){
-            this.id = id;
+        public Staff(int staff_id, string email, string username, string password, string last_name, string first_name){
+            this.staff_id = staff_id;
             this.email = email;
             this.username = username;
             this.password = password;
-            this.lastName = lastName;
-            this.firstName = firstName;
+            this.last_name = last_name;
+            this.first_name = first_name;
         }
 
         public int GetID(){
-            return this.id;
+            return this.staff_id;
         }
 
         public string GetEmail(){
@@ -36,15 +36,15 @@ namespace VacciNationAPI.Models
         }
 
         public string GetLastName(){
-            return this.lastName;
+            return this.last_name;
         }
 
         public string GetFirstName(){
-            return this.firstName;
+            return this.first_name;
         }
 
         public void SetID(int id){
-            this.id = id;
+            this.staff_id = id;
         }
 
         public void SetEmail(string email){
@@ -56,11 +56,11 @@ namespace VacciNationAPI.Models
         }
 
         public void SetLastName(string lastName){
-            this.lastName = lastName;
+            this.last_name = lastName;
         }
 
         public void SetFirstName(string firstName){
-            this.firstName = firstName;
+            this.first_name = firstName;
         }
 
     } 
