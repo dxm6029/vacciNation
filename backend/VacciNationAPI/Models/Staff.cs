@@ -6,13 +6,15 @@ namespace VacciNationAPI.Models
         public int id;
         public string email;
         public string username;
+        public string password;
         public string lastName;
         public string firstName;
 
-        public Staff(int id, string email, string username, string lastName, string firstName){
+        public Staff(int id, string email, string username, string password, string lastName, string firstName){
             this.id = id;
             this.email = email;
             this.username = username;
+            this.password = password;
             this.lastName = lastName;
             this.firstName = firstName;
         }
@@ -27,6 +29,10 @@ namespace VacciNationAPI.Models
 
         public string GetUsername(){
             return this.username;
+        }
+
+        public string GetPassword(){
+            return this.password;
         }
 
         public string GetLastName(){
@@ -45,15 +51,15 @@ namespace VacciNationAPI.Models
             this.email = email;
         }
 
-        public void GetUsername(string username){
+        public void SetUsername(string username){
             this.username = username;
         }
 
-        public void GetLastName(string lastName){
+        public void SetLastName(string lastName){
             this.lastName = lastName;
         }
 
-        public void GetFirstName(string firstName){
+        public void SetFirstName(string firstName){
             this.firstName = firstName;
         }
 
