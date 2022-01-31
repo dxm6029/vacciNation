@@ -3,12 +3,12 @@ namespace VacciNationAPI.Models
 
     public class Staff {
 
-        public int staff_id;
-        public string email;
-        public string username;
-        public string password;
-        public string last_name;
-        public string first_name;
+        private int staff_id;
+        private string email;
+        private string username;
+        private string password;
+        private string last_name;
+        private string first_name;
 
         public Staff(int staff_id, string email, string username, string password, string last_name, string first_name){
             this.staff_id = staff_id;
