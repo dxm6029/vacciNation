@@ -53,11 +53,11 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
+                    Console.WriteLine("i am in here");
+                    Console.WriteLine(rdr[0]);
                     staff = new Staff((int)rdr[0], (string)rdr[1], (string)rdr[2], (string)rdr[3], (string)rdr[4], (string)rdr[5]);
                 }
                 rdr.Close();
-
-                Console.WriteLine(staff);
 
             }catch (Exception e){ }
             finally{
