@@ -36,22 +36,31 @@ namespace VacciNationAPI.DataLayer
             return result;
         }
 
-        public Staff getUserWithoutID(){
+        public Staff getUserWithoutID(string email, string username){
             MySqlConnection conn = new MySqlConnection();
+            Staff staff = null;
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT staff_id, email, username, last_name, first_name FROM staff WHERE email=? AND username=?";
+                string query = "SELECT staff_id, email, username, last_name, first_name FROM staff WHERE email=@email AND username=@username";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@username", username);
 
+                MySqlDataReader rdr = cmd.ExecuteReader();
 
-            }catch (Exception e){
-                return null;
-            }
+                while (rdr.Read())
+                {   
+                    staff = new Staff((int)rdr[0], (string)rdr[1], (string)rdr[2], (string)rdr[3], (string)rdr[4], (string)rdr[5]);
+                }
+                rdr.Close();
+
+            }catch (Exception e){ }
             finally{
                 connection.CloseConnection(conn);
             }
             
-            return null;
+            return staff;
         }
 
     } 

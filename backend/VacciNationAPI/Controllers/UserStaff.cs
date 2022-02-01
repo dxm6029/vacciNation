@@ -13,7 +13,6 @@ namespace VacciNationAPI.Controllers{
 
         [HttpPost]
         public IActionResult AddStaffMember([FromBody] Staff staffInfo) {
-            Console.WriteLine("started");
             // assumes that password is hashed on the frontend
             bool result = us.insertStaffMember(staffInfo.email, staffInfo.username, staffInfo.password, staffInfo.last_name, staffInfo.first_name);
 
@@ -25,24 +24,34 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
-        // [HttpGet]
-        // public IActionResult GetUserStaffWithoutID(){
-        //     try{
-
-        //         // call DB function here that returns staff info
-        //         Staff staff = new Staff(1, "", "", "", "");
+        [HttpGet]
+        public IActionResult GetUserStaffWithoutID(){
+            try{
 
 
-        //         if(staff == null){
-        //             return NotFound();
-        //         }
+                string username = "";
+                string email = "";
+                // call DB function here that returns staff info
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["username"])){
+                    username = HttpContext.Request.Query["username"];
+                }
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["email"])){
+                    email = HttpContext.Request.Query["email"];
+                }
+
                 
-        //         return new ObjectResult(staff);
-        //     }
-        //     catch(Exception e){
-        //         return BadRequest();;
-        //     }
-        // }
+                Staff staff = us.getUserWithoutID(email, username);
+
+                if(staff == null){
+                    return NotFound();
+                }
+                
+                return new ObjectResult(staff);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
 
     } // userstaff controller class
 
