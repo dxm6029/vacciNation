@@ -50,7 +50,7 @@ CREATE TABLE staff_role(
 
 CREATE TABLE state(
 	state_code CHAR(2) NOT NULL,
-    name VARCHAR(13) NOT NULL,
+    name VARCHAR(20) NOT NULL,
     PRIMARY KEY (state_code)
 );
 
