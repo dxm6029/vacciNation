@@ -50,7 +50,7 @@ CREATE TABLE staff_role(
 
 CREATE TABLE state(
 	state_code CHAR(2) NOT NULL,
-    name VARCHAR(13) NOT NULL,
+    name VARCHAR(20) NOT NULL,
     PRIMARY KEY (state_code)
 );
 
@@ -128,6 +128,7 @@ CREATE TABLE change_history(
 	change_id INT NOT NULL AUTO_INCREMENT,
 	change_table VARCHAR(50) NOT NULL,
     change_row VARCHAR(50) NOT NULL,
+    row_id INT NOT NULL,
     old_val VARCHAR(254) NOT NULL,
     new_val VARCHAR(254) NOT NULL,
     change_date DATETIME NOT NULL,
