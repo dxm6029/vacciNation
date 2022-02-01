@@ -1,1 +1,0 @@
-# vacciNation - Frontend

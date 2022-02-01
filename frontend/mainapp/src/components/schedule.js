@@ -1,12 +1,11 @@
 import './schedule.css';
-import GeneralHeader from './generalHeader';
 
 function Schedule() {
 
   return (
     <div className="scheduler">
         <div className="schedule">
-            Important Information <br/>
+            Schedule <br/>
             Here is information.
         </div>
 
