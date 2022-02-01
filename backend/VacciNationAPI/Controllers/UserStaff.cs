@@ -38,9 +38,6 @@ namespace VacciNationAPI.Controllers{
                 if (!String.IsNullOrEmpty(HttpContext.Request.Query["email"])){
                     email = HttpContext.Request.Query["email"];
                 }
-
-                Console.WriteLine(username);
-                Console.WriteLine(email);
                 
                 Staff staff = us.getUserWithoutID(email, username);
 

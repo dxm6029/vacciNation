@@ -47,21 +47,15 @@ namespace VacciNationAPI.DataLayer
                 cmd.Parameters.AddWithValue("@email", email);
                 cmd.Parameters.AddWithValue("@username", username);
 
-                Console.WriteLine(query);
-
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
                 {   
-                    Console.WriteLine("i am in here");
                     staff = new Staff(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), "", rdr.GetString(3), rdr.GetString(4));
-                    Console.WriteLine(staff);
                 }
                 rdr.Close();
 
-            }catch (Exception e){ 
-                Console.WriteLine(e.Message);
-                Console.WriteLine(e.StackTrace); }
+            }catch (Exception e){ }
             finally{
                 connection.CloseConnection(conn);
             }
