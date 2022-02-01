@@ -24,22 +24,12 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
-        [HttpGet]
-        public IActionResult GetUserStaffWithoutID(){
+        [HttpGet("{id}")]
+        public IActionResult GetUserStaffWithoutID(int id){
             try{
-
-
-                string username = "";
-                string email = "";
-                // call DB function here that returns staff info
-                if (!String.IsNullOrEmpty(HttpContext.Request.Query["username"])){
-                    username = HttpContext.Request.Query["username"];
-                }
-                if (!String.IsNullOrEmpty(HttpContext.Request.Query["email"])){
-                    email = HttpContext.Request.Query["email"];
-                }
+                Console.WriteLine(id);
                 
-                Staff staff = us.getUserWithoutID(email, username);
+                Staff staff = us.getUserWithID(id);
 
                 if(staff == null){
                     return NotFound();
