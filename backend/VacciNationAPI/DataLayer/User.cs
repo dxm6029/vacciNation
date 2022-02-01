@@ -59,7 +59,9 @@ namespace VacciNationAPI.DataLayer
                 }
                 rdr.Close();
 
-            }catch (Exception e){ Console.WriteLine(e.StackTrace); }
+            }catch (Exception e){ 
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace); }
             finally{
                 connection.CloseConnection(conn);
             }
