@@ -42,7 +42,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT staff_id, email, username, last_name, first_name FROM staff WHERE email=\"@email\" AND username=\"@username\"";
+                string query = "SELECT staff_id, email, username, last_name, first_name FROM staff WHERE email=@email AND username=@username";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@email", email);
                 cmd.Parameters.AddWithValue("@username", username);
