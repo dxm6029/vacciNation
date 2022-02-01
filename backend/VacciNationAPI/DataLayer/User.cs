@@ -55,6 +55,7 @@ namespace VacciNationAPI.DataLayer
                 {   
                     Console.WriteLine("i am in here");
                     staff = new Staff(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetString(4), rdr.GetString(5));
+                    Console.WriteLine(staff);
                 }
                 rdr.Close();
 
