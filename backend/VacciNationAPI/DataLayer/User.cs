@@ -89,6 +89,92 @@ namespace VacciNationAPI.DataLayer
             return staff;
         }
 
+        // do not want to let them reset their usernames for consistency?
+        public bool putUserWithID(Staff staff){
+            bool status = false;
+            MySqlConnection conn = new MySqlConnection();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "UPDATE staff SET";
+
+                if(staff.password != null){
+                    query += " password = @password,";
+                }
+
+                if(staff.email != null){
+                    query += " email = @email,";
+                }
+
+                if(staff.first_name != null){
+                    query += " first_name = @firstName,";
+                }
+
+                if(staff.last_name != null){
+                    query += " last_name = @lastname,";
+                }
+
+                query = query.TrimEnd(',');
+
+                query += " WHERE staff_id = @id";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                if(staff.password != null){
+                    cmd.Parameters.AddWithValue("@password", staff.password);
+                }
+
+                if(staff.email != null){
+                    cmd.Parameters.AddWithValue("@email", staff.email);
+                }
+
+                if(staff.first_name != null){
+                    cmd.Parameters.AddWithValue("@firstName", staff.first_name);
+                }
+
+                if(staff.last_name != null){
+                    cmd.Parameters.AddWithValue("@lastname", staff.last_name);
+                }
+
+
+                int rows = cmd.ExecuteNonQuery();
+
+                if(rows > 0){
+                    status = true;
+                }
+
+            }catch (Exception e){ }
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return status;
+        }
+
+        public bool deleteUser(string email, string username){
+            bool status = false;
+            MySqlConnection conn = new MySqlConnection();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "DELETE FROM staff WHERE email = @email AND username = @username";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@username", username);
+
+                int rows = cmd.ExecuteNonQuery();
+                
+                if(rows > 0){
+                    status = true;
+                }
+            } catch (Exception e){}
+            finally {
+                connection.CloseConnection(conn);
+            }
+
+            return status;
+        }
+
     } 
 
 }//namespace

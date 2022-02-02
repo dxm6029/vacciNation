@@ -71,15 +71,39 @@ namespace VacciNationAPI.Controllers{
         public IActionResult PutUserStaff([FromBody] Staff staffInfo){
             try{
 
-                Console.WriteLine(staffInfo.staff_id);
-                
-                Staff staff = us.getUserWithID(staffInfo.staff_id);
+                bool result = us.putUserWithID(staffInfo);
 
-                if(staff == null){
-                    return NotFound();
+                if(result){
+                    return Accepted();
+                } else {
+                    return BadRequest();
+                }
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteUserStaff(){
+            try{
+                string username = "";
+                string email = "";
+                
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["username"])){
+                    username = HttpContext.Request.Query["username"];
+                }
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["email"])){
+                    email = HttpContext.Request.Query["email"];
                 }
                 
-                return new ObjectResult(staff);
+                bool result = us.deleteUser(email, username);
+
+                if(result){
+                    return Accepted();
+                } else {
+                    return BadRequest();
+                }
             }
             catch(Exception e){
                 return BadRequest();
