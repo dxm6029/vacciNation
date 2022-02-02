@@ -24,10 +24,35 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        [HttpGet]
+        public IActionResult GetUserStaffWithoutID(){
+            try{
+                string username = "";
+                string email = "";
+                
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["username"])){
+                    username = HttpContext.Request.Query["username"];
+                }
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["email"])){
+                    email = HttpContext.Request.Query["email"];
+                }
+                
+                Staff staff = us.getUserWithoutID(email, username);
+
+                if(staff == null){
+                    return NotFound();
+                }
+                
+                return new ObjectResult(staff);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetUserStaffWithoutID(int id){
             try{
-                Console.WriteLine(id);
                 
                 Staff staff = us.getUserWithID(id);
 
@@ -41,6 +66,26 @@ namespace VacciNationAPI.Controllers{
                 return BadRequest();
             }
         }
+
+        [HttpPut]
+        public IActionResult PutUserStaff([FromBody] Staff staffInfo){
+            try{
+
+                Console.WriteLine(staffInfo.staff_id);
+                
+                Staff staff = us.getUserWithID(staffInfo.staff_id);
+
+                if(staff == null){
+                    return NotFound();
+                }
+                
+                return new ObjectResult(staff);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
 
     } // userstaff controller class
 
