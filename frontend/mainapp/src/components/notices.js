@@ -3,11 +3,8 @@ import {Link} from "react-router-dom";
 
 function Notices(props) {
 
-  console.log(props.information);
-
   return (
     <div className="scheduler">
-
         <div className="schedule">
             {props.information.map((info, index) => (
               <div>
@@ -17,7 +14,7 @@ function Notices(props) {
           ))}
         </div>
 
-        <Link to="/schedule">
+        <Link to="/prescreening">
             <button> Next </button>
         </Link>
     </div>

@@ -4,10 +4,11 @@ import Schedule from './components/schedule';
 import { BrowserRouter, Link, Switch, Route } from 'react-router-dom';
 import UBRoutes from './routes';
 import NavBar from './components/navBar';
+import Footer from './components/footer';
 
 function App() {
   return (
-    <div>
+    <div className="fullWidthHeight">
       <div>
       <NavBar 
           information = {["Information"]}
@@ -18,7 +19,6 @@ function App() {
             ["report", "Report Reaction"]
           ]}
         />
-
       </div>
         <UBRoutes
           information = {[
@@ -44,7 +44,25 @@ function App() {
             "Both Moderna and J&J vaccines are authorized for individuals age 18 and over"]
           ]}
           otherInfo = {""}
+          questions={[
+            ["Question 1", "Answer 1"],
+            ["Question 2", "Answer 2"],
+            ["Question 3", "Answer 3"],
+            ["Question 4", "Answer 4"],
+
+          ]}
+
+          prescreeningQs = {[
+            ["Date", "Date of Birth"],
+            ["Radio", "Are you a healthcare worker?", ["Yes", "No"]],
+            ["Radio", "Do you have any of the following health conditions? [blahblahblah]", ["Yes", "No"]],
+            ["Dropdown", "How many doses of the vaccine have you received so far?", ["Zero", "One dose", "Two doses"]],
+            ["Date", "Date of your last dose"],
+            ["Radio", "Please select the brand of your COVID vaccine", ["Pfizer", "Moderna", "J&J", "Other"]]
+          ]}
         />
+
+        <Footer />
           
     </div>
   );

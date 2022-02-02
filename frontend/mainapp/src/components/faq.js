@@ -1,16 +1,22 @@
 import './schedule.css';
 import {Link} from "react-router-dom";
 
-function FAQ() {
+function FAQ(props) {
 
   return (
     <div className="scheduler">
-        Here is a question? 
-        < br/> Yes.
+      <div className="schedule">
+          {props.questions.map((quest, index) => (
+            <div>
+              <h2 className="" key={`question ${index}`}>{quest[0]}</h2>
+              <div className="" key={`answer ${index}`}> {quest[1]} </div>
+            </div>
+        ))}
+      </div>
 
-        <Link to="/schedule">
-            <button> Next </button>
-        </Link>
+      <Link to="/schedule">
+          <button> Next </button>
+      </Link>
     </div>
   );
 }
