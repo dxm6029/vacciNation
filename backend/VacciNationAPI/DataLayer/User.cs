@@ -181,13 +181,12 @@ namespace VacciNationAPI.DataLayer
             MySqlConnection conn = connection.OpenConnection();
 
             try{
-                string query = "INSERT INTO citizen (email, last_name, first_name, insurance_id) VALUES(@email, @lastName, @firstName, @insurance_id)";
+                string query = "INSERT INTO citizen (email, last_name, first_name) VALUES(@email, @lastName, @firstName)";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@email", email);
                 cmd.Parameters.AddWithValue("@lastName", lastName);
                 cmd.Parameters.AddWithValue("@firstName", firstName);
-                cmd.Parameters.AddWithValue("@insurance_id", -1);
 
                 int numAffected = cmd.ExecuteNonQuery();
 
