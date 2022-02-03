@@ -87,8 +87,10 @@ namespace VacciNationAPI.Controllers{
                     last_name = HttpContext.Request.Query["last_name"];
                 }
                 if (!String.IsNullOrEmpty(HttpContext.Request.Query["email"])){
-                    last_name = HttpContext.Request.Query["email"];
+                    email = HttpContext.Request.Query["email"];
                 }
+
+               // Console.WriteLine(first_name + " " + la)
                 
                 Citizen citizen = us.getCitizenWithoutID(email, first_name, last_name);
 
