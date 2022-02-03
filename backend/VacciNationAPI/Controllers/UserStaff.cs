@@ -51,7 +51,7 @@ namespace VacciNationAPI.Controllers{
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetUserStaffWithoutID(int id){
+        public IActionResult GetUserStaffWithID(int id){
             try{
                 
                 Staff staff = us.getUserWithID(id);

@@ -72,5 +72,54 @@ namespace VacciNationAPI.Controllers{
                 return BadRequest();
             }
         }
+
+        [HttpGet]
+        public IActionResult GetUserStaffWithoutID(){
+            try{
+                string first_name = "";
+                string last_name = "";
+                string email = "";
+                
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["first_name"])){
+                    first_name = HttpContext.Request.Query["first_name"];
+                }
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["last_name"])){
+                    last_name = HttpContext.Request.Query["last_name"];
+                }
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["email"])){
+                    email = HttpContext.Request.Query["email"];
+                }
+
+               // Console.WriteLine(first_name + " " + la)
+                
+                Citizen citizen = us.getCitizenWithoutID(email, first_name, last_name);
+
+                if(citizen == null){
+                    return NotFound();
+                }
+                
+                return new ObjectResult(citizen);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetUserCitizenWithID(int id){
+            try{
+                
+                Citizen citizen = us.getCitizenWithID(id);
+
+                if(citizen == null){
+                    return NotFound();
+                }
+                
+                return new ObjectResult(citizen);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
     }
 }
