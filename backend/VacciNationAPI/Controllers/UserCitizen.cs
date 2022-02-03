@@ -104,5 +104,22 @@ namespace VacciNationAPI.Controllers{
                 return BadRequest();
             }
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetUserCitizenWithID(int id){
+            try{
+                
+                Citizen citizen = us.getCitizenWithID(id);
+
+                if(citizen == null){
+                    return NotFound();
+                }
+                
+                return new ObjectResult(citizen);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
     }
 }

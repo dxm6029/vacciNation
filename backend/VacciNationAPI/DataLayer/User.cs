@@ -310,6 +310,32 @@ namespace VacciNationAPI.DataLayer
             return citizen;
         }
 
+         public Citizen getCitizenWithID(int id){
+            MySqlConnection conn = new MySqlConnection();
+            Citizen citizen = null;
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "SELECT citizen_id, email, last_name, first_name, insurance_id FROM citizen WHERE citizen_id=@id";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {   
+                    citizen = new Citizen(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetInt32(4));
+                }
+                rdr.Close();
+
+            }catch (Exception e){ }
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return citizen;
+        }
+
 
     } 
 
