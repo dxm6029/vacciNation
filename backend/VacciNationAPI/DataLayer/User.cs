@@ -118,8 +118,6 @@ namespace VacciNationAPI.DataLayer
 
                 query += " WHERE staff_id = @id";
 
-                Console.WriteLine(query);
-
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
                 cmd.Parameters.AddWithValue("@id", staff.staff_id);
@@ -129,11 +127,8 @@ namespace VacciNationAPI.DataLayer
                 }
 
                 if(staff.email != null){
-                    Console.WriteLine("hi i am setting the email");
                     cmd.Parameters.AddWithValue("@email", staff.email);
                 }
-
-                    Console.WriteLine("hi i set the email");
 
                 if(staff.first_name != null){
                     cmd.Parameters.AddWithValue("@firstName", staff.first_name);
@@ -142,18 +137,14 @@ namespace VacciNationAPI.DataLayer
                 if(staff.last_name != null){
                     cmd.Parameters.AddWithValue("@lastName", staff.last_name);
                 }
-                    Console.WriteLine("hi i am gonna do the query now");
-
 
                 int rows = cmd.ExecuteNonQuery();
-
-                Console.WriteLine(rows);
 
                 if(rows > 0){
                     status = true;
                 }
 
-            }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace); }
+            }catch (Exception e){}
             finally{
                 connection.CloseConnection(conn);
             }
