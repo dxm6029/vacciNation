@@ -176,6 +176,32 @@ namespace VacciNationAPI.DataLayer
             return status;
         }
 
+         public bool insertCitizen(string email, string lastName, string firstName){
+            bool result = false;
+            MySqlConnection conn = connection.OpenConnection();
+
+            try{
+                string query = "INSERT INTO citizen (email, last_name, first_name, insurance_id) VALUES(@email, @lastName, @firstName, @insurance_id)";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@lastName", lastName);
+                cmd.Parameters.AddWithValue("@firstName", firstName);
+                cmd.Parameters.AddWithValue("@insurance_id", -1);
+
+                int numAffected = cmd.ExecuteNonQuery();
+
+                if(numAffected > 0){
+                    result = true;
+                }
+
+            } catch (Exception e){ } // probably should log something here eventually
+            finally{
+               connection.CloseConnection(conn);
+            }
+            return result;
+        }
+
     } 
 
 }//namespace
