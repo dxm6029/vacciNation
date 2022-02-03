@@ -19,7 +19,7 @@ html, body {
 }
 
 .header {
-  height: 24vh;
+  height: 16vh;
   width: 100%;
   background-color: #004494;
   box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.25);

@@ -6,6 +6,7 @@ import Notices from './components/notices';
 import Schedule from './components/schedule';
 import FAQ from './components/faq';
 import Prescreening from './components/preescreening';
+import Ineligible from './components/ineligible';
 
 /**
  * All routes go here.
@@ -15,11 +16,13 @@ class UBRoutes extends React.Component {
     render() {
         return (
             <Routes>
+                <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/notices" element={<Notices information={this.props.information}/>}/>
                 <Route path="/schedule" element={<Schedule/>}/>
                 <Route path="/faq" element={<FAQ questions={this.props.questions}/>} />
                 <Route path="/prescreening" element={<Prescreening questions={this.props.prescreeningQs}/>}/>
+                <Route path="/ineligible" element={<Ineligible />} />
             </Routes>
         );
     }

@@ -4,7 +4,6 @@ import UBRoutes from '../routes';
 import ToggleSwitch from './toggleSwitch';
 
 function NavBar(props) {
-
   return (
     <div>
       <div className="App">
@@ -16,16 +15,13 @@ function NavBar(props) {
           </div>
 
           <div className="title">
-            Is it time for 
-            <div className="line2"> 
-              your COVID vaccine?
-            </div>
+            VacciNation
           </div>
         </div>
       </div>
       <div className="navBar">
           {props.links.map((link, index) => (
-              <Link to={link[0]} className="link" key={index}>{link[1]}</Link>
+            <Link to={link[0]} className="link" key={index}>{link[1]}</Link>
           ))}
       </div>
     </div>

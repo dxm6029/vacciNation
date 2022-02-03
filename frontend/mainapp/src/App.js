@@ -1,7 +1,4 @@
 import './App.css';
-import Home from './components/Home';
-import Schedule from './components/schedule';
-import { BrowserRouter, Link, Switch, Route } from 'react-router-dom';
 import UBRoutes from './routes';
 import NavBar from './components/navBar';
 import Footer from './components/footer';
@@ -49,7 +46,6 @@ function App() {
             ["Question 2", "Answer 2"],
             ["Question 3", "Answer 3"],
             ["Question 4", "Answer 4"],
-
           ]}
 
           prescreeningQs = {[
