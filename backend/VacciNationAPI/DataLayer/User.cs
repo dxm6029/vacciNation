@@ -282,6 +282,34 @@ namespace VacciNationAPI.DataLayer
             return status;
         }
 
+        public Citizen getCitizenWithoutID(string email, string firstname, string lastname){
+            MySqlConnection conn = new MySqlConnection();
+            Citizen citizen = null;
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "SELECT citizen_id, email, last_name, first_name, insurance_id FROM citizen WHERE email=@email AND first_name=@firstname AND last_name=@lastname";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@firstname", firstname);
+                cmd.Parameters.AddWithValue("@lastname", lastname);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {   
+                    citizen = new Citizen(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetInt32(4));
+                }
+                rdr.Close();
+
+            }catch (Exception e){ }
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return citizen;
+        }
+
 
     } 
 
