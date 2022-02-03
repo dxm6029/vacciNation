@@ -111,7 +111,7 @@ namespace VacciNationAPI.DataLayer
                 }
 
                 if(staff.last_name != null){
-                    query += " last_name = @lastname,";
+                    query += " last_name = @lastName,";
                 }
 
                 query = query.TrimEnd(',');
@@ -121,6 +121,8 @@ namespace VacciNationAPI.DataLayer
                 Console.WriteLine(query);
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@id", staff.staff_id);
 
                 if(staff.password != null){
                     cmd.Parameters.AddWithValue("@password", staff.password);
@@ -138,7 +140,7 @@ namespace VacciNationAPI.DataLayer
                 }
 
                 if(staff.last_name != null){
-                    cmd.Parameters.AddWithValue("@lastname", staff.last_name);
+                    cmd.Parameters.AddWithValue("@lastName", staff.last_name);
                 }
                     Console.WriteLine("hi i am gonna do the query now");
 
