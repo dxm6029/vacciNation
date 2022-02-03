@@ -201,6 +201,62 @@ namespace VacciNationAPI.DataLayer
             return result;
         }
 
+        public bool putCitizenWithID(Citizen citizen){
+            bool status = false;
+            MySqlConnection conn = new MySqlConnection();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "UPDATE citizen SET";
+
+                if(citizen.email != null){
+                    query += " email = @email,";
+                }
+
+                if(citizen.first_name != null){
+                    query += " first_name = @firstName,";
+                }
+
+                if(citizen.last_name != null){
+                    query += " last_name = @lastName,";
+                }
+
+                // TODO: may need to add stuff in here for in here for insurance later on!!
+
+                query = query.TrimEnd(',');
+
+                query += " WHERE citizen_id = @id";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@id", citizen.citizen_id);
+
+                if(citizen.email != null){
+                    cmd.Parameters.AddWithValue("@email", citizen.email);
+                }
+
+                if(citizen.first_name != null){
+                    cmd.Parameters.AddWithValue("@firstName", citizen.first_name);
+                }
+
+                if(citizen.last_name != null){
+                    cmd.Parameters.AddWithValue("@lastName", citizen.last_name);
+                }
+
+                int rows = cmd.ExecuteNonQuery();
+
+                if(rows > 0){
+                    status = true;
+                }
+
+            }catch (Exception e){}
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return status;
+        }
+
     } 
 
 }//namespace

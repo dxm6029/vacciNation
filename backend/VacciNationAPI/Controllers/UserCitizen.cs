@@ -24,5 +24,22 @@ namespace VacciNationAPI.Controllers{
                 return BadRequest();
             }
         }
+
+        [HttpPut]
+        public IActionResult PutUserCitizen([FromBody] Citizen citizen){
+            try{
+
+                bool result = us.putCitizenWithID(citizen);
+
+                if(result){
+                    return Accepted();
+                } else {
+                    return BadRequest();
+                }
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
     }
 }
