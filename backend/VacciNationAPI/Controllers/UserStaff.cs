@@ -24,10 +24,35 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        [HttpGet]
+        public IActionResult GetUserStaffWithoutID(){
+            try{
+                string username = "";
+                string email = "";
+                
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["username"])){
+                    username = HttpContext.Request.Query["username"];
+                }
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["email"])){
+                    email = HttpContext.Request.Query["email"];
+                }
+                
+                Staff staff = us.getUserWithoutID(email, username);
+
+                if(staff == null){
+                    return NotFound();
+                }
+                
+                return new ObjectResult(staff);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetUserStaffWithoutID(int id){
             try{
-                Console.WriteLine(id);
                 
                 Staff staff = us.getUserWithID(id);
 
@@ -41,6 +66,50 @@ namespace VacciNationAPI.Controllers{
                 return BadRequest();
             }
         }
+
+        [HttpPut]
+        public IActionResult PutUserStaff([FromBody] Staff staffInfo){
+            try{
+
+                bool result = us.putUserWithID(staffInfo);
+
+                if(result){
+                    return Accepted();
+                } else {
+                    return BadRequest();
+                }
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteUserStaff(){
+            try{
+                string username = "";
+                string email = "";
+                
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["username"])){
+                    username = HttpContext.Request.Query["username"];
+                }
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["email"])){
+                    email = HttpContext.Request.Query["email"];
+                }
+                
+                bool result = us.deleteUser(email, username);
+
+                if(result){
+                    return Accepted();
+                } else {
+                    return BadRequest();
+                }
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
 
     } // userstaff controller class
 
