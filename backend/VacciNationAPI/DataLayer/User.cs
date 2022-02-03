@@ -257,6 +257,32 @@ namespace VacciNationAPI.DataLayer
             return status;
         }
 
+         public bool deleteCitizen(string email, string firstName, string lastName){
+            bool status = false;
+            MySqlConnection conn = new MySqlConnection();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "DELETE FROM citizen WHERE email = @email AND first_name = @firstName AND last_name = @lastName";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@firstName", firstName);
+                cmd.Parameters.AddWithValue("@lastName", lastName);
+
+                int rows = cmd.ExecuteNonQuery();
+                
+                if(rows > 0){
+                    status = true;
+                }
+            } catch (Exception e){}
+            finally {
+                connection.CloseConnection(conn);
+            }
+
+            return status;
+        }
+
+
     } 
 
 }//namespace

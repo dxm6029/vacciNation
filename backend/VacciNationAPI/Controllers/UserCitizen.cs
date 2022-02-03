@@ -42,5 +42,35 @@ namespace VacciNationAPI.Controllers{
                 return BadRequest();
             }
         }
+
+        [HttpDelete]
+        public IActionResult DeleteUserStaff(){
+            try{
+                string firstName = "";
+                string lastName = "";
+                string email = "";
+                
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["first_name"])){
+                    firstName = HttpContext.Request.Query["first_name"];
+                }
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["last_name"])){
+                    lastName = HttpContext.Request.Query["last_name"];
+                }
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["email"])){
+                    email = HttpContext.Request.Query["email"];
+                }
+                
+                bool result = us.deleteCitizen(email, firstName, lastName);
+
+                if(result){
+                    return Accepted();
+                } else {
+                    return BadRequest();
+                }
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
     }
 }
