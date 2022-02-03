@@ -118,6 +118,8 @@ namespace VacciNationAPI.DataLayer
 
                 query += " WHERE staff_id = @id";
 
+                Console.WriteLine(query);
+
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
                 if(staff.password != null){
@@ -138,6 +140,8 @@ namespace VacciNationAPI.DataLayer
 
 
                 int rows = cmd.ExecuteNonQuery();
+
+                Console.WriteLine(rows);
 
                 if(rows > 0){
                     status = true;
