@@ -69,9 +69,7 @@ namespace VacciNationAPI.Controllers{
 
         [HttpGet("all")]
         public IActionResult GetAllStaff(){
-            try{
-            Console.WriteLine("hi i made it to the endpoint");
-                
+            try{                
                 List<Staff> staffMembers = us.getAllStaff();
                 return new ObjectResult(staffMembers);
             }

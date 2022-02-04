@@ -339,7 +339,31 @@ namespace VacciNationAPI.DataLayer
         }
 
         public List<Staff> getAllStaff(){
-            Console.WriteLine("hi i made it to the method");
+            MySqlConnection conn = new MySqlConnection();
+            List<Staff> staff = new List<Staff>();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "SELECT staff_id, email, username, last_name, first_name, role.name FROM staff JOIN user_role ON user_role.staff_id=staff.staff_id JOIN role ON user_role.role_id=role.role_id";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {   
+                    staff.Add(new Staff(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), "", rdr.GetString(3), rdr.GetString(4)));
+                }
+                rdr.Close();
+
+            }catch (Exception e){}
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return staff;
+        }
+
+        public List<Staff> getAllCitizens(){
             MySqlConnection conn = new MySqlConnection();
             List<Staff> staff = new List<Staff>();
             try{ 
@@ -352,12 +376,11 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    Console.WriteLine(rdr.GetInt32(0));
                     staff.Add(new Staff(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), "", rdr.GetString(3), rdr.GetString(4)));
                 }
                 rdr.Close();
 
-            }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
+            }catch (Exception e){}
             finally{
                 connection.CloseConnection(conn);
             }
