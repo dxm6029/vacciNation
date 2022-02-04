@@ -353,7 +353,8 @@ namespace VacciNationAPI.DataLayer
                 while (rdr.Read())
                 {   
                     Console.WriteLine(rdr.GetInt32(0));
-                    staff.Add(new Staff(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), "", rdr.GetString(3), rdr.GetString(4)));
+                    Staff s = new Staff(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), "", rdr.GetString(3), rdr.GetString(4));
+                    staff.Add(s);
                 }
                 rdr.Close();
 
