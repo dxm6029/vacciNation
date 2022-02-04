@@ -352,11 +352,12 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
+                    Console.WriteLine(rdr.GetInt32(0));
                     staff.Add(new Staff(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), "", rdr.GetString(3), rdr.GetString(4)));
                 }
                 rdr.Close();
 
-            }catch (Exception e){ }
+            }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
             finally{
                 connection.CloseConnection(conn);
             }
