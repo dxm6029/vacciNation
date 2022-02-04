@@ -338,21 +338,21 @@ namespace VacciNationAPI.DataLayer
             return citizen;
         }
 
-        public List<Staff> getAllStaff(){
+        public List<string> getAllStaff(){
             MySqlConnection conn = new MySqlConnection();
-            List<Staff> staff = new List<Staff>();
+            List<string> staff = new List<string>();
             try{ 
                 conn = connection.OpenConnection();
 
 //JOIN role ON staff_role.role_id=role.role_id
-                string query = "SELECT staff_id, email, username, last_name, first_name FROM staff JOIN staff_role ON staff.staff_id=staff_role.staff_id";
+                string query = "SELECT staff.staff_id, email, username, last_name, first_name, role.name FROM staff JOIN staff_role ON staff.staff_id=staff_role.staff_id JOIN role ON staff_role.role_id=role.role_id";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
                 {   
-                    staff.Add(new Staff(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), "", rdr.GetString(3), rdr.GetString(4)));
+                    staff.Add("{ staff_id: " + rdr.GetInt32(0).ToString() + ", email: " + rdr.GetString(1) + ", username: " + rdr.GetString(2)+  ", last_name: " +  rdr.GetString(3)+ ", first_name: " +  rdr.GetString(4) + ", role: " +  rdr.GetString(5) + "}");
                 }
                 rdr.Close();
 

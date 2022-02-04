@@ -125,7 +125,7 @@ namespace VacciNationAPI.Controllers{
         [HttpGet("all")]
         public IActionResult GetAllCitizens(){
             try{                
-                List<Staff> staffMembers = us.getAllStaff();
+                List<Staff> staffMembers = null;
                 return new ObjectResult(staffMembers);
             }
             catch(Exception e){
