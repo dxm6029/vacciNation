@@ -12,23 +12,45 @@ CREATE TABLE insurance(
     PRIMARY KEY (insurance_id)
 );
 
+CREATE TABLE state(
+	state_code CHAR(2) NOT NULL,
+    name VARCHAR(20) NOT NULL,
+    PRIMARY KEY (state_code)
+);
+
+CREATE TABLE address(
+    address_id INT NOT NULL AUTO_INCREMENT,
+    zip CHAR(5) NOT NULL,
+    street VARCHAR(50) NOT NULL,
+    street_line2 VARCHAR(50),
+    city VARCHAR(50) NOT NULL,
+    state CHAR(2) NOT NULL,
+    PRIMARY KEY (address_id),
+    CONSTRAINT fk_location_state FOREIGN KEY (state) REFERENCES state (state_code) ON UPDATE CASCADE
+);
+
 CREATE TABLE citizen(
     citizen_id INT NOT NULL AUTO_INCREMENT,
     email VARCHAR(254),
     last_name VARCHAR(50) NOT NULL,
     first_name VARCHAR(50) NOT NULL,
+    date_of_birth DATE NOT NULL,
     insurance_id INT,
+    phone_number VARCHAR(15),
+    address_id INT,
     PRIMARY KEY (citizen_id),
-    CONSTRAINT fk_citizen_insurance FOREIGN KEY (insurance_id) REFERENCES insurance (insurance_id) ON UPDATE CASCADE
+    CONSTRAINT fk_citizen_insurance FOREIGN KEY (insurance_id) REFERENCES insurance (insurance_id) ON UPDATE CASCADE,
+    CONSTRAINT fk_citizen_address FOREIGN KEY (address_id) REFERENCES address (address_id) ON UPDATE CASCADE
 );
 
 CREATE TABLE staff(
 	staff_id INT NOT NULL AUTO_INCREMENT,
-    email VARCHAR(254) NOT NULL,
-    username VARCHAR(50) NOT NULL,
+    email VARCHAR(254) NOT NULL UNIQUE,
+    username VARCHAR(50) NOT NULL UNIQUE,
     password CHAR(96) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     first_name VARCHAR(50) NOT NULL,
+    token VARCHAR(255),
     PRIMARY KEY (staff_id)
 );
 
@@ -48,20 +70,12 @@ CREATE TABLE staff_role(
     CONSTRAINT fk_staff_role_grantedby FOREIGN KEY (granted_by) REFERENCES staff (staff_id) ON UPDATE CASCADE
 );
 
-CREATE TABLE state(
-	state_code CHAR(2) NOT NULL,
-    name VARCHAR(20) NOT NULL,
-    PRIMARY KEY (state_code)
-);
-
 CREATE TABLE location(
 	location_id INT NOT NULL AUTO_INCREMENT,
-    zip CHAR(5),
-    street VARCHAR(50),
-    city VARCHAR(50),
-    state CHAR(2),
+    name VARCHAR(50) NOT NULL,
+    address_id INT NOT NULL,
     PRIMARY KEY (location_id),
-    CONSTRAINT fk_location_state FOREIGN KEY (state) REFERENCES state (state_code) ON UPDATE CASCADE
+    CONSTRAINT fk_location_address FOREIGN KEY (address_id) REFERENCES address (address_id) ON UPDATE CASCADE
 );
 
 CREATE TABLE staff_location(

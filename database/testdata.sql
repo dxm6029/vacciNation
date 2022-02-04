@@ -6,31 +6,6 @@ INSERT INTO insurance (insurance_id, last_name, first_name, carrier, group_numbe
 INSERT INTO insurance (insurance_id, last_name, first_name, carrier, group_number, member_id) VALUES (4, "Connors", "Kendra", "BlueCrossBlueShield", 7896528, "U6541247845");
 INSERT INTO insurance (insurance_id, last_name, first_name, carrier, group_number, member_id) VALUES (5, "Zegt", "Simon", "Cigna", 1567657, "U63541274574");
 
-INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id) VALUES (1, "tanderson@fake.notreal", "Anderson", "Tony", 1);
-INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id) VALUES (2, "banderson@fake.notreal", "Anderson", "Barbara", 1);
-INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id) VALUES (3, "han_don@fake.notreal", "Donaghy", "Hannah", 2);
-INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id) VALUES (4, "bruce_tavis@fake.notreal", "Tavis", "Bruce", 3);
-INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id) VALUES (5, "novak_tavis@fake.notreal", "Tavis", "Novak", 3);
-INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id) VALUES (6, "kc4431@fake.notreal", "Connors", "Kendra", 4);
-INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id) VALUES (7, "simonsaystext@me.instead", "Zegt", "Simon", 5);
-INSERT INTO citizen (citizen_id, last_name, first_name) VALUES (8, "Slomljen", "Hazel Sophia");
-INSERT INTO citizen (citizen_id, email, last_name, first_name) VALUES (9, "khiggs207@fake.notreal", "Higgins", "Kyle");
-
-INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (1, "admin@staff.email", "superadmin", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "admin", "super");
-INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (2, "js@staff.email", "js", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "Smith", "John");
-INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (3, "sb@staff.email", "sb", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "Baker", "Sally");
-INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (4, "vi@staff.email", "vi", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "Irwin", "Vince");
-
-INSERT INTO role (role_id, name) VALUES (1, "Super Admin");
-INSERT INTO role (role_id, name) VALUES (2, "Site Admin");
-INSERT INTO role (role_id, name) VALUES (3, "Vaccine Administration");
-INSERT INTO role (role_id, name) VALUES (4, "Check In");
-
-INSERT INTO staff_role (staff_id, role_id, granted_by) VALUES (1, 1, 1);
-INSERT INTO staff_role (staff_id, role_id, granted_by) VALUES (2, 2, 1);
-INSERT INTO staff_role (staff_id, role_id, granted_by) VALUES (3, 3, 2);
-INSERT INTO staff_role (staff_id, role_id, granted_by) VALUES (4, 4, 2);
-
 INSERT INTO state (state_code, name) VALUES ("AL", "Alabama");
 INSERT INTO state (state_code, name) VALUES ("AK", "Alaska");
 INSERT INTO state (state_code, name) VALUES ("AZ", "Arizona");
@@ -83,8 +58,38 @@ INSERT INTO state (state_code, name) VALUES ("WV", "West Virginia");
 INSERT INTO state (state_code, name) VALUES ("WI", "Wisconsin");
 INSERT INTO state (state_code, name) VALUES ("WY", "Wyoming");
 
-INSERT INTO location (location_id, zip, street, city, state) VALUES (1, "14623", "1 Vaccine Site Rd", "Rochester", "NY");
-INSERT INTO location (location_id, zip, street, city, state) VALUES (2, "03063", "12 Adminstration St", "Nashua", "NH");
+INSERT INTO address (address_id, zip, street, city, state) VALUES (1, "14623", "1 Vaccine Site Rd", "Rochester", "NY");
+INSERT INTO address (address_id, zip, street, city, state) VALUES (2, "03063", "12 Adminstration St", "Nashua", "NH");
+INSERT INTO address (address_id, zip, street, city, state) VALUES (3, "14623", "12 Street Rd", "Rochester", "NY");
+INSERT INTO address (address_id, zip, street, street_line2, city, state) VALUES (4, "14623", "220 Citizen St", "Apt 1120", "Nashua", "NH");
+
+INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id, date_of_birth) VALUES (1, "tanderson@fake.notreal", "Anderson", "Tony", 1, "1990-04-12");
+INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id, date_of_birth) VALUES (2, "banderson@fake.notreal", "Anderson", "Barbara", 1, "1991-12-26");
+INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id, date_of_birth) VALUES (3, "han_don@fake.notreal", "Donaghy", "Hannah", 2, "1984-06-04");
+INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id, date_of_birth, address_id) VALUES (4, "bruce_tavis@fake.notreal", "Tavis", "Bruce", 3, "1978-05-12", 3);
+INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id, date_of_birth, phone_number, address_id) VALUES (5, "novak_tavis@fake.notreal", "Tavis", "Novak", 3, "2000-05-12", "5558729582", 3);
+INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id, date_of_birth) VALUES (6, "kc4431@fake.notreal", "Connors", "Kendra", 4, "1994-04-05");
+INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id, date_of_birth) VALUES (7, "simonsaystext@me.instead", "Zegt", "Simon", 5, "1969-01-14");
+INSERT INTO citizen (citizen_id, last_name, first_name, date_of_birth, address_id) VALUES (8, "Slomljen", "Hazel Sophia", "1996-06-25", 4);
+INSERT INTO citizen (citizen_id, email, last_name, first_name, date_of_birth) VALUES (9, "khiggs207@fake.notreal", "Higgins", "Kyle", "1998-02-25");
+
+INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (1, "admin@staff.email", "superadmin", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "admin", "super");
+INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (2, "js@staff.email", "js", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "Smith", "John");
+INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (3, "sb@staff.email", "sb", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "Baker", "Sally");
+INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (4, "vi@staff.email", "vi", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "Irwin", "Vince");
+
+INSERT INTO role (role_id, name) VALUES (1, "Super Admin");
+INSERT INTO role (role_id, name) VALUES (2, "Site Admin");
+INSERT INTO role (role_id, name) VALUES (3, "Vaccine Administration");
+INSERT INTO role (role_id, name) VALUES (4, "Check In");
+
+INSERT INTO staff_role (staff_id, role_id, granted_by) VALUES (1, 1, 1);
+INSERT INTO staff_role (staff_id, role_id, granted_by) VALUES (2, 2, 1);
+INSERT INTO staff_role (staff_id, role_id, granted_by) VALUES (3, 3, 2);
+INSERT INTO staff_role (staff_id, role_id, granted_by) VALUES (4, 4, 2);
+
+INSERT INTO location (location_id, name, address_id) VALUES (1, "Rochester Distribution Center", 1);
+INSERT INTO location (location_id, name, address_id) VALUES (2, "Wildly out of state second location", 2);
 
 INSERT INTO staff_location(staff_id, location_id) VALUES (1, 1);
 INSERT INTO staff_location(staff_id, location_id) VALUES (1, 2);
