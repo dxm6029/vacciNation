@@ -339,6 +339,7 @@ namespace VacciNationAPI.DataLayer
         }
 
         public List<Staff> getAllStaff(){
+            Console.WriteLine("hi i made it to the method");
             MySqlConnection conn = new MySqlConnection();
             List<Staff> staff = null;
             try{ 
