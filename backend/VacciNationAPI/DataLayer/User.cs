@@ -341,7 +341,7 @@ namespace VacciNationAPI.DataLayer
         public List<Staff> getAllStaff(){
             Console.WriteLine("hi i made it to the method");
             MySqlConnection conn = new MySqlConnection();
-            List<Staff> staff = null;
+            List<Staff> staff = new List<Staff>();
             try{ 
                 conn = connection.OpenConnection();
 
@@ -353,8 +353,7 @@ namespace VacciNationAPI.DataLayer
                 while (rdr.Read())
                 {   
                     Console.WriteLine(rdr.GetInt32(0));
-                    Staff s = new Staff(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), "", rdr.GetString(3), rdr.GetString(4));
-                    staff.Add(s);
+                    staff.Add(new Staff(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), "", rdr.GetString(3), rdr.GetString(4)));
                 }
                 rdr.Close();
 

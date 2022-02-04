@@ -73,11 +73,6 @@ namespace VacciNationAPI.Controllers{
             Console.WriteLine("hi i made it to the endpoint");
                 
                 List<Staff> staffMembers = us.getAllStaff();
-
-                if(staffMembers == null){
-                    return NotFound();
-                }
-                
                 return new ObjectResult(staffMembers);
             }
             catch(Exception e){
