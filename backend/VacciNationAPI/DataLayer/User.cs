@@ -344,7 +344,6 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
 
-//JOIN role ON staff_role.role_id=role.role_id
                 string query = "SELECT staff.staff_id, email, username, last_name, first_name, role.name FROM staff JOIN staff_role ON staff.staff_id=staff_role.staff_id JOIN role ON staff_role.role_id=role.role_id";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
@@ -364,29 +363,30 @@ namespace VacciNationAPI.DataLayer
             return staff;
         }
 
-        public List<Staff> getAllCitizens(){
-            MySqlConnection conn = new MySqlConnection();
-            List<Staff> staff = new List<Staff>();
+        // this assumes we do not automatically want to get the insurance info of citizens
+        public List<Citizen> getAllCitizens(){
+             MySqlConnection conn = new MySqlConnection();
+            List<Citizen> citizen = new List<Citizen>();
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT staff_id, email, username, last_name, first_name FROM staff";
+                string query = "SELECT citizen_id, email, last_name, first_name, insurance_id FROM citizen";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
                 {   
-                    staff.Add(new Staff(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), "", rdr.GetString(3), rdr.GetString(4)));
+                    citizen.Add(new Citizen(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetInt32(4)));
                 }
                 rdr.Close();
 
-            }catch (Exception e){}
+            }catch (Exception e){ }
             finally{
                 connection.CloseConnection(conn);
             }
             
-            return staff;
+            return citizen;
         }
 
 
