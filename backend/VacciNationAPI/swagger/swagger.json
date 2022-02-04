@@ -77,6 +77,56 @@
         }
       }
     },
+    "/UserStaff/all": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "gets all staff members for display",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "202": {
+            "description": "currently have returning a json list of all staff info including their role as a string"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/UserCitizen/all": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "gets all citizens for display",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "202": {
+            "description": "currently have returning a json list of all citizen info"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
     "/UserCitizen/{id}": {
       "get": {
         "tags": [
