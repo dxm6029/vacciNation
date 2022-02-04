@@ -1,6 +1,8 @@
 using VacciNationAPI.Models;
 using System;
 using MySql.Data.MySqlClient; 
+using System.Collections.Generic;
+
 
 namespace VacciNationAPI.DataLayer
 {
@@ -334,6 +336,31 @@ namespace VacciNationAPI.DataLayer
             }
             
             return citizen;
+        }
+
+        public List<Staff> getAllStaff(){
+            MySqlConnection conn = new MySqlConnection();
+            List<Staff> staff = null;
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "SELECT staff_id, email, username, last_name, first_name FROM staff";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {   
+                    staff.Add(new Staff(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), "", rdr.GetString(3), rdr.GetString(4)));
+                }
+                rdr.Close();
+
+            }catch (Exception e){ }
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return staff;
         }
 
 
