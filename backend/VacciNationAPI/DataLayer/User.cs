@@ -344,7 +344,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT staff_id, email, username, last_name, first_name, role.name FROM staff JOIN staff_role ON staff_role.staff_id=staff.staff_id JOIN role ON staff_role.role_id=role.role_id";
+                string query = "SELECT staff_id, email, username, last_name, first_name FROM staff JOIN staff_role ON staff_role.staff_id=staff.staff_id";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
