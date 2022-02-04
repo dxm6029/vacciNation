@@ -1,6 +1,8 @@
 using VacciNationAPI.Models;
 using System;
 using MySql.Data.MySqlClient; 
+using System.Collections.Generic;
+
 
 namespace VacciNationAPI.DataLayer
 {
@@ -325,6 +327,57 @@ namespace VacciNationAPI.DataLayer
                 while (rdr.Read())
                 {   
                     citizen = new Citizen(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetInt32(4));
+                }
+                rdr.Close();
+
+            }catch (Exception e){ }
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return citizen;
+        }
+
+        public List<string> getAllStaff(){
+            MySqlConnection conn = new MySqlConnection();
+            List<string> staff = new List<string>();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "SELECT staff.staff_id, email, username, last_name, first_name, role.name FROM staff JOIN staff_role ON staff.staff_id=staff_role.staff_id JOIN role ON staff_role.role_id=role.role_id";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {   
+                    staff.Add("{ staff_id: " + rdr.GetInt32(0).ToString() + ", email: " + rdr.GetString(1) + ", username: " + rdr.GetString(2)+  ", last_name: " +  rdr.GetString(3)+ ", first_name: " +  rdr.GetString(4) + ", role: " +  rdr.GetString(5) + "}");
+                }
+                rdr.Close();
+
+            }catch (Exception e){Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return staff;
+        }
+
+        // this assumes we do not automatically want to get the insurance info of citizens
+        public List<Citizen> getAllCitizens(){
+             MySqlConnection conn = new MySqlConnection();
+            List<Citizen> citizen = new List<Citizen>();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "SELECT citizen_id, email, last_name, first_name, insurance_id FROM citizen";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {   
+                    citizen.Add(new Citizen(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetInt32(4)));
                 }
                 rdr.Close();
 

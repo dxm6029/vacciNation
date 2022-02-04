@@ -121,5 +121,17 @@ namespace VacciNationAPI.Controllers{
                 return BadRequest();
             }
         }
+
+        [HttpGet("all")]
+        public IActionResult GetAllCitizens(){
+            try{                
+                List<Citizen> citizens = us.getAllCitizens();
+                return new ObjectResult(citizens);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
     }
 }

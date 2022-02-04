@@ -67,6 +67,18 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        [HttpGet("all")]
+        public IActionResult GetAllStaff(){
+            try{                
+                List<string> staffMembers = us.getAllStaff();
+                return new ObjectResult(staffMembers);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
+
         [HttpPut]
         public IActionResult PutUserStaff([FromBody] Staff staffInfo){
             try{
