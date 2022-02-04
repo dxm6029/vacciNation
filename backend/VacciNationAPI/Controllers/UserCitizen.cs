@@ -15,7 +15,7 @@ namespace VacciNationAPI.Controllers{
         [HttpPost]
         public IActionResult AddCitizen([FromBody] Citizen citizenInfo) {
             // assumes that password is hashed on the frontend
-            bool result = us.insertCitizen(citizenInfo.email, citizenInfo.last_name, citizenInfo.first_name);
+            bool result = us.insertCitizen(citizenInfo.email, citizenInfo.last_name, citizenInfo.first_name, citizenInfo.date_of_birth, citizenInfo.phone_number);
 
             if(result){
                 return Accepted();
@@ -44,7 +44,7 @@ namespace VacciNationAPI.Controllers{
         }
 
         [HttpDelete]
-        public IActionResult DeleteUserStaff(){
+        public IActionResult DeleteUserCitizen(){
             try{
                 string firstName = "";
                 string lastName = "";
@@ -89,8 +89,6 @@ namespace VacciNationAPI.Controllers{
                 if (!String.IsNullOrEmpty(HttpContext.Request.Query["email"])){
                     email = HttpContext.Request.Query["email"];
                 }
-
-               // Console.WriteLine(first_name + " " + la)
                 
                 Citizen citizen = us.getCitizenWithoutID(email, first_name, last_name);
 

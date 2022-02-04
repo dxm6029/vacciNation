@@ -2,6 +2,7 @@ using VacciNationAPI.Models;
 using System;
 using MySql.Data.MySqlClient; 
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 
 namespace VacciNationAPI.DataLayer
@@ -10,6 +11,97 @@ namespace VacciNationAPI.DataLayer
     public class User {
 
         VacciNation.Connect connection = new VacciNation.Connect();
+
+
+        // check token - token - user id
+        public int checkToken(string token){
+            int id = -1;
+            MySqlConnection conn = connection.OpenConnection();
+
+            try{
+                string query = "SELECT staff_id FROM staff WHERE token=@token";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@token", token);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {   
+                    id = rdr.GetInt32(0);
+                }
+                rdr.Close();
+
+            } catch (Exception e){ } // probably should log something here eventually
+            finally{
+               connection.CloseConnection(conn);
+            }
+            return id;
+        }
+
+        // add token - id - boolean
+        public string addToken(int id){
+
+            bool result = false;
+            string token = "";
+            MySqlConnection conn = connection.OpenConnection();
+
+            using(RandomNumberGenerator rng = new RNGCryptoServiceProvider())
+            {
+                byte[] tokenData = new byte[32];
+                rng.GetBytes(tokenData);
+
+                token = Convert.ToBase64String(tokenData);
+            }
+
+            try{
+                string query = "UPDATE staff SET token=@token WHERE staff_id=@id";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@token", token);
+
+                int numAffected = cmd.ExecuteNonQuery();
+
+                if(numAffected > 0){
+                    result = true;
+                }
+
+            } catch (Exception e){ } // probably should log something here eventually
+            finally{
+               connection.CloseConnection(conn);
+            }
+
+
+            return token;
+
+        }
+
+        public Staff checkCreds(string username, string password){
+            
+            MySqlConnection conn = connection.OpenConnection();
+            Staff staff = null;
+            try{
+                string query = "SELECT staff_id, email, username, last_name, first_name FROM staff WHERE password=@password AND username=@username";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", password);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {   
+                    staff = new Staff(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), "", rdr.GetString(3), rdr.GetString(4));
+                }
+                rdr.Close();
+
+            } catch (Exception e){ } // probably should log something here eventually
+            finally{
+               connection.CloseConnection(conn);
+            }
+            return staff;
+        }
 
         public bool insertStaffMember(string email, string username, string password, string lastName, string firstName){
             bool result = false;
@@ -178,17 +270,19 @@ namespace VacciNationAPI.DataLayer
             return status;
         }
 
-         public bool insertCitizen(string email, string lastName, string firstName){
+        public bool insertCitizen(string email, string lastName, string firstName, string dob, string phoneNum){
             bool result = false;
             MySqlConnection conn = connection.OpenConnection();
 
             try{
-                string query = "INSERT INTO citizen (email, last_name, first_name) VALUES(@email, @lastName, @firstName)";
+                string query = "INSERT INTO citizen (email, last_name, first_name, date_of_birth, phone_number) VALUES(@email, @lastName, @firstName, @dob, @phone)";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@email", email);
                 cmd.Parameters.AddWithValue("@lastName", lastName);
                 cmd.Parameters.AddWithValue("@firstName", firstName);
+                cmd.Parameters.AddWithValue("@dob", dob);
+                cmd.Parameters.AddWithValue("@phone", phoneNum);
 
                 int numAffected = cmd.ExecuteNonQuery();
 
@@ -223,7 +317,15 @@ namespace VacciNationAPI.DataLayer
                     query += " last_name = @lastName,";
                 }
 
-                // TODO: may need to add stuff in here for in here for insurance later on!!
+                if(citizen.phone_number != null){
+                    query += " phone_number = @phone_number,";
+                }
+
+                if(citizen.date_of_birth != null){
+                    query += " date_of_birth = @date_of_birth,";
+                }
+
+                // TODO: may need to add stuff in here for in here for insurance and address later on!!
 
                 query = query.TrimEnd(',');
 
@@ -243,6 +345,14 @@ namespace VacciNationAPI.DataLayer
 
                 if(citizen.last_name != null){
                     cmd.Parameters.AddWithValue("@lastName", citizen.last_name);
+                }
+
+                if(citizen.phone_number != null){
+                    cmd.Parameters.AddWithValue("@phone_number", citizen.phone_number);
+                }
+
+                if(citizen.date_of_birth != null){
+                    cmd.Parameters.AddWithValue("@date_of_birth", citizen.date_of_birth);
                 }
 
                 int rows = cmd.ExecuteNonQuery();
@@ -290,7 +400,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT citizen_id, email, last_name, first_name, insurance_id FROM citizen WHERE email=@email AND first_name=@firstname AND last_name=@lastname";
+                string query = "SELECT citizen_id, email, last_name, first_name, insurance_id, date_of_birth, phone_number, address_id FROM citizen WHERE email=@email AND first_name=@firstname AND last_name=@lastname";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@email", email);
                 cmd.Parameters.AddWithValue("@firstname", firstname);
@@ -300,7 +410,7 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    citizen = new Citizen(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetInt32(4));
+                    citizen = new Citizen(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetInt32(4), rdr.GetMySqlDateTime(5).ToString(), rdr.GetString(6), rdr.GetInt32(7));
                 }
                 rdr.Close();
 
@@ -318,7 +428,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT citizen_id, email, last_name, first_name, insurance_id FROM citizen WHERE citizen_id=@id";
+                string query = "SELECT citizen_id, email, last_name, first_name, insurance_id, date_of_birth, phone_number, address_id FROM citizen WHERE citizen_id=@id";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", id);
 
@@ -326,7 +436,7 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    citizen = new Citizen(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetInt32(4));
+                    citizen = new Citizen(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetInt32(4), rdr.GetMySqlDateTime(5).ToString(), rdr.GetString(6), rdr.GetInt32(7));
                 }
                 rdr.Close();
 
@@ -370,14 +480,14 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT citizen_id, email, last_name, first_name, insurance_id FROM citizen";
+                string query = "SELECT citizen_id, email, last_name, first_name, insurance_id, date_of_birth, phone_number, address_id FROM citizen";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
                 {   
-                    citizen.Add(new Citizen(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetInt32(4)));
+                    citizen.Add(new Citizen(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetInt32(4), rdr.GetMySqlDateTime(5).ToString(), rdr.GetString(6), rdr.GetInt32(7)));
                 }
                 rdr.Close();
 
