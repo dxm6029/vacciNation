@@ -132,6 +132,7 @@ namespace VacciNationAPI.Controllers{
         }
 
 
+        // admin update others
         [HttpPut]
         public IActionResult PutUserStaff([FromBody] Staff staffInfo, [FromHeader] string authorization){
             try{
