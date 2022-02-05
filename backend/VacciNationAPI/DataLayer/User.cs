@@ -436,7 +436,7 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    citizen = new Citizen(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetInt32(4), rdr.GetMySqlDateTime(5).ToString(), rdr.GetString(6), rdr.GetInt32(7));
+                    citizen = new Citizen(rdr.GetInt32(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.IsDBNull(4) ? -1 : rdr.GetInt32(7) , rdr.GetMySqlDateTime(5).ToString(), rdr.GetString(6) != null ? rdr.GetString(6) : "", rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7) );
                 }
                 rdr.Close();
 
