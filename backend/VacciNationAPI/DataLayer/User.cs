@@ -123,7 +123,7 @@ namespace VacciNationAPI.DataLayer
                     result = true;
                 }
 
-            } catch (Exception e){ } // probably should log something here eventually
+            } catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);} // probably should log something here eventually
             finally{
                connection.CloseConnection(conn);
             }
