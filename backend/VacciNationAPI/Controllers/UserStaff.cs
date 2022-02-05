@@ -21,7 +21,7 @@ namespace VacciNationAPI.Controllers{
                 }
 
             // where check role to verify that they are admin
-            bool isAdmin = us.isSuperAdmin(staffInfo.staff_id);
+            bool isAdmin = us.isSuperAdmin(uid);
             if(!isAdmin){
                 return StatusCode(403);
             }
@@ -152,7 +152,7 @@ namespace VacciNationAPI.Controllers{
                     return Unauthorized();
                 }
 
-                bool isAdmin = us.isSuperAdmin(staffInfo.staff_id);
+                bool isAdmin = us.isSuperAdmin(uid);
                 if(!isAdmin){
                     return StatusCode(403);
                 }
