@@ -245,7 +245,6 @@ namespace VacciNationAPI.Controllers{
 
         [HttpPost("login")]
         public IActionResult Login([FromBody]Staff staff){
-            string token = "";
             try{
                 // check credentials
                 Staff authorizedStaff = us.checkCreds(staff.username, staff.password);
@@ -257,7 +256,7 @@ namespace VacciNationAPI.Controllers{
                 // add token
                 string tok = us.addToken(authorizedStaff.staff_id);
                 
-                string body = "{staff_id: " + authorizedStaff.staff_id.ToString() + ", email: " + authorizedStaff.email + ", username: " + authorizedStaff.username+  ", last_name: " +  authorizedStaff.last_name + ", first_name: " +  authorizedStaff.first_name + ", token: " +  token + "}";
+                string body = "{staff_id: " + authorizedStaff.staff_id.ToString() + ", email: " + authorizedStaff.email + ", username: " + authorizedStaff.username+  ", last_name: " +  authorizedStaff.last_name + ", first_name: " +  authorizedStaff.first_name + ", token: " +  tok + "}";
 
                 return new ObjectResult(body);
             }
