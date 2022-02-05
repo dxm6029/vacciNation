@@ -533,7 +533,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT staff.staff_id FROM staff JOIN staff_role ON staff.staff_id=staff_role.staff_id WHERE staff_id=@id AND role_id=@role";
+                string query = "SELECT staff.staff_id FROM staff JOIN staff_role ON staff.staff_id=staff_role.staff_id WHERE staff.staff_id=@id AND role_id=@role";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", staff_id);
                 cmd.Parameters.AddWithValue("@role", 1);
