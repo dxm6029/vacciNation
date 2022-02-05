@@ -21,6 +21,11 @@ namespace VacciNationAPI.Controllers{
                 }
 
             // where check role to verify that they are admin
+            
+            bool isDup = us.isDuplicateUsername(staffInfo.username);
+            if(isDup){
+                return BadRequest(new { ErrorMessage = "Username taken" });
+            }
         
             // assumes that password is hashed on the frontend
             bool result = us.insertStaffMember(staffInfo.email, staffInfo.username, staffInfo.password, staffInfo.last_name, staffInfo.first_name);

@@ -499,6 +499,32 @@ namespace VacciNationAPI.DataLayer
             return citizen;
         }
 
+        public bool isDuplicateUsername(string username){
+            bool isDuplicate = false;
+             MySqlConnection conn = new MySqlConnection();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "SELECT staff_id FROM staff WHERE username=@username";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {   
+                    isDuplicate = true;
+                }
+                rdr.Close();
+
+            }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace); }
+            finally{
+                connection.CloseConnection(conn);
+            }
+
+            return isDuplicate;
+        }
+
 
     } 
 
