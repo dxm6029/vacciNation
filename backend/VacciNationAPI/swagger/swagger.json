@@ -118,6 +118,47 @@
         }
       }
     },
+    "/UserStaff/all/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "gets all staff members with a certain role for display",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "description": "id of the role we are hoping to filter by",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "currently have returning a json list of all staff info including their role as a string"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
     "/UserCitizen/all": {
       "get": {
         "tags": [
@@ -130,6 +171,100 @@
         "responses": {
           "202": {
             "description": "currently have returning a json list of all citizen info"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/UserStaff/role": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "assigns a role to a staff member",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "staff_id",
+            "description": "id of the staff we are assign the role to",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "role_id",
+            "description": "id of the role we are assign the staff to",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "currently have returning a json list of all staff info including their role as a string"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "remove a role from a staff member",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "staff_id",
+            "description": "id of the staff we are removing the role from",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "role_id",
+            "description": "id of the role we are removing from the staff",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "currently have returning a json list of all staff info including their role as a string"
           },
           "400": {
             "description": "json here - can adjust response code"

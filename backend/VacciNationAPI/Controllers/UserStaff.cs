@@ -382,6 +382,24 @@ namespace VacciNationAPI.Controllers{
 
         }
 
+        [HttpGet("all/{id}")]
+        public IActionResult GetAllStaff([FromHeader] string authorization, int id){
+
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+
+            try{                
+                List<string> staffMembers = us.getAllStaffWithRole(id);
+                return new ObjectResult(staffMembers);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
 
     } // userstaff controller class
 
