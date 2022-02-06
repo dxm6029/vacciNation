@@ -174,5 +174,27 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        [HttpPost("insurance/{id}")]
+        public IActionResult AddInsurance([FromBody] Insurance insurance, int id){
+            try{     
+                Citizen citizen = us.getCitizenWithID(id);   
+                if(citizen == null){
+                    return NotFound(new {ErrorMessage = "Citizen does not exist"});
+                }
+
+                // insert address & update citizen object with address id   
+                bool result = us.insertInsuranceForCitizen(insurance, id);   
+                if(result){
+                    return Accepted();
+                }
+
+                return BadRequest(new { ErrorMessage = "Unable to add insurance" });
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
+
     }
 }
