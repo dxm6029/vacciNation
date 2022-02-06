@@ -377,7 +377,6 @@ namespace VacciNationAPI.Controllers{
                 }
             }
             catch(Exception e){
-                Console.WriteLine("error");
                 return BadRequest();
             }
 
