@@ -140,6 +140,33 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        [HttpPut("password")]
+        public IActionResult PutStaffPassword([FromBody] Staff staffInfo, [FromHeader] string authorization){
+             try{
+
+                string token = authorization;
+                int uid = us.checkToken(token);
+                if (uid == -1){
+                    return Unauthorized();
+                }
+
+                staffInfo.staff_id = uid;
+
+                bool result = us.changePassword(staffInfo.staff_id, staffInfo.password);
+
+                if(result){
+                    return Accepted();
+                } else {
+                    return BadRequest();
+                }
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+
+
+        }
+
 
         // admin update others
         [HttpPut]

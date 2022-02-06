@@ -810,6 +810,31 @@ namespace VacciNationAPI.DataLayer
             }
             return result && res;
         }
+
+         public bool changePassword(int id, string pass){
+            bool res = false;
+            MySqlConnection conn = connection.OpenConnection();
+
+            try{
+
+                // change password
+                string query = "UPDATE citizen SET password=@password WHERE citizen_id=@citizen_id";
+                MySqlCommand comm = new MySqlCommand(query, conn);
+                comm.Parameters.AddWithValue("@citizen_id", id);
+                comm.Parameters.AddWithValue("@password", pass);
+
+                int num = comm.ExecuteNonQuery();
+
+                if(num > 0){
+                    res = true;
+                }
+
+            } catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);} // probably should log something here eventually
+            finally{
+               connection.CloseConnection(conn);
+            }
+            return res;
+        }
     } 
 
 }//namespace
