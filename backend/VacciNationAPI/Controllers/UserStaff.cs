@@ -306,6 +306,8 @@ namespace VacciNationAPI.Controllers{
                 }
 
                 bool isAdmin = us.isSuperAdmin(id);
+
+                Console.WriteLine(staff_id);
                 
                 Staff staff = us.getUserWithID(staff_id);
 
