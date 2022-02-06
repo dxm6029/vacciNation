@@ -561,7 +561,7 @@ namespace VacciNationAPI.DataLayer
                 conn = connection.OpenConnection();
 
                 //check to make sure not assigning the same role twice
-                string check = "SELECT staff_id FROM staff_roles WHERE staff_id=@staff AND role_id=@role";
+                string check = "SELECT staff_id FROM staff_role WHERE staff_id=@staff AND role_id=@role";
                 MySqlCommand comm = new MySqlCommand(check, conn);
                 comm.Parameters.AddWithValue("@staff", staff_id);
                 comm.Parameters.AddWithValue("@role", role_id);
@@ -573,7 +573,7 @@ namespace VacciNationAPI.DataLayer
                 }
                 rdr.Close();
 
-                string query = "INSERT INTO staff_roles(staff_id, role_id, granted_by) VALUES (@staff_id, @role_id, @granted_by)";
+                string query = "INSERT INTO staff_role(staff_id, role_id, granted_by) VALUES (@staff_id, @role_id, @granted_by)";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@staff_id", staff_id);
                 cmd.Parameters.AddWithValue("@role_id", role_id);
@@ -595,7 +595,7 @@ namespace VacciNationAPI.DataLayer
                 conn = connection.OpenConnection();
 
                 //check to make sure not assigning the same role twice
-                string check = "SELECT staff_id FROM staff_roles WHERE staff_id=@staff AND role_id=@role";
+                string check = "SELECT staff_id FROM staff_role WHERE staff_id=@staff AND role_id=@role";
                 MySqlCommand comm = new MySqlCommand(check, conn);
                 comm.Parameters.AddWithValue("@staff", staff_id);
                 comm.Parameters.AddWithValue("@role", role_id);
@@ -612,7 +612,7 @@ namespace VacciNationAPI.DataLayer
                     return -2;
                 }
 
-                string query = "DELETE FROM staff_roles WHERE staff_id=@staff_id AND role_id=@role_id";
+                string query = "DELETE FROM staff_role WHERE staff_id=@staff_id AND role_id=@role_id";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@staff_id", staff_id);
                 cmd.Parameters.AddWithValue("@role_id", role_id);
