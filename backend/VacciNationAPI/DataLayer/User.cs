@@ -329,7 +329,9 @@ namespace VacciNationAPI.DataLayer
                      query += " address_id = @address_id,";
                 }
 
-                // TODO: may need to add stuff in here for in here for insurance and address later on!!
+                if(citizen.insurance_id != -1){
+                     query += " insurance_id = @insurance_id,";
+                }
 
                 query = query.TrimEnd(',');
 
@@ -361,6 +363,10 @@ namespace VacciNationAPI.DataLayer
 
                 if(citizen.address_id != -1){
                     cmd.Parameters.AddWithValue("@address_id", citizen.address_id);
+                }
+
+                if(citizen.insurance_id != -1){
+                    cmd.Parameters.AddWithValue("@insurance_id", citizen.insurance_id);
                 }
 
                 int rows = cmd.ExecuteNonQuery();
@@ -718,6 +724,79 @@ namespace VacciNationAPI.DataLayer
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", address_id);
+
+                int numAffected = cmd.ExecuteNonQuery();
+
+                if(numAffected > 0){
+                    result = true;
+                }
+
+            } catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);} // probably should log something here eventually
+            finally{
+               connection.CloseConnection(conn);
+            }
+            return result && res;
+        }
+
+        public bool insertInsuranceForCitizen(Insurance insurance, int citizen_id){
+            bool result = false;
+            bool res = false;
+            MySqlConnection conn = connection.OpenConnection();
+
+            try{
+                string query = "INSERT INTO insurance (last_name, first_name, carrier, group_number, member_id) VALUES(@last_name, @first_name, @carrier, @group_number, @member_id)";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@last_name", insurance.last_name);
+                cmd.Parameters.AddWithValue("@first_name", insurance.first_name);
+                cmd.Parameters.AddWithValue("@carrier", insurance.carrier);
+                cmd.Parameters.AddWithValue("@group_number", insurance.group_number);
+                cmd.Parameters.AddWithValue("@member_id", insurance.member_id);
+
+                int numAffected = cmd.ExecuteNonQuery();
+
+                if(numAffected > 0){
+                    result = true;
+                }
+
+                // get id
+                int insurance_id = (int)cmd.LastInsertedId;
+
+                // update citizen
+                Citizen citizen = new Citizen(citizen_id, null, null, null, insurance_id, null, null, -1);
+
+
+                res = putCitizenWithID(citizen);
+
+            } catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);} // probably should log something here eventually
+            finally{
+               connection.CloseConnection(conn);
+            }
+            return result && res;
+        }
+
+        public bool removeInsuranceForCitizen(int insurance_id, int citizen_id){
+            bool result = false;
+            bool res = false;
+            MySqlConnection conn = connection.OpenConnection();
+
+            try{
+
+                // update citizen
+                string query = "UPDATE citizen SET insurance_id=NULL WHERE citizen_id=@citizen_id";
+                MySqlCommand comm = new MySqlCommand(query, conn);
+                comm.Parameters.AddWithValue("@citizen_id", citizen_id);
+
+                int num = comm.ExecuteNonQuery();
+
+                if(num > 0){
+                    res = true;
+                }
+
+                query = "DELETE FROM insurance WHERE insurance_id=@id";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", insurance_id);
 
                 int numAffected = cmd.ExecuteNonQuery();
 

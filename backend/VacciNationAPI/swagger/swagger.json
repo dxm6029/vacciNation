@@ -218,7 +218,7 @@
         ],
         "responses": {
           "202": {
-            "description": "currently have returning a json list of all staff info including their role as a string"
+            "description": "json here - can adjust response code"
           },
           "400": {
             "description": "json here - can adjust response code"
@@ -264,7 +264,7 @@
         ],
         "responses": {
           "202": {
-            "description": "currently have returning a json list of all staff info including their role as a string"
+            "description": "json here - can adjust response code"
           },
           "400": {
             "description": "json here - can adjust response code"
@@ -291,14 +291,14 @@
           {
             "in": "path",
             "name": "id",
-            "description": "id of the staff we are assign the role to",
+            "description": "id of the staff we are assign the address to",
             "type": "integer",
             "required": true
           },
           {
             "in": "body",
             "name": "address",
-            "description": "address to asign to citizen",
+            "description": "address to assign to citizen",
             "schema": {
               "$ref": "#/definitions/Address"
             },
@@ -307,7 +307,7 @@
         ],
         "responses": {
           "202": {
-            "description": "currently have returning a json list of all staff info including their role as a string"
+            "description": "json here - can adjust response code"
           },
           "400": {
             "description": "json here - can adjust response code"
@@ -339,7 +339,82 @@
         ],
         "responses": {
           "202": {
-            "description": "currently have returning a json list of all staff info including their role as a string"
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/UserCitizen/insurance/{id}": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "adds an insurance to a citizen",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "id of the staff we are assign the insurance to",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "address",
+            "description": "insurance to assign to citizen",
+            "schema": {
+              "$ref": "#/definitions/Insurance"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "remove an insurance from a citizen",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "id of the citizen we are removing the insurance from",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
           },
           "400": {
             "description": "json here - can adjust response code"
@@ -1682,6 +1757,30 @@
           "type": "string"
         },
         "state": {
+          "type": "string"
+        }
+      }
+    },
+    "Insurance": {
+      "type": "object",
+      "properties": {
+        "insurance_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "carrier": {
+          "type": "string"
+        },
+        "group_number": {
+          "type": "integer"
+        },
+        "member_id": {
           "type": "string"
         }
       }
