@@ -714,7 +714,6 @@ namespace VacciNationAPI.DataLayer
                     res = true;
                 }
 
-
                 query = "DELETE FROM address WHERE address_id=@id";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
