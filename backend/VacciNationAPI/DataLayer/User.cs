@@ -553,6 +553,75 @@ namespace VacciNationAPI.DataLayer
 
             return isAdmin;
         }
+
+        public int assignRole(int staff_id, int role_id){
+            int response = -1;
+            MySqlConnection conn = new MySqlConnection();
+            try{ 
+                conn = connection.OpenConnection();
+
+                //check to make sure not assigning the same role twice
+                string check = "SELECT staff_id FROM staff_roles WHERE staff_id=@staff AND role_id=@role";
+                MySqlCommand comm = new MySqlCommand(check, conn);
+                comm.Parameters.AddWithValue("@staff", staff_id);
+                comm.Parameters.AddWithValue("@role", role_id);
+
+                MySqlDataReader rdr = comm.ExecuteReader();
+                 while (rdr.Read())
+                {   
+                    return -2;
+                }
+                rdr.Close();
+
+                string query = "INSERT INTO staff_roles(staff_id, role_id) VALUES (@staff_id, @role_id)";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@staff_id", staff_id);
+                cmd.Parameters.AddWithValue("@role_id", role_id);
+
+                response = cmd.ExecuteNonQuery();
+            }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace); }
+            finally{
+                connection.CloseConnection(conn);
+            }
+            return response;
+        }
+
+        public int deleteRole(int staff_id, int role_id){
+            int response = -1;
+            MySqlConnection conn = new MySqlConnection();
+            try{ 
+                conn = connection.OpenConnection();
+
+                //check to make sure not assigning the same role twice
+                string check = "SELECT staff_id FROM staff_roles WHERE staff_id=@staff AND role_id=@role";
+                MySqlCommand comm = new MySqlCommand(check, conn);
+                comm.Parameters.AddWithValue("@staff", staff_id);
+                comm.Parameters.AddWithValue("@role", role_id);
+
+                bool read = false;
+                MySqlDataReader rdr = comm.ExecuteReader();
+                 while (rdr.Read())
+                {   
+                    read = true;
+                }
+                rdr.Close();
+                if(!read){
+                    // indicates that cannot remove this staff/role combo because it does not exist
+                    return -2;
+                }
+
+                string query = "DELETE FROM staff_roles WHERE staff_id=@staff_id AND role_id=@role_id";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@staff_id", staff_id);
+                cmd.Parameters.AddWithValue("@role_id", role_id);
+
+                response = cmd.ExecuteNonQuery();
+            }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace); }
+            finally{
+                connection.CloseConnection(conn);
+            }
+            return response;
+        }
     } 
 
 }//namespace
