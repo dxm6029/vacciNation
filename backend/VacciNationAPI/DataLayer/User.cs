@@ -554,7 +554,7 @@ namespace VacciNationAPI.DataLayer
             return isAdmin;
         }
 
-        public int assignRole(int staff_id, int role_id){
+        public int assignRole(int staff_id, int role_id, int assigner_id){
             int response = -1;
             MySqlConnection conn = new MySqlConnection();
             try{ 
@@ -573,10 +573,12 @@ namespace VacciNationAPI.DataLayer
                 }
                 rdr.Close();
 
-                string query = "INSERT INTO staff_roles(staff_id, role_id) VALUES (@staff_id, @role_id)";
+                string query = "INSERT INTO staff_roles(staff_id, role_id, granted_by) VALUES (@staff_id, @role_id, @granted_by)";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@staff_id", staff_id);
                 cmd.Parameters.AddWithValue("@role_id", role_id);
+                cmd.Parameters.AddWithValue("@granted_by", assigner_id);
+
 
                 response = cmd.ExecuteNonQuery();
             }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace); }

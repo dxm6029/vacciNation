@@ -310,7 +310,7 @@ namespace VacciNationAPI.Controllers{
                 Staff staff = us.getUserWithID(staff_id);
 
                 if(staff != null){
-                    int result = us.assignRole(staff.staff_id, role_id);
+                    int result = us.assignRole(staff.staff_id, role_id, id);
 
                     if(result > 0){
                         return Accepted();
@@ -357,7 +357,7 @@ namespace VacciNationAPI.Controllers{
                 Staff staff = us.getUserWithID(staff_id);
 
                 if(staff != null){
-                    int result = us.assignRole(staff.staff_id, role_id);
+                    int result = us.deleteRole(staff.staff_id, role_id);
 
                     if(result > 0){
                         return Accepted();
