@@ -702,7 +702,7 @@ namespace VacciNationAPI.DataLayer
             MySqlConnection conn = connection.OpenConnection();
 
             try{
-                string query = "DELETE FROM address WHERE address_id=@id)";
+                string query = "DELETE FROM address WHERE address_id=@id";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", address_id);
