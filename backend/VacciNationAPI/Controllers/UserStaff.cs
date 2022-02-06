@@ -284,6 +284,104 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        [HttpPost("role")]
+        public IActionResult AssignRole([FromHeader] string authorization){
+            string token = authorization;
+            try{
+
+                int staff_id = -1;
+                int role_id = -1;
+                
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["staff_id"])){
+                    staff_id = Int32.Parse(HttpContext.Request.Query["staff_id"]);
+                }
+
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["role_id"])){
+                    role_id = Int32.Parse(HttpContext.Request.Query["role_id"]);
+                }
+
+                int id = us.checkToken(token);
+                if(id == -1){
+                    return Unauthorized();
+                }
+
+                bool isAdmin = us.isSuperAdmin(id);
+                if(!isAdmin){
+                    return StatusCode(403);
+                }
+                
+                Staff staff = us.getUserWithID(staff_id);
+
+                if(staff != null){
+                    int result = us.assignRole(staff.staff_id, role_id, id);
+
+                    if(result > 0){
+                        return Accepted();
+                    } else if (result == -2){
+                        return BadRequest(new { ErrorMessage = "Staff member already has this role" });
+                    }
+
+                    return BadRequest();
+                }
+                else{
+                    return BadRequest(new { ErrorMessage = "Staff member does not exist" });
+                }
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+
+        }
+
+
+        [HttpDelete("role")]
+        public IActionResult RemoveRole([FromHeader] string authorization){
+            string token = authorization;
+            try{
+
+                int staff_id = -1;
+                int role_id = -1;
+                
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["staff_id"])){
+                    staff_id = Int32.Parse(HttpContext.Request.Query["staff_id"]);
+                }
+
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["role_id"])){
+                    role_id = Int32.Parse(HttpContext.Request.Query["role_id"]);
+                }
+
+                int id = us.checkToken(token);
+                if(id == -1){
+                    return Unauthorized();
+                }
+
+                bool isAdmin = us.isSuperAdmin(id);
+                if(!isAdmin){
+                    return StatusCode(403);
+                }
+                Staff staff = us.getUserWithID(staff_id);
+
+                if(staff != null){
+                    int result = us.deleteRole(staff.staff_id, role_id);
+
+                    if(result > 0){
+                        return Accepted();
+                    } else if (result == -2){
+                        return BadRequest(new { ErrorMessage = "Staff member does not have this role already" });
+                    }
+
+                    return BadRequest();
+                }
+                else{
+                    return BadRequest(new { ErrorMessage = "Staff member does not exist" });
+                }
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+
+        }
+
 
     } // userstaff controller class
 
