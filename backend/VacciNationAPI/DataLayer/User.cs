@@ -774,6 +774,42 @@ namespace VacciNationAPI.DataLayer
             }
             return result && res;
         }
+
+        public bool removeInsuranceForCitizen(int insurance_id, int citizen_id){
+            bool result = false;
+            bool res = false;
+            MySqlConnection conn = connection.OpenConnection();
+
+            try{
+
+                // update citizen
+                string query = "UPDATE citizen SET insurance_id=NULL WHERE citizen_id=@citizen_id";
+                MySqlCommand comm = new MySqlCommand(query, conn);
+                comm.Parameters.AddWithValue("@citizen_id", citizen_id);
+
+                int num = comm.ExecuteNonQuery();
+
+                if(num > 0){
+                    res = true;
+                }
+
+                query = "DELETE FROM insurance WHERE insurance_id=@id";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", insurance_id);
+
+                int numAffected = cmd.ExecuteNonQuery();
+
+                if(numAffected > 0){
+                    result = true;
+                }
+
+            } catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);} // probably should log something here eventually
+            finally{
+               connection.CloseConnection(conn);
+            }
+            return result && res;
+        }
     } 
 
 }//namespace

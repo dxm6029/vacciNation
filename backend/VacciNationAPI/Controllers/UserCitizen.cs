@@ -131,6 +131,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // assumes can have multiple addresses?
         [HttpPost("address/{id}")]
         public IActionResult AddAddress([FromBody] Address address, int id){
             try{     
@@ -174,6 +175,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // assumes can have multiple insurances?
         [HttpPost("insurance/{id}")]
         public IActionResult AddInsurance([FromBody] Insurance insurance, int id){
             try{     
@@ -189,6 +191,28 @@ namespace VacciNationAPI.Controllers{
                 }
 
                 return BadRequest(new { ErrorMessage = "Unable to add insurance" });
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete("insurance/{id}")]
+        public IActionResult RemoveInsurance(int id){
+            // id is the citizen ID
+            try{     
+                Citizen citizen = us.getCitizenWithID(id);   
+                if(citizen == null){
+                    return NotFound(new {ErrorMessage = "Citizen does not exist"});
+                }
+
+                // delete address & update citizen object with null address id   
+                bool result = us.removeInsuranceForCitizen(citizen.insurance_id, citizen.citizen_id);   
+                if(result){
+                    return Accepted();
+                }
+
+                return BadRequest(new { ErrorMessage = "Unable to remove insurance" });
             }
             catch(Exception e){
                 return BadRequest();
