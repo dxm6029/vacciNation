@@ -1,10 +1,23 @@
 import './schedule.css';
 import {Link} from "react-router-dom";
+import NavBar from './navBar';
 
 function FAQ(props) {
 
   return (
     <div className="scheduler">
+      <div>
+      <NavBar 
+          information = {["Information"]}
+          links = {[
+            ["/home", "Home"],
+            ["/notices", "Schedule Appointment"],
+            ["/faq", "FAQ"],
+            ["/report", "Report Reaction"]
+          ]}
+        />
+      </div>
+
       <div className="schedule">
           {props.questions.map((quest, index) => (
             <div>
@@ -13,10 +26,6 @@ function FAQ(props) {
             </div>
         ))}
       </div>
-
-      <Link to="/schedule">
-          <button> Next </button>
-      </Link>
     </div>
   );
 }

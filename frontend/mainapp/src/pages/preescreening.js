@@ -1,10 +1,21 @@
 import './schedule.css';
 import {Link} from "react-router-dom";
+import NavBar from './navBar';
 
 function Prescreening(props) {
 console.log(props);
   return (
     <div className="scheduler">
+        <NavBar 
+          information = {["Information"]}
+          links = {[
+            ["/home", "Home"],
+            ["/notices", "Schedule Appointment"],
+            ["/faq", "FAQ"],
+            ["/report", "Report Reaction"]
+          ]}
+        />
+
         <div className="schedule">
             {props.questions.map((question, index) => (
               <div>

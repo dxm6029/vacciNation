@@ -1,0 +1,14 @@
+.alert {
+    width: 30%;
+    height: fit-content;
+    margin-left: 30%;
+    padding: 5%;
+    background-color: #004494;
+    font-size: 1em;
+    color: white;
+    border-radius: 40px;
+}
+
+.alert img {
+    float: left;
+}

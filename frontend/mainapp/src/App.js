@@ -1,22 +1,11 @@
 import './App.css';
 import UBRoutes from './routes';
-import NavBar from './components/navBar';
-import Footer from './components/footer';
+import NavBar from './pages/navBar';
+import Footer from './pages/footer';
 
 function App() {
   return (
     <div className="fullWidthHeight">
-      <div>
-      <NavBar 
-          information = {["Information"]}
-          links = {[
-            ["Home", "Home"],
-            ["notices", "Schedule Appointment"],
-            ["faq", "FAQ"],
-            ["report", "Report Reaction"]
-          ]}
-        />
-      </div>
         <UBRoutes
           information = {[
             ["Important Information", "View our privacy policy and view the HIPPA policy."],
