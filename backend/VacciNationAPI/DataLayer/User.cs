@@ -123,7 +123,7 @@ namespace VacciNationAPI.DataLayer
                     result = true;
                 }
 
-            } catch (Exception e){ } // probably should log something here eventually
+            } catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);} // probably should log something here eventually
             finally{
                connection.CloseConnection(conn);
             }
@@ -149,7 +149,7 @@ namespace VacciNationAPI.DataLayer
                 }
                 rdr.Close();
 
-            }catch (Exception e){ }
+            }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
             finally{
                 connection.CloseConnection(conn);
             }
@@ -525,7 +525,34 @@ namespace VacciNationAPI.DataLayer
             return isDuplicate;
         }
 
+        // check user role function - ONLY USE IDs - can adjust later on if needed
+        public bool isSuperAdmin (int staff_id){
+            bool isAdmin = false;
 
+             MySqlConnection conn = new MySqlConnection();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "SELECT staff.staff_id FROM staff JOIN staff_role ON staff.staff_id=staff_role.staff_id WHERE staff.staff_id=@id AND role_id=@role";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", staff_id);
+                cmd.Parameters.AddWithValue("@role", 1);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {   
+                    isAdmin = true;
+                }
+                rdr.Close();
+
+            }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace); }
+            finally{
+                connection.CloseConnection(conn);
+            }
+
+            return isAdmin;
+        }
     } 
 
 }//namespace

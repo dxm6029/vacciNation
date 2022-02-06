@@ -21,7 +21,11 @@ namespace VacciNationAPI.Controllers{
                 }
 
             // where check role to verify that they are admin
-            
+            bool isAdmin = us.isSuperAdmin(uid);
+            if(!isAdmin){
+                return StatusCode(403);
+            }
+
             bool isDup = us.isDuplicateUsername(staffInfo.username);
             if(isDup){
                 return BadRequest(new { ErrorMessage = "Username taken" });
@@ -148,6 +152,11 @@ namespace VacciNationAPI.Controllers{
                     return Unauthorized();
                 }
 
+                bool isAdmin = us.isSuperAdmin(uid);
+                if(!isAdmin){
+                    return StatusCode(403);
+                }
+
                 bool result = us.putUserWithID(staffInfo);
 
                 if(result){
@@ -199,6 +208,10 @@ namespace VacciNationAPI.Controllers{
                 }
 
                 // admin check here
+                bool isAdmin = us.isSuperAdmin(uid);
+                if(!isAdmin){
+                    return StatusCode(403);
+                }
 
                 string username = "";
                 string email = "";
