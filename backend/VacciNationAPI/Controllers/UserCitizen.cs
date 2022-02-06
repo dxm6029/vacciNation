@@ -131,7 +131,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
-        [HttpPost("address")]
+        [HttpPost("address/{id}")]
         public IActionResult AddAddress([FromBody] Address address, int citizenId){
             try{     
                 Citizen citizen = us.getCitizenWithID(citizenId);   
