@@ -131,5 +131,48 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        [HttpPost("address/{id}")]
+        public IActionResult AddAddress([FromBody] Address address, int id){
+            try{     
+                Citizen citizen = us.getCitizenWithID(id);   
+                if(citizen == null){
+                    return NotFound(new {ErrorMessage = "Citizen does not exist"});
+                }
+
+                // insert address & update citizen object with address id   
+                bool result = us.insertAddressForCitizen(address, id);   
+                if(result){
+                    return Accepted();
+                }
+
+                return BadRequest(new { ErrorMessage = "Unable to add address" });
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete("address/{id}")]
+        public IActionResult removeAddress(int id){
+            // id is the citizen ID
+            try{     
+                Citizen citizen = us.getCitizenWithID(id);   
+                if(citizen == null){
+                    return NotFound(new {ErrorMessage = "Citizen does not exist"});
+                }
+
+                // delete address & update citizen object with null address id   
+                bool result = us.removeAddressForCitizen(citizen.address_id, citizen.citizen_id);   
+                if(result){
+                    return Accepted();
+                }
+
+                return BadRequest(new { ErrorMessage = "Unable to remove address" });
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
     }
 }
