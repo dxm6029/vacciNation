@@ -131,5 +131,26 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        [HttpPost("address")]
+        public IActionResult AddAddress([FromBody] Address address, int citizenId){
+            try{     
+                Citizen citizen = us.getCitizenWithID(citizenId);   
+                if(citizen == null){
+                    return NotFound(new {ErrorMessage = "Citizen does not exist"});
+                }
+
+                // insert address & update citizen object with address id   
+                bool result = us.insertAddressForCitizen(address, citizenId);   
+                if(result){
+                    return Accepted();
+                }
+
+                return BadRequest(new { ErrorMessage = "Unable to add address" });
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
     }
 }

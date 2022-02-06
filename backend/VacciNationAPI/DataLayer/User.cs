@@ -650,6 +650,44 @@ namespace VacciNationAPI.DataLayer
             
             return staff;
         }
+
+        public bool insertAddressForCitizen(Address address, int citizen_id){
+            bool result = false;
+            bool res = false;
+            MySqlConnection conn = connection.OpenConnection();
+
+            try{
+                string query = "INSERT INTO address (zip, street, street_line2, city, state) VALUES(@zip, @street, @street_line2, @city, @state)";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@zip", address.zip);
+                cmd.Parameters.AddWithValue("@street", address.street);
+                cmd.Parameters.AddWithValue("@street_line2", address.street_line2);
+                cmd.Parameters.AddWithValue("@city", address.city);
+                cmd.Parameters.AddWithValue("@state", address.state);
+
+                int numAffected = cmd.ExecuteNonQuery();
+
+                if(numAffected > 0){
+                    result = true;
+                }
+
+                // get id
+                int address_id = (int)cmd.LastInsertedId;
+
+                // update citizen
+                Citizen citizen = getCitizenWithID(citizen_id);
+
+                citizen.address_id = address_id; 
+
+                res = putCitizenWithID(citizen);
+
+            } catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);} // probably should log something here eventually
+            finally{
+               connection.CloseConnection(conn);
+            }
+            return result && res;
+        }
     } 
 
 }//namespace
