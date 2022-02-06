@@ -152,5 +152,27 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        [HttpDelete("address/{id}")]
+        public IActionResult removeAddress(int id){
+            // id is the citizen ID
+            try{     
+                Citizen citizen = us.getCitizenWithID(id);   
+                if(citizen == null){
+                    return NotFound(new {ErrorMessage = "Citizen does not exist"});
+                }
+
+                // delete address & update citizen object with null address id   
+                bool result = us.removeAddressForCitizen(citizen.address_id, citizen.citizen_id);   
+                if(result){
+                    return Accepted();
+                }
+
+                return BadRequest(new { ErrorMessage = "Unable to add address" });
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
     }
 }
