@@ -167,7 +167,7 @@ namespace VacciNationAPI.Controllers{
                     return Accepted();
                 }
 
-                return BadRequest(new { ErrorMessage = "Unable to add address" });
+                return BadRequest(new { ErrorMessage = "Unable to remove address" });
             }
             catch(Exception e){
                 return BadRequest();
