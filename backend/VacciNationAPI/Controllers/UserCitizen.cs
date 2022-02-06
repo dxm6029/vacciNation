@@ -132,15 +132,15 @@ namespace VacciNationAPI.Controllers{
         }
 
         [HttpPost("address/{id}")]
-        public IActionResult AddAddress([FromBody] Address address, int citizenId){
+        public IActionResult AddAddress([FromBody] Address address, int id){
             try{     
-                Citizen citizen = us.getCitizenWithID(citizenId);   
+                Citizen citizen = us.getCitizenWithID(id);   
                 if(citizen == null){
                     return NotFound(new {ErrorMessage = "Citizen does not exist"});
                 }
 
                 // insert address & update citizen object with address id   
-                bool result = us.insertAddressForCitizen(address, citizenId);   
+                bool result = us.insertAddressForCitizen(address, id);   
                 if(result){
                     return Accepted();
                 }
