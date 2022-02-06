@@ -7,7 +7,7 @@ namespace VacciNationAPI.Models
         public string zip {get; set;}
         public string street {get; set;}
         public string street_line2 {get; set;}
-        public int city {get; set;}
+        public string city {get; set;}
         public string state {get; set;}
 
         public Address(int address_id, string zip, string street, string street_line2, int city, string state){
