@@ -325,6 +325,10 @@ namespace VacciNationAPI.DataLayer
                     query += " date_of_birth = @date_of_birth,";
                 }
 
+                if(citizen.address_id != -1){
+                     query += " address_id = @insurance_id,";
+                }
+
                 // TODO: may need to add stuff in here for in here for insurance and address later on!!
 
                 query = query.TrimEnd(',');
@@ -353,6 +357,10 @@ namespace VacciNationAPI.DataLayer
 
                 if(citizen.date_of_birth != null){
                     cmd.Parameters.AddWithValue("@date_of_birth", citizen.date_of_birth);
+                }
+
+                if(citizen.insurance_id != -1){
+                    cmd.Parameters.AddWithValue("@insurance_id", citizen.insurance_id);
                 }
 
                 int rows = cmd.ExecuteNonQuery();
@@ -676,9 +684,8 @@ namespace VacciNationAPI.DataLayer
                 int address_id = (int)cmd.LastInsertedId;
 
                 // update citizen
-                Citizen citizen = getCitizenWithID(citizen_id);
+                Citizen citizen = new Citizen(citizen_id, null, null, null, -1, null, null, address_id);
 
-                citizen.address_id = address_id; 
 
                 res = putCitizenWithID(citizen);
 
