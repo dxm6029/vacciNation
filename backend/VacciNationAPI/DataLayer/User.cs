@@ -820,7 +820,7 @@ namespace VacciNationAPI.DataLayer
                 // change password
                 string query = "UPDATE staff SET password=@password WHERE staff_id=@staff_id";
                 MySqlCommand comm = new MySqlCommand(query, conn);
-                comm.Parameters.AddWithValue("@citizen_id", id);
+                comm.Parameters.AddWithValue("@staff_id", id);
                 comm.Parameters.AddWithValue("@password", pass);
 
                 int num = comm.ExecuteNonQuery();
