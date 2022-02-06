@@ -540,46 +540,46 @@
           "405": {
             "description": "json here - can adjust response code"
           }
-        },
-        "put": {
-          "tags": [
-            "User"
-          ],
-          "summary": "put info for self - staff",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "token",
-              "description": "put info for self",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Staff"
-              }
-            },
-            {
-              "in": "header",
-              "name": "authorization",
-              "description": "baerer token for security and authorization",
-              "type": "string",
-              "required": true
+        }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "put info for self - staff",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "token",
+            "description": "put info for self",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Staff"
             }
-          ],
-          "responses": {
-            "400": {
-              "description": "json here - can adjust response code"
-            },
-            "404": {
-              "description": "json here - can adjust response code"
-            },
-            "405": {
-              "description": "json here - can adjust response code"
-            }
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and authorization",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
           }
         }
       }
@@ -916,12 +916,12 @@
         }
       }
     },
-    "/UserStaff/login": {
-      "post": {
+    "/UserStaff/password": {
+      "put": {
         "tags": [
           "User"
         ],
-        "summary": "authenticate a staff member",
+        "summary": "changing staff member password",
         "consumes": [
           "application/json"
         ],
@@ -932,16 +932,23 @@
           {
             "in": "body",
             "name": "body",
-            "description": "citizen auth info to be authenticated",
+            "description": "password and user id required ONLY - resets current password with password",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Authenticate"
+              "$ref": "#/definitions/Staff"
             }
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
           "200": {
-            "description": "probably some kind of token that contains info about user? like name or id or something?"
+            "description": "json here - can adjust response code"
           },
           "400": {
             "description": "json here - can adjust response code"
