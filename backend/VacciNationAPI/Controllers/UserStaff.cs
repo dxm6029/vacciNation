@@ -294,7 +294,6 @@ namespace VacciNationAPI.Controllers{
                 
                 if (!String.IsNullOrEmpty(HttpContext.Request.Query["staff_id"])){
                     staff_id = Int32.Parse(HttpContext.Request.Query["staff_id"]);
-                    Console.WriteLine(staff_id);
                 }
 
                 if (!String.IsNullOrEmpty(HttpContext.Request.Query["role_id"])){
@@ -307,8 +306,9 @@ namespace VacciNationAPI.Controllers{
                 }
 
                 bool isAdmin = us.isSuperAdmin(id);
-
-                Console.WriteLine(staff_id);
+                if(!isAdmin){
+                    return StatusCode(403);
+                }
                 
                 Staff staff = us.getUserWithID(staff_id);
 
@@ -356,7 +356,9 @@ namespace VacciNationAPI.Controllers{
                 }
 
                 bool isAdmin = us.isSuperAdmin(id);
-                
+                if(!isAdmin){
+                    return StatusCode(403);
+                }
                 Staff staff = us.getUserWithID(staff_id);
 
                 if(staff != null){
@@ -375,6 +377,7 @@ namespace VacciNationAPI.Controllers{
                 }
             }
             catch(Exception e){
+                Console.WriteLine("error");
                 return BadRequest();
             }
 
