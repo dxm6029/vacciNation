@@ -702,7 +702,20 @@ namespace VacciNationAPI.DataLayer
             MySqlConnection conn = connection.OpenConnection();
 
             try{
-                string query = "DELETE FROM address WHERE address_id=@id";
+
+                // update citizen
+                string query = "UPDATE citizen SET address_id=NULL WHERE citizen_id=@citizen_id";
+                MySqlCommand comm = new MySqlCommand(query, conn);
+                comm.Parameters.AddWithValue("@citizen_id", citizen_id);
+
+                int num = comm.ExecuteNonQuery();
+
+                if(num > 0){
+                    res = true;
+                }
+
+
+                query = "DELETE FROM address WHERE address_id=@id";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", address_id);
@@ -711,17 +724,6 @@ namespace VacciNationAPI.DataLayer
 
                 if(numAffected > 0){
                     result = true;
-                }
-
-                // update citizen
-                query = "UPDATE citizen SET address_id=NULL WHERE citizen_id=@citizen_id";
-                MySqlCommand comm = new MySqlCommand(query, conn);
-                comm.Parameters.AddWithValue("@citizen_id", citizen_id);
-
-                int num = cmd.ExecuteNonQuery();
-
-                if(num > 0){
-                    res = true;
                 }
 
             } catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);} // probably should log something here eventually
