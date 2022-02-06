@@ -624,6 +624,32 @@ namespace VacciNationAPI.DataLayer
             }
             return response;
         }
+
+         public List<string> getAllStaffWithRole(int role_id){
+            MySqlConnection conn = new MySqlConnection();
+            List<string> staff = new List<string>();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "SELECT staff.staff_id, email, username, last_name, first_name, role.name FROM staff JOIN staff_role ON staff.staff_id=staff_role.staff_id JOIN role ON staff_role.role_id=role.role_id WHERE role.role_id=@id";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", role_id);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {   
+                    staff.Add("{ staff_id: " + rdr.GetInt32(0).ToString() + ", email: " + (rdr.IsDBNull(1) ?  "" : rdr.GetString(1)) + ", username: " + (rdr.IsDBNull(2) ?  "" : rdr.GetString(2))+  ", last_name: " +  (rdr.IsDBNull(3) ?  "" : rdr.GetString(3)) + ", first_name: " +  (rdr.IsDBNull(4) ?  "" : rdr.GetString(4)) + ", role: " +  (rdr.IsDBNull(5) ?  "" : rdr.GetString(5)) + "}");
+                }
+                rdr.Close();
+
+            }catch (Exception e){Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return staff;
+        }
     } 
 
 }//namespace
