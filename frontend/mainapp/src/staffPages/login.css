@@ -1,0 +1,16 @@
+h1 {
+    text-align: center;
+}
+
+.buttonLink {
+    align-items: center;
+    text-align: center;
+    color: black;
+    border: 1px solid black;
+    padding: 10px;
+    width: 10vw;
+    margin: 0 0 25px calc(45vw - 10px);
+    height: fit-content;
+    text-decoration: none;
+    display: block;
+}

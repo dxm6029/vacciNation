@@ -16,7 +16,7 @@ function ToggleSwitch(props) {
       </div>
       <span className="textLabel">{" "} {props.rightLabel}  </span>
 
-      <Link to="/Home" className="signIn">
+      <Link to="/login" className="signIn">
         <div className="signIn">
           Admin/Staff Sign In
         </div>

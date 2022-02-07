@@ -45,10 +45,7 @@ function App() {
             ["Date", "Date of your last dose"],
             ["Radio", "Please select the brand of your COVID vaccine", ["Pfizer", "Moderna", "J&J", "Other"]]
           ]}
-        />
-
-        <Footer />
-          
+        /> 
     </div>
   );
 }

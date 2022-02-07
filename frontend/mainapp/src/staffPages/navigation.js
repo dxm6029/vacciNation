@@ -1,9 +1,8 @@
-import './navBar.css';
-import { BrowserRouter, Link, Routes, Route } from 'react-router-dom';
-import UBRoutes from '../routes';
+import './navigation.css';
 import ToggleSwitch from '../components/toggleSwitch';
+import { Link } from 'react-router-dom';
 
-function NavBar(props) {
+function Navigation(props) {
   return (
     <div>
       <div className="App">
@@ -28,4 +27,5 @@ function NavBar(props) {
   );
 }
 
-export default NavBar;
+export default Navigation;
+

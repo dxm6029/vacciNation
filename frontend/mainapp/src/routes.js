@@ -11,10 +11,12 @@ import PersonalInfo from './pages/personalInfo';
 import Report from './pages/report';
 import SelectVaccine from './pages/selectVaccine';
 
-/**
- * All routes go here.
- * Don't forget to import the components above after adding new route.
- */
+import LogIn from './staffPages/login';
+import StaffLogin from './staffPages/stafflogin';
+import AdminLogin from './staffPages/adminlogin';
+import SiteManagerLogin from './staffPages/sitemanagerlogin';
+import NurseLogin from './staffPages/nurselogin';
+
 class UBRoutes extends React.Component {
     render() {
         return (
@@ -29,6 +31,14 @@ class UBRoutes extends React.Component {
                 <Route path="/personalInfo" element={<PersonalInfo />} />
                 <Route path="/report" element={<Report />} />
                 <Route path="/select" element={<SelectVaccine />}/>
+
+
+                <Route path="/login" element={<LogIn />}/>
+                <Route path="/stafflogin" element={<StaffLogin />}/>
+                <Route path="/adminlogin" element={<AdminLogin />}/>
+                <Route path="/sitemanagerlogin" element={<SiteManagerLogin />}/>
+                <Route path="/nurselogin" element={<NurseLogin />}/>
+                
             </Routes>
         );
     }
