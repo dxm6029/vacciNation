@@ -1,4 +1,5 @@
 import './toggleSwitch.css';
+import {Link} from "react-router-dom";
 
 function ToggleSwitch(props) {
   return (
@@ -14,6 +15,12 @@ function ToggleSwitch(props) {
         </label>
       </div>
       <span className="textLabel">{" "} {props.rightLabel}  </span>
+
+      <Link to="/login" className="signIn">
+        <div className="signIn">
+          Admin/Staff Sign In
+        </div>
+      </Link>
     </div>
   );
 }

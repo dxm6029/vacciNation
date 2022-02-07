@@ -1,6 +1,5 @@
 .container {
     text-align: center;
-    padding: 15px;
 }
 
 .toggle-switch {
@@ -81,4 +80,10 @@
 
 .checkbox:checked + .label .switch {
     right: 0px;
+}
+
+.signIn {
+    padding: 15px 5px 5px 5px;
+    color: white;
+    text-decoration: none;
 }

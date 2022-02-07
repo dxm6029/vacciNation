@@ -1,0 +1,14 @@
+.alert {
+    width: 30%;
+    height: 15%;
+    margin-left: 30%;
+    padding: 5%;
+    background-color: #DC2B05;
+    font-size: 1.25em;
+    color: white;
+    border-radius: 40px;
+}
+
+.alert img {
+    float: left;
+}

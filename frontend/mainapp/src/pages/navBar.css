@@ -5,21 +5,21 @@
 }
 
 html, body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }
 
 .navBar {
-    font-family:"Open Sans", sans-serif;
-    font-size: 1em;
-    margin: 0 48px 48px 48px;
-    border-bottom: 1px solid rgba(0, 68, 148, 0.4);
-    overflow: hidden;
+  font-family:"Open Sans", sans-serif;
+  font-size: 1em;
+  margin: 0 48px 48px 48px;
+  border-bottom: 1px solid rgba(0, 68, 148, 0.4);
+  overflow: hidden;
 }
 
 .header {
-  height: 24vh;
+  height: 16vh;
   width: 100%;
   background-color: #004494;
   box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.25);

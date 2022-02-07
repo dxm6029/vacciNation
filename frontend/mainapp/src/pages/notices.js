@@ -1,12 +1,20 @@
 import './schedule.css';
 import {Link} from "react-router-dom";
+import NavBar from './navBar';
 
 function Notices(props) {
 
-  console.log(props.information);
-
   return (
     <div className="scheduler">
+      <NavBar 
+          information = {["Information"]}
+          links = {[
+            ["/home", "Home"],
+            ["/notices", "Schedule Appointment"],
+            ["/faq", "FAQ"],
+            ["/report", "Report Reaction"]
+          ]}
+        />
 
         <div className="schedule">
             {props.information.map((info, index) => (
@@ -17,7 +25,7 @@ function Notices(props) {
           ))}
         </div>
 
-        <Link to="/schedule">
+        <Link to="/prescreening">
             <button> Next </button>
         </Link>
     </div>
