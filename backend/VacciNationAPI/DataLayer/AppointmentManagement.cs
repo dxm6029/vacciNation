@@ -75,7 +75,7 @@ namespace VacciNationAPI.DataLayer
                 // }
 
                 // update the timeslot to inlude that citizen and dose
-                string updateSlot = "BEGIN; SELECT @local := dose.dose_id FROM dose LEFT JOIN timeslot on dose.dose_id = timeslot.dose_id WHERE vaccine_id=@vaccine_id AND timeslot_id IS NULL LIMIT 1  FOR UPDATE; Update timeslot set dose_id = IF(ISNULL(@local), dose_id, @local), citizen_id=@citizen_id, status=@statusNum WHERE timeslot_id = @timeslot_id; COMMIT;";
+                string updateSlot = "BEGIN; SELECT @local := dose.dose_id FROM dose LEFT JOIN timeslot on dose.dose_id = timeslot.dose_id WHERE vaccine_id=@vaccine_id AND timeslot_id IS NULL LIMIT 1  FOR UPDATE; Update timeslot set dose_id = IF(ISNULL(@local), dose_id, @local), citizen_id=@citizen_id, status_id=@statusNum WHERE timeslot_id = @timeslot_id; COMMIT;";
                 MySqlCommand cd = new MySqlCommand(updateSlot, conn);
                 cd.Parameters.AddWithValue("@vaccine_id", vaccineType);
                 cd.Parameters.AddWithValue("@citizen_id", timeslot.citizen_id);
