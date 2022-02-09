@@ -4,6 +4,10 @@ import NavBar from './navBar';
 
 function Schedule() {
 
+  const tableClick = () => {
+    // Here's where the user will select the row in the table
+  }
+
   return (
     <div className="scheduler">
       <NavBar 
@@ -17,8 +21,29 @@ function Schedule() {
         />
 
         <div className="schedule">
-            Schedule <br/>
-            Here is information.
+            <h1> Schedule Appointment </h1>
+
+            <label for="zipcode">Enter Zipcode:</label>
+            <input type="text" id="zipcode" name="Zipcode"></input>
+
+            <table>
+              <tr>
+                <th>Location</th>
+                <th>Distance</th>
+              </tr>
+              <tr>
+                
+              Loop through more things here
+              </tr>
+            </table>
+
+            <>
+              Calendar to go here <br/>
+            </>
+
+            <>
+              Select a time
+            </>
         </div>
 
         <Link to="/personalInfo">

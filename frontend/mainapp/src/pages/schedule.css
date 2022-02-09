@@ -24,3 +24,24 @@ button {
     background: #004494;
     border: 1px solid #000000;
 }
+
+tr:not(:first-child) {
+    cursor: pointer;
+}
+
+tr:not(:first-child):hover {
+    background-color: #ddd;
+}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    color: black;
+}
+
+table {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px 10px 10px 0;
+}
