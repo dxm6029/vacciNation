@@ -60,7 +60,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
-        [HttpPut("Signup")] // citizen booking appointment (no permissions)
+        [HttpPut("djadslkfjasjdk")] // citizen booking appointment (no permissions)
         public IActionResult PutCitiznDoseTimeslot([FromBody] Timeslot timeslot){
              try{
                 int vaccineType = -1;
