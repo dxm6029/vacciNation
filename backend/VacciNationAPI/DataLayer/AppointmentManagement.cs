@@ -38,6 +38,64 @@ namespace VacciNationAPI.DataLayer
 
         }
 
+
+        public int updateTimeslotCitizenDose(Timeslot timeslot, int vaccineType){
+            int result = -1;
+            MySqlConnection conn = connection.OpenConnection();
+
+            try{
+
+                // // check to make sure a dose of that type is in the dose table - need to add to make sure it is available 
+                // string query = "SELECT dose_id FROM dose WHERE vaccine_id=@vaccineType";
+                // MySqlCommand cmd = new MySqlCommand(query, conn);
+                // cmd.Parameters.AddWithValue("@vaccineType", vaccineType);
+
+                // MySqlDataReader rdr = cmd.ExecuteReader();
+                // int availableDoseID = -1;
+
+                // // loop through dose of appropriate type
+                // while (rdr.Read())
+                // {   
+                //     // check to make sure dose is not already taken
+                //     string availCheck = "SELECT dose_id FROM timeslot WHERE dose_id=@doseId AND status = @stat";
+                //     MySqlCommand comm = new MySqlCommand(availCheck, conn);
+                //     comm.Parameters.AddWithValue("@doseId", rdr.GetInt32(0));
+                //     comm.Parameters.AddWithValue("@stat", 1);
+
+                //     MySqlDataReader rdr2 = cmd.ExecuteReader();
+                //     if(rdr2.Read()){
+                //         availableDoseID = rdr.GetInt32(0);
+                //     }
+                // }
+                // rdr.Close();
+
+                // // there are no doses of that type available at the moment
+                // if(availableDoseID == -1){
+                //     return -2;
+                // }
+
+                // update the timeslot to inlude that citizen and dose
+                string updateSlot = "UPDATE timeslot SET dose_id=(SELECT dose_id FROM dose LEFT JOIN timeslot WHERE vaccine_id=@vaccine_id AND timeslot_id IS NULL LIMIT 1 AS resdose), citizen_id=@citizen_id, status=@statusNum WHERE timeslot_id=@timeslot_id AND resdose IS NOT NULL";
+                MySqlCommand cd = new MySqlCommand(updateSlot, conn);
+                cd.Parameters.AddWithValue("@vaccine_id", vaccineType);
+                cd.Parameters.AddWithValue("@citizen_id", timeslot.citizen_id);
+                cd.Parameters.AddWithValue("@statusNum", 2);
+                cd.Parameters.AddWithValue("@timeslot_id", timeslot.timeslot_id);
+
+                int rows = cd.ExecuteNonQuery();
+
+                if(rows <= 0){
+                    return -2;
+                }
+
+            } catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);} // probably should log something here eventually
+            finally{
+               connection.CloseConnection(conn);
+            }
+            return result;
+
+        }
+
     } 
 
 }//namespace
