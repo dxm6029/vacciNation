@@ -1,5 +1,6 @@
 import './login.css';
 import Navigation from './navigation';
+import LoginComponent from '../components/loginComponent';
 
 function StaffLogin() {
   return (
@@ -8,7 +9,9 @@ function StaffLogin() {
         information = {[""]}
         links = {[ ]}
       />
-      Staff Login
+      <LoginComponent
+          title="Staff Login"
+        />
     </>
   );
 }

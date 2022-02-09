@@ -1,5 +1,6 @@
 import './login.css';
 import Navigation from './navigation';
+import LoginComponent from '../components/loginComponent';
 
 function AdminLogin() {
   return (
@@ -8,7 +9,9 @@ function AdminLogin() {
             information = {[""]}
             links = {[ ]}
         />
-        Admin Login
+        <LoginComponent
+          title="Admin Login"
+        />
     </>
   );
 }
