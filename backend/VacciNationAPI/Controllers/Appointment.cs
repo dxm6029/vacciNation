@@ -58,8 +58,30 @@ namespace VacciNationAPI.Controllers{
             catch(Exception e){
                 return BadRequest();
             }
+        }
 
+        [HttpPut("Signup")] // citizen booking appointment (no permissions)
+        public IActionResult PutCitiznDoseTimeslot([FromBody] Timeslot timeslot){
+             try{
+                int vaccineType = -1;
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["vaccine_type"])){
+                    vaccineType = Int32.Parse(HttpContext.Request.Query["vaccine_type"]);
+                }
 
+                // should include citizen id, timeslot id, and vaccine type
+                int result = am.updateTimeslotCitizenDose(timeslot, vaccineType);
+
+                if(result == -1){
+                    return BadRequest();
+                } else if(result == -2){
+                    return NotFound(new { ErrorMessage = "No available vaccines with specified type" });
+                }else {
+                    return BadRequest();
+                }
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
         }
     }
 }

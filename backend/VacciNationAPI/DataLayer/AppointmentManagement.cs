@@ -44,19 +44,32 @@ namespace VacciNationAPI.DataLayer
             MySqlConnection conn = connection.OpenConnection();
             MySqlTransaction myTrans =  conn.BeginTransaction();
             try{
-                string updateSlot = "SELECT @local := dose.dose_id FROM dose LEFT JOIN timeslot on dose.dose_id = timeslot.dose_id WHERE vaccine_id=@vaccine_id AND timeslot_id IS NULL LIMIT 1 FOR UPDATE; Update timeslot set dose_id = IF(ISNULL(@local), dose_id, @local), citizen_id=@citizen_id, status_id=@statusNum WHERE timeslot_id = @timeslot_id;";
+                string updateSlot = "SELECT dose.dose_id FROM dose LEFT JOIN timeslot on dose.dose_id = timeslot.dose_id WHERE vaccine_id=@vaccine_id AND timeslot_id IS NULL LIMIT 1 FOR UPDATE;";
                 MySqlCommand cd = new MySqlCommand(updateSlot, conn);
                
                 cd.Transaction = myTrans;
 
                 myTrans = conn.BeginTransaction();
                 cd.Parameters.AddWithValue("@vaccine_id", vaccineType);
+
+                MySqlDataReader rdr = cd.ExecuteReader();
+                int dose_id = -1;
+                while(rdr.Read()){
+                    dose_id = rdr.GetInt32(0);
+                }
+                if(dose_id == -1){
+                    return -2;
+                }
+
+                string updateTable="Update timeslot set dose_id = @dose_id, citizen_id=@citizen_id, status_id=@statusNum WHERE timeslot_id = @timeslot_id;";
+                cd = new MySqlCommand(updateTable, conn);
+                cd.Parameters.AddWithValue("@dose_id", dose_id);
                 cd.Parameters.AddWithValue("@citizen_id", timeslot.citizen_id);
                 cd.Parameters.AddWithValue("@statusNum", 2);
                 cd.Parameters.AddWithValue("@timeslot_id", timeslot.timeslot_id);
 
                 int rows = cd.ExecuteNonQuery();
-                
+               
                 myTrans.Commit();
 
                 if(rows <= 0){
