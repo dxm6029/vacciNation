@@ -49,7 +49,6 @@ namespace VacciNationAPI.DataLayer
                
                 cd.Transaction = myTrans;
 
-                myTrans = conn.BeginTransaction();
                 cd.Parameters.AddWithValue("@vaccine_id", vaccineType);
 
                 MySqlDataReader rdr = cd.ExecuteReader();
