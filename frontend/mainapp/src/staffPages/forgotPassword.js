@@ -1,19 +1,16 @@
 import './login.css';
 import Navigation from './navigation';
-import LoginComponent from '../components/loginComponent';
 
-function NurseLogin() {
+function ForgotPassword() {
   return (
     <>
         <Navigation 
             information = {[""]}
             links = {[ ]}
         />
-        <LoginComponent
-          title="Nurse Login"
-        />
+        Forgot Password TODO
     </>
   );
 }
 
-export default NurseLogin;
+export default ForgotPassword;

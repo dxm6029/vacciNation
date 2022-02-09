@@ -16,6 +16,7 @@ import StaffLogin from './staffPages/stafflogin';
 import AdminLogin from './staffPages/adminlogin';
 import SiteManagerLogin from './staffPages/sitemanagerlogin';
 import NurseLogin from './staffPages/nurselogin';
+import ForgotPassword from './staffPages/forgotPassword';
 
 class UBRoutes extends React.Component {
     render() {
@@ -38,7 +39,7 @@ class UBRoutes extends React.Component {
                 <Route path="/adminlogin" element={<AdminLogin />}/>
                 <Route path="/sitemanagerlogin" element={<SiteManagerLogin />}/>
                 <Route path="/nurselogin" element={<NurseLogin />}/>
-                
+                <Route path="/forgotPassword" element={<ForgotPassword />}/>
             </Routes>
         );
     }

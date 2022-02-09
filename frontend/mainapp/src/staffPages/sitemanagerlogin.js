@@ -1,5 +1,6 @@
 import './login.css';
 import Navigation from './navigation';
+import LoginComponent from '../components/loginComponent';
 
 function SiteManagerLogin() {
   return (
@@ -8,7 +9,9 @@ function SiteManagerLogin() {
             information = {[""]}
             links = {[ ]}
         />
-        Site Manager Login
+        <LoginComponent
+          title="Site Manager Login"
+        />
     </>
   );
 }
