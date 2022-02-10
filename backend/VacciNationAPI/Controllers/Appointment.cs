@@ -177,5 +177,33 @@ namespace VacciNationAPI.Controllers{
                 return BadRequest();
             }
         }
+
+        [HttpGet]
+        public IActionResult GetAllAppointmentsOfType([FromHeader] string authorization){
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+
+            int vaccineCategory = -1;
+            if (!String.IsNullOrEmpty(HttpContext.Request.Query["category_id"])){
+                vaccineCategory = Int32.Parse(HttpContext.Request.Query["category_id"]);
+            }
+
+            string vaccineSupplier = "";
+            if (!String.IsNullOrEmpty(HttpContext.Request.Query["vaccine_supplier"])){
+                vaccineSupplier = HttpContext.Request.Query["vaccine_supplier"];
+            }
+
+
+            try{                
+                List<string> appointments = am.getAllAppointmentsByType(false, "", -1);
+                return new ObjectResult(appointments);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
     }
 }
