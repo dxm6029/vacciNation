@@ -76,7 +76,8 @@ namespace VacciNationAPI.DataLayer
                     Console.WriteLine("im here4"); 
 
                 int rows = cd.ExecuteNonQuery();
-               
+                                                   Console.WriteLine("im here4.5"); 
+
                 myTrans.Commit();
                                     Console.WriteLine("im here5"); 
 
