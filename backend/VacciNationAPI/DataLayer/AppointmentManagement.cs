@@ -90,9 +90,9 @@ namespace VacciNationAPI.DataLayer
 
             } catch (Exception e){ 
                 Console.WriteLine("mysql execution error");
-                myTrans.Rollback();
                 Console.WriteLine(e.Message); 
                 Console.WriteLine(e.StackTrace);} // probably should log something here eventually
+                try{myTrans.Rollback();} catch(Exception ex){}
             finally{
                connection.CloseConnection(conn);
             }
