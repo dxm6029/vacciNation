@@ -41,7 +41,6 @@ namespace VacciNationAPI.DataLayer
 
         public int updateTimeslotCitizenDose(Timeslot timeslot, int vaccineType){
             int result = -1;
-                                Console.WriteLine("im here1"); 
 
             MySqlConnection conn = connection.OpenConnection();
             MySqlTransaction myTrans =  conn.BeginTransaction();
@@ -50,7 +49,6 @@ namespace VacciNationAPI.DataLayer
                 MySqlCommand cd = new MySqlCommand(updateSlot, conn);
                
                 cd.Transaction = myTrans;
-                                    Console.WriteLine("im here2"); 
 
 
                 cd.Parameters.AddWithValue("@vaccine_id", vaccineType);
@@ -59,12 +57,9 @@ namespace VacciNationAPI.DataLayer
                 int dose_id = -1;
                 while(rdr.Read()){
                     dose_id = rdr.GetInt32(0);
-                                        Console.WriteLine("im here3"); 
-
                 }
                 rdr.Close();
                 if(dose_id == -1){
-                    Console.WriteLine("im here"); 
                     return -2;
                 }
 
@@ -74,20 +69,12 @@ namespace VacciNationAPI.DataLayer
                 cd.Parameters.AddWithValue("@citizen_id", timeslot.citizen_id);
                 cd.Parameters.AddWithValue("@statusNum", 2);
                 cd.Parameters.AddWithValue("@timeslot_id", timeslot.timeslot_id);
-                    Console.WriteLine("im here4"); 
-
-                    Console.WriteLine(cd.CommandText);
 
                 int rows = cd.ExecuteNonQuery();
-                Console.WriteLine("im here4.5"); 
 
                 myTrans.Commit();
-                Console.WriteLine("im here5"); 
-                Console.WriteLine(rows); 
 
                 if(rows <= 0){
-                                    Console.WriteLine("hi"); 
-
                     return -2;
                 }
                 else{
@@ -95,7 +82,6 @@ namespace VacciNationAPI.DataLayer
                 }
 
             } catch (Exception e){ 
-                Console.WriteLine("mysql execution error");
                 Console.WriteLine(e.Message); 
                 Console.WriteLine(e.StackTrace);} // probably should log something here eventually
                 try{myTrans.Rollback();} catch(Exception ex){}
@@ -104,6 +90,32 @@ namespace VacciNationAPI.DataLayer
             }
             return result;
 
+        }
+
+        public bool updateTimeslotStaff(Timeslot timeslot){
+            bool result = false;
+            MySqlConnection conn = connection.OpenConnection();
+            try{
+               
+                string query="Update timeslot set staff_id=@staff_id WHERE timeslot_id = @timeslot_id;";
+                MySqlCommand cd = new MySqlCommand(query, conn);
+                cd.Parameters.AddWithValue("@staff_id", timeslot.staff_id);
+                cd.Parameters.AddWithValue("@timeslot_id", timeslot.timeslot_id);
+
+                int rows = cd.ExecuteNonQuery();
+
+                if(rows > 0){
+                    result = true;
+                }
+
+            } catch (Exception e){ 
+                Console.WriteLine(e.Message); 
+                Console.WriteLine(e.StackTrace);} // probably should log something here eventually
+            finally{
+               connection.CloseConnection(conn);
+            }
+
+            return result;
         }
 
     } 
