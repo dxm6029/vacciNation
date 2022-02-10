@@ -75,6 +75,8 @@ namespace VacciNationAPI.DataLayer
                 cd.Parameters.AddWithValue("@timeslot_id", timeslot.timeslot_id);
                     Console.WriteLine("im here4"); 
 
+                    Console.WriteLine(cd.CommandText);
+
                 int rows = cd.ExecuteNonQuery();
                                                    Console.WriteLine("im here4.5"); 
 
