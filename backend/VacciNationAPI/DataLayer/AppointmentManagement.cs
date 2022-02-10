@@ -62,6 +62,7 @@ namespace VacciNationAPI.DataLayer
                                         Console.WriteLine("im here3"); 
 
                 }
+                rdr.Close();
                 if(dose_id == -1){
                     Console.WriteLine("im here"); 
                     return -2;
