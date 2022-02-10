@@ -165,5 +165,17 @@ namespace VacciNationAPI.Controllers{
                 return BadRequest();
             }
         }
+
+        [HttpGet("all/open")]
+        public IActionResult GetAllOpenAppointments(){
+
+            try{                
+                List<string> appointments = am.getAllAppointments(true);
+                return new ObjectResult(appointments);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
     }
 }
