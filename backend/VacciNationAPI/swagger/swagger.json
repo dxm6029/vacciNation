@@ -2102,6 +2102,49 @@
           }
         }
       }
+    },
+    "/Appointment/UpdateStatus": {
+      "put": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "updates an appointment with status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Timeslot",
+            "description": "status to update timeslot to (ONLY timeslot_id and status)",
+            "schema": {
+              "$ref": "#/definitions/Timeslot"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
     }
   },
   "securityDefinitions": {

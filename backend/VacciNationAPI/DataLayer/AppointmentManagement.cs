@@ -118,6 +118,33 @@ namespace VacciNationAPI.DataLayer
             return result;
         }
 
+        public bool updateTimeslotStatus(Timeslot timeslot){
+            bool result = false;
+            MySqlConnection conn = connection.OpenConnection();
+            try{
+               
+                string query="Update timeslot set status_id=@status WHERE timeslot_id = @timeslot_id;";
+                MySqlCommand cd = new MySqlCommand(query, conn);
+                cd.Parameters.AddWithValue("@status", timeslot.status);
+                cd.Parameters.AddWithValue("@timeslot_id", timeslot.timeslot_id);
+
+                int rows = cd.ExecuteNonQuery();
+
+                if(rows > 0){
+                    result = true;
+                }
+
+            } catch (Exception e){ 
+                Console.WriteLine(e.Message); 
+                Console.WriteLine(e.StackTrace);
+            } 
+            finally{
+               connection.CloseConnection(conn);
+            }
+
+            return result;
+        }
+
         public bool removeTimeslot(int timeslot_id){
              bool status = false;
             MySqlConnection conn = new MySqlConnection();
