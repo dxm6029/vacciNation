@@ -15,6 +15,10 @@
       "description": "Add/Update/Modify/View User Accounts"
     },
     {
+      "name": "Appointments & Timeslots",
+      "description": "Add/update/delete/view appointments and time slots"
+    },
+    {
       "name": "Sample",
       "description": "Sample requests from example swagger doc for our reference as we build this out more"
     }
@@ -1670,6 +1674,477 @@
           }
         }
       }
+    },
+    "/Appointment": {
+      "post": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "creates an available appointment for a citizen to register for (priviliged users)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Timeslot",
+            "description": "create a timeslot for a dose at a location for a certain time with default status (citizen ID, staffID, doseID, and timeslotID should remain null)",
+            "schema": {
+              "$ref": "#/definitions/Timeslot"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "remove a timeslot",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "appointment_id",
+            "description": "id of the timeslot we are removing",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "gets appointments of certain type",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "description": "the timeslot filtered by vaccine type",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Appointment/all": {
+      "get": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "get all appointments",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Appointment/all/open": {
+      "get": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "get all open appointments",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Appointment/all/open/{type}": {
+      "get": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "get all open appointments of certain type",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "description": "the type of the vaccine appointments will be filtered by",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Appointment/citizen/{id}": {
+      "get": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "get all appointments that a certain citizen has",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "description": "the id of the citizen appointments will be filtered by",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Appointment/date": {
+      "get": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "get all appointments for a certain date",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "date",
+            "description": "date value to search on - needs to be in format YYYY-MM-DD",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Appointment/{id}": {
+      "get": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "get appointment by ID",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "description": "get timeslot by this id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Appointment/Signup": {
+      "put": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "updates an appointment with citizen id (when citizen signs up)",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Timeslot",
+            "description": "sign a citizen up for a timeslot (ONLY accepts citizenID and timeslotID), auto-gets available dosage if available",
+            "schema": {
+              "$ref": "#/definitions/Timeslot"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Appointment/AssignStaff": {
+      "put": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "updates an appointment with staff id (when staff assigned to a timeslot) - does not check if staff is assigned to other appointment at that time, but should not be issue (will be assigned once available)",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Timeslot",
+            "description": "assign a staff member to a timeslot (ONLY accepts staffID and timeslotID)",
+            "schema": {
+              "$ref": "#/definitions/Timeslot"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Appointment/UpdateStatus": {
+      "put": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "updates an appointment with status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Timeslot",
+            "description": "status to update timeslot to (ONLY timeslot_id and status)",
+            "schema": {
+              "$ref": "#/definitions/Timeslot"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
     }
   },
   "securityDefinitions": {
@@ -1689,6 +2164,38 @@
     }
   },
   "definitions": {
+    "Timeslot": {
+      "type": "object",
+      "properties": {
+        "timeslot_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "staff_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "citizen_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "location_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "dose_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "date": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
     "Staff": {
       "type": "object",
       "properties": {
