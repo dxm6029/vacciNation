@@ -78,10 +78,10 @@ namespace VacciNationAPI.DataLayer
                     Console.WriteLine(cd.CommandText);
 
                 int rows = cd.ExecuteNonQuery();
-                                                   Console.WriteLine("im here4.5"); 
+                Console.WriteLine("im here4.5"); 
 
                 myTrans.Commit();
-                                    Console.WriteLine("im here5"); 
+                Console.WriteLine("im here5"); 
 
 
                 if(rows <= 0){
@@ -89,6 +89,7 @@ namespace VacciNationAPI.DataLayer
                 }
 
             } catch (Exception e){ 
+                Console.WriteLine("mysql execution error");
                 myTrans.Rollback();
                 Console.WriteLine(e.Message); 
                 Console.WriteLine(e.StackTrace);} // probably should log something here eventually
