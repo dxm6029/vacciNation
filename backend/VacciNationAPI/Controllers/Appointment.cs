@@ -147,5 +147,23 @@ namespace VacciNationAPI.Controllers{
                 return BadRequest();
             }
         }
+
+        [HttpGet("all")]
+        public IActionResult GetAllAppointments([FromHeader] string authorization){
+
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+
+            try{                
+                List<string> appointments = am.getAllAppointments(false);
+                return new ObjectResult(appointments);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
     }
 }

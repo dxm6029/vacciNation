@@ -168,6 +168,34 @@ namespace VacciNationAPI.DataLayer
             return status;
         }
 
+        public List<string> getAllAppointments(bool open){
+            MySqlConnection conn = new MySqlConnection();
+            List<string> appointments = new List<string>();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "SELECT appointment_id, timeslot.staff_id, staff.first_name, staff.last_name, timeslot.citizen_id, citizen.first_name, citizen.last_name, timeslot.location.id, location.name, timeslot.dose_id, dose.supplier, vaccine.description, timeslot.date, timeslot.status_id, timeslot_status.description FROM timeslot JOIN staff USING(staff_if) JOIN dose USING(dose_id) JOIN timeslot_status USING(status_id) JOIN vaccine USING(vaccine_id) JOIN location USING(location_id)";
+                if(open){
+                    query += " WHERE status_id=1";
+                }
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {   
+                    appointments.Add("{ appointment_id: " + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) + ", staff_id: " + ( rdr.IsDBNull(1) ? -1 : rdr.GetInt32(1)) + ", staff_first_name: " + (rdr.IsDBNull(2) ?  "" : rdr.GetString(2))+  ", staff_last_name: " +  (rdr.IsDBNull(3) ?  "" : rdr.GetString(3)) + ", citizen_id: " +  (rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4)) + ", citizen_first_name: " + (rdr.IsDBNull(5) ?  "" : rdr.GetString(5))+  ", citizen_last_name: " +  (rdr.IsDBNull(6) ?  "" : rdr.GetString(6)) + ", location_id: " + ( rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7)) + ", location_name: " + (rdr.IsDBNull(8) ?  "" : rdr.GetString(8)) + ", dose_id: " + ( rdr.IsDBNull(9) ? -1 : rdr.GetInt32(9)) + ", supplier: " + (rdr.IsDBNull(10) ?  "" : rdr.GetString(10)) + ", description: " + (rdr.IsDBNull(11) ?  "" : rdr.GetString(11)) + ", date: " + (rdr.IsDBNull(12) ?  "" : rdr.GetString(12))  + ", status_id: " + ( rdr.IsDBNull(13) ? -1 : rdr.GetInt32(13)) + ", status_desc: " + (rdr.IsDBNull(14) ?  "" : rdr.GetString(14)) +"}");
+                }
+                rdr.Close();
+
+            }catch (Exception e){Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return appointments;
+        }
+
     } 
 
 }//namespace
