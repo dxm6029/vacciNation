@@ -83,10 +83,15 @@ namespace VacciNationAPI.DataLayer
 
                 myTrans.Commit();
                 Console.WriteLine("im here5"); 
-
+                Console.WriteLine(rows); 
 
                 if(rows <= 0){
+                                    Console.WriteLine("hi"); 
+
                     return -2;
+                }
+                else{
+                    return rows;
                 }
 
             } catch (Exception e){ 

@@ -51,6 +51,8 @@ namespace VacciNationAPI.Controllers{
                     return BadRequest();
                 } else if(result == -2){
                     return NotFound(new { ErrorMessage = "No available vaccines with specified type" });
+                } else if(result > 0){
+                    return Accepted();
                 }else {
                     return BadRequest();
                 }
