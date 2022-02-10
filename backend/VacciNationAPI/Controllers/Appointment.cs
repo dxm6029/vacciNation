@@ -84,5 +84,45 @@ namespace VacciNationAPI.Controllers{
                 return BadRequest();
             }
         }
+
+        // admin only?  
+        [HttpDelete]
+        public IActionResult DeleteTimeslot([FromHeader] string authorization){
+            try{
+
+                string token = authorization;
+                int uid = us.checkToken(token);
+                if (uid == -1){
+                    return Unauthorized();
+                }
+
+                // admin check here
+                bool isAdmin = us.isSuperAdmin(uid);
+                if(!isAdmin){
+                    return StatusCode(403);
+                }
+
+                int appointment_id = -1;
+                
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["appointment_id"])){
+                    appointment_id = Int32.Parse(HttpContext.Request.Query["appointment_id"]);
+                }
+
+                if(appointment_id == -1){
+                    return BadRequest();
+                }
+     
+                bool result = am.removeTimeslot(appointment_id);
+
+                if(result){
+                    return Accepted();
+                } else {
+                    return BadRequest();
+                }
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
     }
 }

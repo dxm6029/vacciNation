@@ -2037,7 +2037,7 @@
           {
             "in": "body",
             "name": "Timeslot",
-            "description": "sign a citizen up for a timeslot (ONLY accepts citizenID and timeslotID)",
+            "description": "sign a citizen up for a timeslot (ONLY accepts citizenID and timeslotID), auto-gets available dosage if available",
             "schema": {
               "$ref": "#/definitions/Timeslot"
             },
@@ -2065,7 +2065,7 @@
         "tags": [
           "Appointments & Timeslots"
         ],
-        "summary": "updates an appointment with staff id (when staff assigned to a timeslot)",
+        "summary": "updates an appointment with staff id (when staff assigned to a timeslot) - does not check if staff is assigned to other appointment at that time, but should not be issue (will be assigned once available)",
         "produces": [
           "application/json"
         ],

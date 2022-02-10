@@ -118,6 +118,29 @@ namespace VacciNationAPI.DataLayer
             return result;
         }
 
+        public bool removeTimeslot(int timeslot_id){
+             bool status = false;
+            MySqlConnection conn = new MySqlConnection();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "DELETE FROM timeslot WHERE timeslot_id = @timeslot";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@timeslot", timeslot_id);
+
+                int rows = cmd.ExecuteNonQuery();
+                
+                if(rows > 0){
+                    status = true;
+                }
+            } catch (Exception e){}
+            finally {
+                connection.CloseConnection(conn);
+            }
+
+            return status;
+        }
+
     } 
 
 }//namespace
