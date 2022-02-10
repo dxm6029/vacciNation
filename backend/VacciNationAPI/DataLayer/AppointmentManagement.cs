@@ -41,6 +41,8 @@ namespace VacciNationAPI.DataLayer
 
         public int updateTimeslotCitizenDose(Timeslot timeslot, int vaccineType){
             int result = -1;
+                                Console.WriteLine("im here1"); 
+
             MySqlConnection conn = connection.OpenConnection();
             MySqlTransaction myTrans =  conn.BeginTransaction();
             try{
@@ -48,6 +50,8 @@ namespace VacciNationAPI.DataLayer
                 MySqlCommand cd = new MySqlCommand(updateSlot, conn);
                
                 cd.Transaction = myTrans;
+                                    Console.WriteLine("im here2"); 
+
 
                 cd.Parameters.AddWithValue("@vaccine_id", vaccineType);
 
@@ -55,6 +59,8 @@ namespace VacciNationAPI.DataLayer
                 int dose_id = -1;
                 while(rdr.Read()){
                     dose_id = rdr.GetInt32(0);
+                                        Console.WriteLine("im here3"); 
+
                 }
                 if(dose_id == -1){
                     Console.WriteLine("im here"); 
@@ -67,10 +73,13 @@ namespace VacciNationAPI.DataLayer
                 cd.Parameters.AddWithValue("@citizen_id", timeslot.citizen_id);
                 cd.Parameters.AddWithValue("@statusNum", 2);
                 cd.Parameters.AddWithValue("@timeslot_id", timeslot.timeslot_id);
+                    Console.WriteLine("im here4"); 
 
                 int rows = cd.ExecuteNonQuery();
                
                 myTrans.Commit();
+                                    Console.WriteLine("im here5"); 
+
 
                 if(rows <= 0){
                     return -2;
