@@ -196,9 +196,12 @@ namespace VacciNationAPI.Controllers{
                 vaccineSupplier = HttpContext.Request.Query["vaccine_supplier"];
             }
 
+            if(vaccineCategory == -1 || vaccineSupplier == ""){
+                return BadRequest();
+            }
 
             try{                
-                List<string> appointments = am.getAllAppointmentsByType(false, "", -1);
+                List<string> appointments = am.getAllAppointmentsByType(false, vaccineSupplier, vaccineCategory);
                 return new ObjectResult(appointments);
             }
             catch(Exception e){
