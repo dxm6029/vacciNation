@@ -179,12 +179,15 @@ namespace VacciNationAPI.DataLayer
                     query += " AND status_id=1";
                 }
                 MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@supplier", supplier);
+                cmd.Parameters.AddWithValue("@category", categoryId);
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
                 {   
-                    appointments.Add("{ appointment_id: " + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) + ", staff_id: " + ( rdr.IsDBNull(1) ? -1 : rdr.GetInt32(1)) + ", staff_first_name: " + (rdr.IsDBNull(2) ?  "" : rdr.GetString(2))+  ", staff_last_name: " +  (rdr.IsDBNull(3) ?  "" : rdr.GetString(3)) + ", citizen_id: " +  (rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4)) + ", citizen_first_name: " + (rdr.IsDBNull(5) ?  "" : rdr.GetString(5))+  ", citizen_last_name: " +  (rdr.IsDBNull(6) ?  "" : rdr.GetString(6)) + ", location_id: " + ( rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7)) + ", location_name: " + (rdr.IsDBNull(8) ?  "" : rdr.GetString(8)) + ", dose_id: " + ( rdr.IsDBNull(9) ? -1 : rdr.GetInt32(9)) + ", supplier: " + (rdr.IsDBNull(10) ?  "" : rdr.GetString(10)) + ", description: " + (rdr.IsDBNull(11) ?  "" : rdr.GetString(11)) + ", date: " + (rdr.IsDBNull(12) ?  "" : rdr.GetString(12))  + ", status_id: " + ( rdr.IsDBNull(13) ? -1 : rdr.GetInt32(13)) + ", status_desc: " + (rdr.IsDBNull(14) ?  "" : rdr.GetString(14)) +"},");
+                    appointments.Add("{ appointment_id: " + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) + ", staff_id: " + ( rdr.IsDBNull(1) ? -1 : rdr.GetInt32(1)) + ", staff_first_name: " + (rdr.IsDBNull(2) ?  "" : rdr.GetString(2))+  ", staff_last_name: " +  (rdr.IsDBNull(3) ?  "" : rdr.GetString(3)) + ", citizen_id: " +  (rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4)) + ", citizen_first_name: " + (rdr.IsDBNull(5) ?  "" : rdr.GetString(5))+  ", citizen_last_name: " +  (rdr.IsDBNull(6) ?  "" : rdr.GetString(6)) + ", location_id: " + ( rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7)) + ", location_name: " + (rdr.IsDBNull(8) ?  "" : rdr.GetString(8)) + ", dose_id: " + ( rdr.IsDBNull(9) ? -1 : rdr.GetInt32(9)) + ", supplier: " + (rdr.IsDBNull(10) ?  "" : rdr.GetString(10)) 
+                    + ", category_id" + (rdr.IsDBNull(11) ? -1: rdr.GetInt32(11)) +  ", description: " + (rdr.IsDBNull(12) ?  "" : rdr.GetString(12)) + ", date: " + (rdr.IsDBNull(13) ?  "" : rdr.GetString(13))  + ", status_id: " + ( rdr.IsDBNull(14) ? -1 : rdr.GetInt32(14)) + ", status_desc: " + (rdr.IsDBNull(15) ?  "" : rdr.GetString(15)) +"},");
                 }
                 rdr.Close();
 
@@ -212,7 +215,8 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    appointments.Add("{ appointment_id: " + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) + ", staff_id: " + ( rdr.IsDBNull(1) ? -1 : rdr.GetInt32(1)) + ", staff_first_name: " + (rdr.IsDBNull(2) ?  "" : rdr.GetString(2))+  ", staff_last_name: " +  (rdr.IsDBNull(3) ?  "" : rdr.GetString(3)) + ", citizen_id: " +  (rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4)) + ", citizen_first_name: " + (rdr.IsDBNull(5) ?  "" : rdr.GetString(5))+  ", citizen_last_name: " +  (rdr.IsDBNull(6) ?  "" : rdr.GetString(6)) + ", location_id: " + ( rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7)) + ", location_name: " + (rdr.IsDBNull(8) ?  "" : rdr.GetString(8)) + ", dose_id: " + ( rdr.IsDBNull(9) ? -1 : rdr.GetInt32(9)) + ", supplier: " + (rdr.IsDBNull(10) ?  "" : rdr.GetString(10)) + ", description: " + (rdr.IsDBNull(11) ?  "" : rdr.GetString(11)) + ", date: " + (rdr.IsDBNull(12) ?  "" : rdr.GetString(12))  + ", status_id: " + ( rdr.IsDBNull(13) ? -1 : rdr.GetInt32(13)) + ", status_desc: " + (rdr.IsDBNull(14) ?  "" : rdr.GetString(14)) +"},");
+                    appointments.Add("{ appointment_id: " + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) + ", staff_id: " + ( rdr.IsDBNull(1) ? -1 : rdr.GetInt32(1)) + ", staff_first_name: " + (rdr.IsDBNull(2) ?  "" : rdr.GetString(2))+  ", staff_last_name: " +  (rdr.IsDBNull(3) ?  "" : rdr.GetString(3)) + ", citizen_id: " +  (rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4)) + ", citizen_first_name: " + (rdr.IsDBNull(5) ?  "" : rdr.GetString(5))+  ", citizen_last_name: " +  (rdr.IsDBNull(6) ?  "" : rdr.GetString(6)) + ", location_id: " + ( rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7)) + ", location_name: " + (rdr.IsDBNull(8) ?  "" : rdr.GetString(8)) + ", dose_id: " + ( rdr.IsDBNull(9) ? -1 : rdr.GetInt32(9)) + ", supplier: " + (rdr.IsDBNull(10) ?  "" : rdr.GetString(10)) 
+                    + ", category_id" + (rdr.IsDBNull(11) ? -1: rdr.GetInt32(11)) +  ", description: " + (rdr.IsDBNull(12) ?  "" : rdr.GetString(12)) + ", date: " + (rdr.IsDBNull(13) ?  "" : rdr.GetString(13))  + ", status_id: " + ( rdr.IsDBNull(14) ? -1 : rdr.GetInt32(14)) + ", status_desc: " + (rdr.IsDBNull(15) ?  "" : rdr.GetString(15)) +"},");
                 }
                 rdr.Close();
 
