@@ -273,5 +273,55 @@ namespace VacciNationAPI.Controllers{
                 return BadRequest();
             }
         }
+
+         [HttpGet("all/location")]
+        public IActionResult GetAllAppointmentsLocation([FromHeader] string authorization){
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+
+            int location_id = -1;
+
+             if (!String.IsNullOrEmpty(HttpContext.Request.Query["location_id"])){
+                location_id = Int32.Parse(HttpContext.Request.Query["location_id"]);
+            }
+
+            if(location_id == -1){
+                return BadRequest();
+            }
+
+
+            try{                
+                List<string> appointment = am.getAllAppointmentsForLocation(false, location_id);
+                return new ObjectResult(appointment);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
+         [HttpGet("all/location/open")]
+        public IActionResult GetAllOpenAppointmentsLocation(){
+            int location_id = -1;
+
+             if (!String.IsNullOrEmpty(HttpContext.Request.Query["location_id"])){
+                location_id = Int32.Parse(HttpContext.Request.Query["location_id"]);
+            }
+
+            if(location_id == -1){
+                return BadRequest();
+            }
+
+
+            try{                
+                List<string> appointment = am.getAllAppointmentsForLocation(true, location_id);
+                return new ObjectResult(appointment);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
     }
 }

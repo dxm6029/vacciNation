@@ -1780,9 +1780,16 @@
           },
           {
             "in": "query",
-            "name": "type",
-            "description": "the timeslot filtered by vaccine type",
+            "name": "category_id",
+            "description": "the timeslot filtered by categoryID (first dose, second dose, etc)",
             "type": "integer",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "vaccine_supplier",
+            "description": "the timeslot filtered by supplier of the vaccine (Pfizer, Moderna, etc)",
+            "type": "string",
             "required": true
           }
         ],
@@ -1861,20 +1868,227 @@
         }
       }
     },
-    "/Appointment/all/open/{type}": {
+    "/Appointment/all/open/{vaccine_supplier}": {
       "get": {
         "tags": [
           "Appointments & Timeslots"
         ],
-        "summary": "get all open appointments of certain type",
+        "summary": "gets appointments of certain type",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
+            "in": "query",
+            "name": "category_id",
+            "description": "the timeslot filtered by categoryID (first dose, second dose, etc)",
+            "type": "integer",
+            "required": true
+          },
+          {
             "in": "path",
-            "name": "type",
-            "description": "the type of the vaccine appointments will be filtered by",
+            "name": "vaccine_supplier",
+            "description": "the timeslot filtered by supplier of the vaccine (Pfizer, Moderna, etc)",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Appointment/all/location/open": {
+      "get": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "gets open appointments at a certain location",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "location_id",
+            "description": "the timeslot filtered by locationID",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Appointment/all/location": {
+      "get": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "gets appointments at a certain location",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "location_id",
+            "description": "the timeslot filtered by locationID",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Appointment/all/location/{supplier}": {
+      "get": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "gets appointments at a certain location with a certain vaccine type",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "supplier",
+            "description": "the supplier of the vaccine",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "category_id",
+            "description": "the timeslot filtered by categoryID",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "location_id",
+            "description": "the timeslot filtered by locationID",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Appointment/all/location/open/{supplier}": {
+      "get": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "gets open appointments at a certain location with a certain vaccine type",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "supplier",
+            "description": "the supplier of the vaccine",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "category_id",
+            "description": "the timeslot filtered by categoryID",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "location_id",
+            "description": "the timeslot filtered by locationID",
             "type": "integer",
             "required": true
           }
