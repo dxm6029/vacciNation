@@ -1606,7 +1606,7 @@
         "tags": [
           "Appointments & Timeslots"
         ],
-        "summary": "get all appointments for a certain date (usecase example: staff get appointments for current day)",
+        "summary": "get all appointments for a certain date at a certain location (usecase example: staff get appointments for current day)",
         "consumes": [
           "application/json"
         ],
