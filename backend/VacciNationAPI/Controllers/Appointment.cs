@@ -208,5 +208,32 @@ namespace VacciNationAPI.Controllers{
                 return BadRequest();
             }
         }
+
+
+        [HttpGet("all/open/{vaccine_supplier}")]
+        public IActionResult GetAllOpenAppointmentsOfType([FromHeader] string authorization, string vaccine_supplier){
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+
+            int vaccineCategory = -1;
+            if (!String.IsNullOrEmpty(HttpContext.Request.Query["category_id"])){
+                vaccineCategory = Int32.Parse(HttpContext.Request.Query["category_id"]);
+            }
+
+            if(vaccineCategory == -1 || vaccine_supplier == ""){
+                return BadRequest();
+            }
+
+            try{                
+                List<string> appointments = am.getAllAppointmentsByType(true, vaccine_supplier, vaccineCategory);
+                return new ObjectResult(appointments);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
     }
 }
