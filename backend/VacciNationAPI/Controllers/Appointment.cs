@@ -323,5 +323,76 @@ namespace VacciNationAPI.Controllers{
                 return BadRequest();
             }
         }
+
+         [HttpGet("all/location/{supplier}")]
+        public IActionResult GetAllAppointmentsLocationAndType([FromHeader] string authorization, string supplier){
+            
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+            
+            int location_id = -1;
+
+             if (!String.IsNullOrEmpty(HttpContext.Request.Query["location_id"])){
+                location_id = Int32.Parse(HttpContext.Request.Query["location_id"]);
+            }
+
+            int category_id = -1;
+
+             if (!String.IsNullOrEmpty(HttpContext.Request.Query["category_id"])){
+                category_id = Int32.Parse(HttpContext.Request.Query["category_id"]);
+            }
+
+            if(location_id == -1 || supplier == "" || category_id == -1){
+                return BadRequest();
+            }
+
+
+            try{                
+                List<string> appointment = am.getAllAppointmentsForLocationAndType(false, location_id, supplier, category_id);
+                return new ObjectResult(appointment);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
+
+         [HttpGet("all/location/open/{supplier}")]
+        public IActionResult GetAllOpenAppointmentsLocationAndType([FromHeader] string authorization, string supplier){
+            
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+            
+            int location_id = -1;
+
+             if (!String.IsNullOrEmpty(HttpContext.Request.Query["location_id"])){
+                location_id = Int32.Parse(HttpContext.Request.Query["location_id"]);
+            }
+
+            int category_id = -1;
+
+             if (!String.IsNullOrEmpty(HttpContext.Request.Query["category_id"])){
+                category_id = Int32.Parse(HttpContext.Request.Query["category_id"]);
+            }
+
+            if(location_id == -1 || supplier == "" || category_id == -1){
+                return BadRequest();
+            }
+
+
+            try{                
+                List<string> appointment = am.getAllAppointmentsForLocationAndType(true, location_id, supplier, category_id);
+                return new ObjectResult(appointment);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
     }
 }
