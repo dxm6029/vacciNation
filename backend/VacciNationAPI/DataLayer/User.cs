@@ -189,7 +189,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT role FROM staff WHERE staff_id=@id";
+                string query = "SELECT role FROM staff JOIN user_role USING(staff_id) WHERE staff_id=@id";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", id);
 
