@@ -251,5 +251,27 @@ namespace VacciNationAPI.Controllers{
                 return BadRequest();
             }
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetAppointmentsByID([FromHeader] string authorization, int id){
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+
+            Citizen citizen = us.getCitizenWithID(id);
+            if(citizen == null){
+                return NotFound();
+            }
+
+            try{                
+                string appointment = am.getAppointmentsWithID(id);
+                return new ObjectResult(appointment);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
     }
 }
