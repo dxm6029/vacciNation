@@ -211,13 +211,7 @@ namespace VacciNationAPI.Controllers{
 
 
         [HttpGet("all/open/{vaccine_supplier}")]
-        public IActionResult GetAllOpenAppointmentsOfType([FromHeader] string authorization, string vaccine_supplier){
-            string token = authorization;
-            int uid = us.checkToken(token);
-            if (uid == -1){
-                return Unauthorized();
-            }
-
+        public IActionResult GetAllOpenAppointmentsOfType(string vaccine_supplier){
             int vaccineCategory = -1;
             if (!String.IsNullOrEmpty(HttpContext.Request.Query["category_id"])){
                 vaccineCategory = Int32.Parse(HttpContext.Request.Query["category_id"]);
@@ -229,6 +223,28 @@ namespace VacciNationAPI.Controllers{
 
             try{                
                 List<string> appointments = am.getAllAppointmentsByType(true, vaccine_supplier, vaccineCategory);
+                return new ObjectResult(appointments);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("citizen/{id}")]
+        public IActionResult GetAllAppointmentsCitizen([FromHeader] string authorization, int id){
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+
+            Citizen citizen = us.getCitizenWithID(id);
+            if(citizen == null){
+                return NotFound();
+            }
+
+            try{                
+                List<string> appointments = am.getAllAppointmentsForCitizen(id);
                 return new ObjectResult(appointments);
             }
             catch(Exception e){
