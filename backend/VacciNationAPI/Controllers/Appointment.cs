@@ -423,5 +423,33 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+         [HttpGet("date/{location_id}")]
+        public IActionResult GetAllAppointmentsDate([FromHeader] string authorization, int location_id){
+            
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+            
+            string date = "";
+
+             if (!String.IsNullOrEmpty(HttpContext.Request.Query["date"])){
+                date = HttpContext.Request.Query["date"];
+            }
+
+            if(date == ""){
+                return BadRequest();
+            }
+
+            try{                
+                List<string> appointment = am.getAllAppointmentsForDateAndLocation(date, location_id);
+                return new ObjectResult(appointment);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
     }
 }

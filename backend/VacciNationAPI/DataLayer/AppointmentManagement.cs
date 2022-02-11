@@ -379,6 +379,39 @@ namespace VacciNationAPI.DataLayer
             return appointments;
         }
 
+        public List<string> getAllAppointmentsForDateAndLocation(string date, int location_id){
+             MySqlConnection conn = new MySqlConnection();
+            List<string> appointments = new List<string>();
+            try{ 
+
+                string start = date + " 00:00:00";
+                string end = date + " 23:59:59";
+                conn = connection.OpenConnection();
+
+                string query = "SELECT timeslot_id, timeslot.staff_id, staff.first_name, staff.last_name, timeslot.citizen_id, citizen.first_name, citizen.last_name, timeslot.location_id, location.name, timeslot.dose_id, dose.supplier, vaccine_category.category_id, vaccine_category.name, timeslot.date, timeslot.status_id, timeslot_status.description FROM timeslot JOIN staff USING(staff_id) JOIN dose USING(dose_id) JOIN timeslot_status USING(status_id) JOIN vaccine USING(vaccine_id) JOIN location USING(location_id) LEFT JOIN citizen USING(citizen_id) JOIN vaccine_category ON vaccine_category.category_id=vaccine.category WHERE timeslot.date > @start AND timeslot.date < @end AND timeslot.location_id=@location_id";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@start", start);
+                cmd.Parameters.AddWithValue("@end", end);
+                cmd.Parameters.AddWithValue("@location_id", location_id);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {   
+                    appointments.Add("{ appointment_id: " + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) + ", staff_id: " + ( rdr.IsDBNull(1) ? -1 : rdr.GetInt32(1)) + ", staff_first_name: " + (rdr.IsDBNull(2) ?  "" : rdr.GetString(2))+  ", staff_last_name: " +  (rdr.IsDBNull(3) ?  "" : rdr.GetString(3)) + ", citizen_id: " +  (rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4)) + ", citizen_first_name: " + (rdr.IsDBNull(5) ?  "" : rdr.GetString(5))+  ", citizen_last_name: " +  (rdr.IsDBNull(6) ?  "" : rdr.GetString(6)) + ", location_id: " + ( rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7)) + ", location_name: " + (rdr.IsDBNull(8) ?  "" : rdr.GetString(8)) + ", dose_id: " + ( rdr.IsDBNull(9) ? -1 : rdr.GetInt32(9)) + ", supplier: " + (rdr.IsDBNull(10) ?  "" : rdr.GetString(10)) 
+                    + ", category_id: " + (rdr.IsDBNull(11) ? -1: rdr.GetInt32(11)) +  ", description: " + (rdr.IsDBNull(12) ?  "" : rdr.GetString(12)) + ", date: " + (rdr.IsDBNull(13) ?  "" : rdr.GetString(13))  + ", status_id: " + ( rdr.IsDBNull(14) ? -1 : rdr.GetInt32(14)) + ", status_desc: " + (rdr.IsDBNull(15) ?  "" : rdr.GetString(15)) +"},");
+                }
+                rdr.Close();
+
+            }catch (Exception e){Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return appointments;
+        }
+
     } 
 
 }//namespace
