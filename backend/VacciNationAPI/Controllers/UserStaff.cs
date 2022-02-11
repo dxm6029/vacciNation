@@ -140,6 +140,42 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        [HttpGet("role/{id}")]
+        public IActionResult GetStaffRole([FromHeader] string authorization, int id){
+
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+
+            try{                
+                List<int> roles = us.getUserRoles(id);
+                return new ObjectResult(roles);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("role/self")]
+        public IActionResult GetStaffRoleSelf([FromHeader] string authorization){
+
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+
+            try{                
+                List<int> roles = us.getUserRoles(uid);
+                return new ObjectResult(roles);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
         [HttpPut("password")]
         public IActionResult PutStaffPassword([FromBody] Staff staffInfo, [FromHeader] string authorization){
              try{

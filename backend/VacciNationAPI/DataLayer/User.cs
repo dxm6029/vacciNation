@@ -183,6 +183,32 @@ namespace VacciNationAPI.DataLayer
             return staff;
         }
 
+        public List<int> getUserRoles(int id){
+            MySqlConnection conn = new MySqlConnection();
+            List<int> role = new List<int>();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "SELECT role_id FROM staff JOIN staff_role USING(staff_id) WHERE staff_id=@id";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {   
+                    role.Add(rdr.IsDBNull(0) ? -1: rdr.GetInt32(0));
+                }
+                rdr.Close();
+
+            }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return role;
+        }
+
         // do not want to let them reset their usernames for consistency?
         public bool putUserWithID(Staff staff){
             bool status = false;
