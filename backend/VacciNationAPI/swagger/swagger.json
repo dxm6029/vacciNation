@@ -758,6 +758,45 @@
         }
       }
     },
+    "/UserStaff/login": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "authenticate a staff member",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "citizen auth info to be authenticated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Authenticate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "probably some kind of token that contains info about user? like name or id or something?"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
     "/UserCitizen": {
       "get": {
         "tags": [
