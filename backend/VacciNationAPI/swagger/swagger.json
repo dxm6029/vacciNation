@@ -17,6 +17,10 @@
     {
       "name": "Appointments & Timeslots",
       "description": "Add/update/delete/view appointments and time slots"
+    },
+    {
+      "name": "Vaccines",
+      "description": "Add/update/delete/view vaccines and vaccine info"
     }
   ],
   "schemes": [
@@ -1805,6 +1809,31 @@
         "responses": {
           "202": {
             "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/vaccine/all": {
+      "get": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "gets all vaccines for display",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "202": {
+            "description": "json list of all vaccine info"
           },
           "400": {
             "description": "json here - can adjust response code"

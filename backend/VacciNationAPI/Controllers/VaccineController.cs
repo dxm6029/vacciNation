@@ -14,13 +14,7 @@ namespace VacciNationAPI.Controllers
         VaccineManagement vm = new VaccineManagement();
         
         [HttpGet("all")]
-        public IActionResult GetAllAppointments([FromHeader] string authorization){
-
-            string token = authorization;
-            int uid = us.checkToken(token);
-            if (uid == -1){
-                return Unauthorized();
-            }
+        public IActionResult GetAllVaccines(){
 
             try{                
                 List<string> vaccines = vm.GetAllVaccines();
