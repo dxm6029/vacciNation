@@ -11,6 +11,8 @@ namespace VacciNationAPI.Models
         public string date {get; set;}
         public int status {get; set;}
 
+        public string reactions {get; set;}
+
         public Timeslot(int timeslot_id, int staff_id, int citizen_id, int location_id, int dose_id, string date, int status){
             this.timeslot_id = timeslot_id;
             this.staff_id = staff_id;
