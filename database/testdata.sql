@@ -73,7 +73,7 @@ INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id, dat
 INSERT INTO citizen (citizen_id, last_name, first_name, date_of_birth, address_id) VALUES (8, "Slomljen", "Hazel Sophia", "1996-06-25", 4);
 INSERT INTO citizen (citizen_id, email, last_name, first_name, date_of_birth) VALUES (9, "khiggs207@fake.notreal", "Higgins", "Kyle", "1998-02-25");
 
-INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (1, "admin@staff.email", "superadmin", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "admin", "super");
+INSERT INTO staff (staff_id, email, username, password, last_name, first_name, token) VALUES (1, "admin@staff.email", "superadmin", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "admin", "super", "vqaB/WFKQpb+neW3OY+UktHWL6jPHbB8VCmVsoIut7k=");
 INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (2, "js@staff.email", "js", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "Smith", "John");
 INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (3, "sb@staff.email", "sb", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "Baker", "Sally");
 INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (4, "vi@staff.email", "vi", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "Irwin", "Vince");
