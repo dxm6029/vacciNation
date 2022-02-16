@@ -53,6 +53,7 @@ namespace VacciNationAPI.Controllers{
                 date = HttpContext.Request.Query["date"];
             }
 
+            Console.WriteLine(date);
             string result = rm.vaccineInsightsResponseBuilder(date);
             if(result != null){
                 return new ObjectResult(result);
