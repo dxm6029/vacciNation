@@ -58,7 +58,7 @@ namespace VacciNationAPI.DataLayer
             }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace); }
             finally{
             }
-            builder = "}";
+            builder += "}";
             Console.WriteLine(builder);
             return builder;
         }
@@ -313,7 +313,7 @@ namespace VacciNationAPI.DataLayer
             }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace); }
             finally{
             }
-            builder = "}";
+            builder += "}";
 
             return builder;
         }   
