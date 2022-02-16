@@ -123,7 +123,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
               
-                string query = "SELECT COUNT(timeslot_id) FROM timeslot WHERE status=3";
+                string query = "SELECT COUNT(timeslot_id) FROM timeslot WHERE status_id=3";
                 // CHECK IF DATE / STATUS NULL AND APPENT APPROPRIATELY
                 if(date != null){
                     query += " AND date > @start AND timeslot.date < @end";
@@ -167,7 +167,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
               
-                string query = "SELECT COUNT(timeslot_id) FROM timeslot WHERE status=2";
+                string query = "SELECT COUNT(timeslot_id) FROM timeslot WHERE status_id=2";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
@@ -197,7 +197,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
               
-                string query = "SELECT COUNT(timeslot_id) FROM timeslot JOIN dose USING(dose_id) JOIN vaccine(vaccine_id) WHERE status=3 AND supplier=@supplier AND category=@category";
+                string query = "SELECT COUNT(timeslot_id) FROM timeslot JOIN dose USING(dose_id) JOIN vaccine(vaccine_id) WHERE status_id=3 AND supplier=@supplier AND category=@category";
                 // CHECK IF DATE / STATUS NULL AND APPENT APPROPRIATELY
                 if(date != null){
                     query += " AND date > @start AND timeslot.date < @end";
@@ -244,7 +244,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
               
-                string query = "SELECT COUNT(timeslot_id) FROM timeslot WHERE status=4";
+                string query = "SELECT COUNT(timeslot_id) FROM timeslot WHERE status_id=4";
                   if(date != null){
                     query += " AND date > @start AND timeslot.date < @end";
                     start = date + " 00:00:00";
@@ -277,7 +277,7 @@ namespace VacciNationAPI.DataLayer
         public string staffInsightsResponseBuilder(string date, int staff_id){
             string builder = "{";
             try{ 
-                builder += " date: " + date + ",";
+                builder += " date: " + date + ", staff_id: " + staff_id;
                 int totalAdministered = totalVaccinesAdministered(null, staff_id);
                 builder += " total_administered: " + totalAdministered + ",";
                 int totalAdministeredByDay = totalVaccinesAdministered(date, staff_id);
