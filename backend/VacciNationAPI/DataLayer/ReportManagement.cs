@@ -197,7 +197,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
               
-                string query = "SELECT COUNT(timeslot_id) FROM timeslot JOIN dose USING(dose_id) JOIN vaccine(vaccine_id) WHERE status_id=3 AND supplier=@supplier AND category=@category";
+                string query = "SELECT COUNT(timeslot_id) FROM timeslot JOIN dose USING(dose_id) JOIN vaccine USING(vaccine_id) WHERE status_id=3 AND supplier=@supplier AND category=@category";
                 // CHECK IF DATE / STATUS NULL AND APPENT APPROPRIATELY
                 if(date != null){
                     query += " AND date > @start AND timeslot.date < @end";
