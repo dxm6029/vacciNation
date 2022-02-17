@@ -1846,6 +1846,135 @@
           }
         }
       }
+    },
+    "/vaccine": {
+      "post": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Create a new vaccine (priviliged users)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Vaccine",
+            "description": "Create a vaccine (vaccine ID should remain null)",
+            "schema": {
+              "$ref": "#/definitions/Vaccine"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Update a vaccine",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Bearer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Vaccine",
+            "description": "The vaccine being updated (must have existing vaccine_id)",
+            "schema": {
+              "$ref": "#/definitions/Vaccine"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Get vaccines by category or disease",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "category_id",
+            "description": "Vaccine filtered by categoryID (first dose, second dose, etc)",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "disease_id",
+            "description": "Vaccine filtered by diseaseID (COVID19, FLU, etc)",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
     }
   },
   "securityDefinitions": {
@@ -1894,6 +2023,26 @@
         "status": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "Vaccine": {
+      "type": "object",
+      "properties": {
+        "vaccine_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "disease_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "description": {
+          "type": "string"
         }
       }
     },
