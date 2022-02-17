@@ -3,8 +3,22 @@ import image from '../media/background-image.jpg';
 import image2 from '../media/covidbanner2.jpg';
 import {Link} from "react-router-dom";
 import NavBar from './navBar';
+import { useState, useEffect } from 'react';
 
 function Home() {
+  /*const [postId, setPostId] = useState(null);
+
+  useEffect(() => {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: 'React Hooks POST Request Example' })
+    };
+    fetch('https://reqres.in/api/posts', requestOptions)
+        .then(response => response.json())
+        .then(data => setPostId(data.id));
+}, []);
+*/
   return (
     <div className="homepage">
       <div>
