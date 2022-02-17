@@ -16,7 +16,7 @@ namespace VacciNationAPI.Controllers{
 
 
         // currently set so any staff member can view insights
-        [HttpGet("staff/{id}")]
+        [HttpGet("staff/{staff_id}")]
         public IActionResult GetStaffInsights([FromHeader] string authorization, int staff_id) {
             string token = authorization;
             int uid = us.checkToken(token);
