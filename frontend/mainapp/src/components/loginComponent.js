@@ -15,7 +15,6 @@ function LoginComponent(props) {
         const response = await fetch('http://192.158.1.113:5000/UserStaff/login', {
             method: 'POST',
             headers: {
-                // 192/168/1/113
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
@@ -25,12 +24,16 @@ function LoginComponent(props) {
             })
         })
         const responseJSON = await response.json()
+        console.log("response " + responseJSON);
+        if (response.status == 202) {
+            console.log("login successful")
+        }
         if (response.status > 200) {
             console.log("Login failure: " + response.status)
             setFailure()
             return
         }
-        console.log("login successful")
+
   }
 
   return (
