@@ -73,7 +73,7 @@ INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id, dat
 INSERT INTO citizen (citizen_id, last_name, first_name, date_of_birth, address_id) VALUES (8, "Slomljen", "Hazel Sophia", "1996-06-25", 4);
 INSERT INTO citizen (citizen_id, email, last_name, first_name, date_of_birth) VALUES (9, "khiggs207@fake.notreal", "Higgins", "Kyle", "1998-02-25");
 
-INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (1, "admin@staff.email", "superadmin", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "admin", "super");
+INSERT INTO staff (staff_id, email, username, password, last_name, first_name, token) VALUES (1, "admin@staff.email", "superadmin", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "admin", "super", "vqaB/WFKQpb+neW3OY+UktHWL6jPHbB8VCmVsoIut7k=");
 INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (2, "js@staff.email", "js", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "Smith", "John");
 INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (3, "sb@staff.email", "sb", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "Baker", "Sally");
 INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (4, "vi@staff.email", "vi", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "Irwin", "Vince");
@@ -108,18 +108,18 @@ INSERT INTO vaccine (vaccine_id, category, disease, description) VALUES (1, 2, 1
 INSERT INTO vaccine (vaccine_id, category, disease, description) VALUES (2, 3, 1, "Covid second dose, recommended 2 weeks after first dose");
 INSERT INTO vaccine (vaccine_id, category, disease, description) VALUES (3, 4, 1, "Covid booster, recommended 6 months after second dose");
 
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (1, "Pfizer", 1);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (2, "Pfizer", 1);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (3, "Pfizer", 1);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (4, "Pfizer", 1);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (5, "Pfizer", 2);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (6, "Pfizer", 2);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (7, "Pfizer", 2);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (8, "Pfizer", 2);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (9, "Pfizer", 3);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (10, "Pfizer", 3);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (11, "Pfizer", 3);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (12, "Pfizer", 3);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (1, "Pfizer", 1, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (2, "Pfizer", 1, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (3, "Pfizer", 1, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (4, "Pfizer", 1, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (5, "Pfizer", 2, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (6, "Pfizer", 2, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (7, "Pfizer", 2, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (8, "Pfizer", 2, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (9, "Pfizer", 3, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (10, "Pfizer", 3, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (11, "Pfizer", 3, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (12, "Pfizer", 3, 1);
 
 INSERT INTO timeslot_status (status_id, description) VALUES (1, "AVAILABLE");
 INSERT INTO timeslot_status (status_id, description) VALUES (2, "RESERVED");
