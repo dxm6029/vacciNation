@@ -229,7 +229,6 @@ namespace VacciNationAPI.DataLayer
             MySqlConnection conn = connection.OpenConnection();
             
             try{
-                //build update string with whatever is set
                 string query="Update vaccine_category set name=@name WHERE category_id=@category_id";
 
                 MySqlCommand cd = new MySqlCommand(query, conn);
@@ -277,6 +276,117 @@ namespace VacciNationAPI.DataLayer
             }
             
             return category;
+        }
+
+        public List<Dictionary<string, string>> GetAllDiseases(){
+            MySqlConnection conn = new MySqlConnection();
+            List<Dictionary<string, string>> diseases = new List<Dictionary<string, string>>();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "SELECT disease_id, name FROM vaccine_disease; ";
+                
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+
+                    Dictionary<string, string> disease = new Dictionary<string, string>();
+                    disease.Add("disease_id", "" + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) );
+                    disease.Add("name", (rdr.IsDBNull(1) ? "" : rdr.GetString(1)) );
+
+                    diseases.Add(disease);
+                }
+                rdr.Close();
+
+            }catch (Exception e){Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return diseases;
+        }
+        
+        public bool InsertDisease(Disease disease){
+            bool result = false;
+            MySqlConnection conn = connection.OpenConnection();
+
+            try{
+                string query = "INSERT INTO vaccine_disease (disease_id, name) VALUES(@disease_id, @name)";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@disease_id", disease.disease_id);
+                cmd.Parameters.AddWithValue("@name", disease.name);
+                
+                int numAffected = cmd.ExecuteNonQuery();
+
+                if(numAffected > 0){
+                    result = true;
+                }
+
+            } catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);} // probably should log something here eventually
+            finally{
+                connection.CloseConnection(conn);
+            }
+            return result;
+
+        }
+        
+        public bool UpdateDisease(Disease disease)
+        {
+            bool result = false;
+            MySqlConnection conn = connection.OpenConnection();
+            
+            try{
+                string query="Update vaccine_disease set name=@name WHERE disease_id=@disease_id";
+
+                MySqlCommand cd = new MySqlCommand(query, conn);
+
+                cd.Parameters.AddWithValue("@name", disease.name);
+                cd.Parameters.AddWithValue("@disease_id", disease.disease_id);
+
+                int rows = cd.ExecuteNonQuery();
+
+                if(rows > 0){
+                    result = true;
+                }
+
+            } catch (Exception e){ 
+                Console.WriteLine(e.Message); 
+                Console.WriteLine(e.StackTrace);} // probably should log something here eventually
+            finally{
+                connection.CloseConnection(conn);
+            }
+
+            return result;
+        }
+
+        public Dictionary<string, string> GetDiseaseById(int disease_id){
+            MySqlConnection conn = new MySqlConnection();
+            Dictionary<string, string> disease = new Dictionary<string, string>();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "SELECT disease_id, name FROM vaccine_disease WHERE disease_id=@disease_id;";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@disease_id", disease_id);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                rdr.Read();
+                disease.Add("disease_id", "" + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) );
+                disease.Add("name", (rdr.IsDBNull(1) ? "" : rdr.GetString(1)) );
+                rdr.Close();
+
+            }catch (Exception e){Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return disease;
         }
 
     }

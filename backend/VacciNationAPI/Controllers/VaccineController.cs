@@ -180,13 +180,98 @@ namespace VacciNationAPI.Controllers
                 }
 
                 //if no attributes are set, nothing should happen
-                if (category.category_id == 0)
+                if (String.IsNullOrEmpty(category.name))
                 {
                     return BadRequest();
                 }
                 
                 // should include category, disease, or description
                 bool result = vm.UpdateCategory(category);
+
+                if(result){
+                    return Accepted();
+                }
+                
+                return BadRequest();
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
+        //get 1 or all diseases
+        [HttpGet("disease")]
+        public IActionResult GetDisease(){
+
+            try{  
+                //get all categories if disease_id not set
+                if (String.IsNullOrEmpty(HttpContext.Request.Query["disease_id"]))
+                {
+                    List<Dictionary<string, string>> categories = vm.GetAllDiseases();
+                    return new ObjectResult(categories);
+                }
+                //get specific category
+                else
+                {
+                    int diseaseId = Int32.Parse(HttpContext.Request.Query["disease_id"]);
+                    Dictionary<string, string> disease = vm.GetDiseaseById(diseaseId);
+                    return new ObjectResult(disease);
+                }
+                
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+        
+        // Creating a new disease
+        [HttpPost("disease")]
+        public IActionResult CreateDisease([FromBody] Disease disease,  [FromHeader] string authorization) {
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+
+            bool isAdmin = us.isSuperAdmin(uid);
+            if(!isAdmin){
+                return StatusCode(403);
+            }
+            
+            // sql call to add timeslot
+            bool result = vm.InsertDisease(disease);
+
+            if(result){
+                return Accepted();
+            }
+
+            return BadRequest();
+        }
+
+        // Updating an existing disease
+        [HttpPut("disease")] 
+        public IActionResult UpdateDisease([FromBody] Disease disease,  [FromHeader] string authorization){
+            try{
+                string token = authorization;
+                int uid = us.checkToken(token);
+                if (uid == -1){
+                    return Unauthorized();
+                }
+
+                //walled behind admin
+                bool isAdmin = us.isSuperAdmin(uid);
+                if(!isAdmin){
+                    return StatusCode(403);
+                }
+
+                //if no attributes are set, nothing should happen
+                if (String.IsNullOrEmpty(disease.name))
+                {
+                    return BadRequest();
+                }
+                
+                // should include category, disease, or description
+                bool result = vm.UpdateDisease(disease);
 
                 if(result){
                     return Accepted();

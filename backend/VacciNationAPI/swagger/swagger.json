@@ -2097,6 +2097,128 @@
           }
         }
       }
+    },
+    "/vaccine/disease": {
+      "post": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Create a new disease (privileged users)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Authorization token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Disease",
+            "description": "Create a vaccine disease (ID should remain null/0)",
+            "schema": {
+              "$ref": "#/definitions/Disease"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Update a category",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Bearer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Disease",
+            "description": "The disease being updated (must have existing id)",
+            "schema": {
+              "$ref": "#/definitions/Disease"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Get vaccine categories",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "disease_id",
+            "description": "ID to be returned. Returns all diseases if not included",
+            "type": "integer",
+            "required": false
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
     }
   },
   "securityDefinitions": {
@@ -2332,6 +2454,21 @@
       },
       "xml": {
         "name": "Category"
+      }
+    },
+    "Disease": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Disease"
       }
     },
     "User": {
