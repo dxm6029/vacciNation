@@ -30,7 +30,7 @@ function LoginComponent(props) {
         }
         if (response.status > 200) {
             console.log("Login failure: " + response.status)
-            setFailure()
+            
             return
         }
 
