@@ -113,5 +113,91 @@ namespace VacciNationAPI.Controllers
                 return BadRequest();
             }
         }
+        
+        //get 1 or all categories
+        [HttpGet("category")]
+        public IActionResult GetCategory(){
+
+            try{  
+                //get all categories if category_id not set
+                if (String.IsNullOrEmpty(HttpContext.Request.Query["category_id"]))
+                {
+                    List<Dictionary<string, string>> categories = vm.GetAllCategories();
+                    return new ObjectResult(categories);
+                }
+                //get specific category
+                else
+                {
+                    int categoryId = Int32.Parse(HttpContext.Request.Query["category_id"]);
+                    Dictionary<string, string> category = vm.GetCategoryById(categoryId);
+                    return new ObjectResult(category);
+                }
+                
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+        
+        // Creating a new category
+        [HttpPost("category")]
+        public IActionResult CreateCategory([FromBody] Category category,  [FromHeader] string authorization) {
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+
+            bool isAdmin = us.isSuperAdmin(uid);
+            if(!isAdmin){
+                return StatusCode(403);
+            }
+            
+            // sql call to add timeslot
+            bool result = vm.InsertCategory(category);
+
+            if(result){
+                return Accepted();
+            }
+
+            return BadRequest();
+        }
+
+        // Updating an existing category
+        [HttpPut("category")] 
+        public IActionResult UpdateCategory([FromBody] Category category,  [FromHeader] string authorization){
+            try{
+                string token = authorization;
+                int uid = us.checkToken(token);
+                if (uid == -1){
+                    return Unauthorized();
+                }
+
+                //walled behind admin
+                bool isAdmin = us.isSuperAdmin(uid);
+                if(!isAdmin){
+                    return StatusCode(403);
+                }
+
+                //if no attributes are set, nothing should happen
+                if (category.category_id == 0)
+                {
+                    return BadRequest();
+                }
+                
+                // should include category, disease, or description
+                bool result = vm.UpdateCategory(category);
+
+                if(result){
+                    return Accepted();
+                }
+                
+                return BadRequest();
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
     }
 }

@@ -167,5 +167,117 @@ namespace VacciNationAPI.DataLayer
             return vaccines;
         }
 
+        public List<Dictionary<string, string>> GetAllCategories(){
+            MySqlConnection conn = new MySqlConnection();
+            List<Dictionary<string, string>> categories = new List<Dictionary<string, string>>();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "SELECT category_id, name FROM vaccine_category; ";
+                
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+
+                    Dictionary<string, string> category = new Dictionary<string, string>();
+                    category.Add("category_id", "" + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) );
+                    category.Add("name", (rdr.IsDBNull(1) ? "" : rdr.GetString(1)) );
+
+                    categories.Add(category);
+                }
+                rdr.Close();
+
+            }catch (Exception e){Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return categories;
+        }
+        
+        public bool InsertCategory(Category category){
+            bool result = false;
+            MySqlConnection conn = connection.OpenConnection();
+
+            try{
+                string query = "INSERT INTO vaccine_category (category_id, name) VALUES(@category_id, @name)";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@category_id", category.category_id);
+                cmd.Parameters.AddWithValue("@name", category.name);
+                
+                int numAffected = cmd.ExecuteNonQuery();
+
+                if(numAffected > 0){
+                    result = true;
+                }
+
+            } catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);} // probably should log something here eventually
+            finally{
+                connection.CloseConnection(conn);
+            }
+            return result;
+
+        }
+        
+        public bool UpdateCategory(Category category)
+        {
+            bool result = false;
+            MySqlConnection conn = connection.OpenConnection();
+            
+            try{
+                //build update string with whatever is set
+                string query="Update vaccine_category set name=@name WHERE category_id=@category_id";
+
+                MySqlCommand cd = new MySqlCommand(query, conn);
+
+                cd.Parameters.AddWithValue("@name", category.name);
+                cd.Parameters.AddWithValue("@category_id", category.category_id);
+
+                int rows = cd.ExecuteNonQuery();
+
+                if(rows > 0){
+                    result = true;
+                }
+
+            } catch (Exception e){ 
+                Console.WriteLine(e.Message); 
+                Console.WriteLine(e.StackTrace);} // probably should log something here eventually
+            finally{
+                connection.CloseConnection(conn);
+            }
+
+            return result;
+        }
+
+        public Dictionary<string, string> GetCategoryById(int category_id){
+            MySqlConnection conn = new MySqlConnection();
+            Dictionary<string, string> category = new Dictionary<string, string>();
+            try{ 
+                conn = connection.OpenConnection();
+
+                string query = "SELECT category_id, name FROM vaccine_category WHERE category_id=@category_id;";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@category_id", category_id);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                rdr.Read();
+                category.Add("category_id", "" + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) );
+                category.Add("name", (rdr.IsDBNull(1) ? "" : rdr.GetString(1)) );
+                rdr.Close();
+
+            }catch (Exception e){Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return category;
+        }
+
     }
 }

@@ -1863,7 +1863,7 @@
           {
             "in": "header",
             "name": "authorization",
-            "description": "baerer token for security and autorization",
+            "description": "Authorization Token",
             "type": "string",
             "required": true
           },
@@ -1904,7 +1904,7 @@
           {
             "in": "header",
             "name": "authorization",
-            "description": "Bearer token for security and autorization",
+            "description": "Authorization Token",
             "type": "string",
             "required": true
           },
@@ -1958,6 +1958,128 @@
             "description": "Vaccine filtered by diseaseID (COVID19, FLU, etc)",
             "type": "integer",
             "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/vaccine/category": {
+      "post": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Create a new category (privileged users)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Authorization token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Category",
+            "description": "Create a vaccine category (ID should remain null/0)",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Update a category",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Bearer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Category",
+            "description": "The category being updated (must have existing id)",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Get vaccine categories",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "category_id",
+            "description": "ID to be returned. Returns all categories if not included",
+            "type": "integer",
+            "required": false
           }
         ],
         "responses": {
