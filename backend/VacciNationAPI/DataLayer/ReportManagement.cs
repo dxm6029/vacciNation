@@ -24,7 +24,7 @@ namespace VacciNationAPI.DataLayer
                 //DOMINIQUE - make this better
                 builder += " total_administered_on_date: " + totalAdministeredByDay + ",";
                 int totalUpcoming = totalVaccinesUpcoming();
-                builder += " total_upcoming: " + totalAdministered + ",";
+                builder += " total_upcoming: " + totalUpcoming + ",";
                 // get all categories and suppliers and loop through
                 List<int> categoryIDs = getAllCategoryIds();
                 List<string> suppliers = getAllSuppliers();
