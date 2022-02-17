@@ -12,7 +12,7 @@ function LoginComponent(props) {
         let username = event.target.username.value;
         let password = event.target.password.value;
         event.preventDefault()
-        const response = await fetch('', {
+        const response = await fetch('http://localhost:5000/UserStaff/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
