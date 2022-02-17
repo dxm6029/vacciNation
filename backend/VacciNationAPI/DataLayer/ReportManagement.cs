@@ -95,7 +95,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
               
-                string query = "SELECT DISTINCT category FROM vaccine";
+                string query = "SELECT DISTINCT category_id FROM vaccine_category";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
