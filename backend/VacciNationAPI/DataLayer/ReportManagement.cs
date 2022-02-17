@@ -14,7 +14,6 @@ namespace VacciNationAPI.DataLayer
         
         // ~~~~~~~~~~~~~~~~~ vaccine insights ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         public string vaccineInsightsResponseBuilder(string date){
-            Console.WriteLine("i made it to the builder");
             string builder = "{";
             try{ 
                 builder += " date: " + date + ",";
@@ -59,7 +58,6 @@ namespace VacciNationAPI.DataLayer
             finally{
             }
             builder += "}";
-            Console.WriteLine(builder);
             return builder;
         }
 
