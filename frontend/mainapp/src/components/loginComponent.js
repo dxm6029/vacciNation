@@ -11,6 +11,9 @@ function LoginComponent(props) {
 
         let username = event.target.username.value;
         let password = event.target.password.value;
+        console.log(username);
+        console.log(password);
+        console.log(" ^ password and username ");
         event.preventDefault()
         const response = await fetch('http://192.158.1.113:5000/UserStaff/login', {
             method: 'POST',
