@@ -15,7 +15,7 @@ function LoginComponent(props) {
         console.log(password);
         console.log(" ^ password and username ");
         event.preventDefault()
-        const response = await fetch('http://192.158.1.113:5000/UserStaff/login', {
+        const response = await fetch('http://db.VacciNation.com:5000/UserStaff/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
