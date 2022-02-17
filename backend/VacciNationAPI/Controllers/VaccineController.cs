@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Text.Json;
 using VacciNationAPI.Models;
 using VacciNationAPI.DataLayer;
 
@@ -18,7 +19,7 @@ namespace VacciNationAPI.Controllers
         public IActionResult GetAllVaccines(){
 
             try{                
-                List<string> vaccines = vm.GetAllVaccines();
+                List<Dictionary<string, string>> vaccines = vm.GetAllVaccines();
                 return new ObjectResult(vaccines);
             }
             catch(Exception e){
@@ -105,7 +106,7 @@ namespace VacciNationAPI.Controllers
             }
 
             try{                
-                List<string> vaccines = vm.getAllVaccinesByType(vaccineCategory, vaccineDisease);
+                List<Dictionary<string, string>> vaccines = vm.getAllVaccinesByType(vaccineCategory, vaccineDisease);
                 return new ObjectResult(vaccines);
             }
             catch(Exception e){

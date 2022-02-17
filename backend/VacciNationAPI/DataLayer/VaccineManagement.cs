@@ -9,9 +9,9 @@ namespace VacciNationAPI.DataLayer
         
         VacciNation.Connect connection = new VacciNation.Connect();
         
-        public List<string> GetAllVaccines(){
+        public List<Dictionary<string, string>> GetAllVaccines(){
             MySqlConnection conn = new MySqlConnection();
-            List<string> vaccines = new List<string>();
+            List<Dictionary<string, string>> vaccines = new List<Dictionary<string, string>>();
             try{ 
                 conn = connection.OpenConnection();
 
@@ -22,8 +22,15 @@ namespace VacciNationAPI.DataLayer
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
-                {   
-                    vaccines.Add("{ vaccine_id: " + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) + ", category: " + ( rdr.IsDBNull(1) ? -1 : rdr.GetString(1)) + ", disease: " + (rdr.IsDBNull(2) ?  "" : rdr.GetString(2))+  ", description: " +  (rdr.IsDBNull(3) ?  "" : rdr.GetString(3)) +"}");
+                {
+
+                    Dictionary<string, string> vaccine = new Dictionary<string, string>();
+                    vaccine.Add("vaccine_id", "" + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) );
+                    vaccine.Add("category", (rdr.IsDBNull(1) ? "" : rdr.GetString(1)) );
+                    vaccine.Add("disease", (rdr.IsDBNull(2) ? "" : rdr.GetString(2)) );
+                    vaccine.Add("description", (rdr.IsDBNull(3) ? "" : rdr.GetString(3)) );
+
+                    vaccines.Add(vaccine);
                 }
                 rdr.Close();
 
@@ -126,9 +133,9 @@ namespace VacciNationAPI.DataLayer
             return result;
         }
 
-        public List<string> getAllVaccinesByType(int categoryID, int diseaseID){
+        public List<Dictionary<string, string>> getAllVaccinesByType(int categoryID, int diseaseID){
             MySqlConnection conn = new MySqlConnection();
-            List<string> vaccines = new List<string>();
+            List<Dictionary<string, string>> vaccines = new List<Dictionary<string, string>>();
             try{ 
                 conn = connection.OpenConnection();
 
@@ -142,7 +149,13 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    vaccines.Add("{ vaccine_id: " + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) + ", category: " + ( rdr.IsDBNull(1) ? -1 : rdr.GetString(1)) + ", disease: " + (rdr.IsDBNull(2) ?  "" : rdr.GetString(2))+  ", description: " +  (rdr.IsDBNull(3) ?  "" : rdr.GetString(3)) +"}");
+                    Dictionary<string, string> vaccine = new Dictionary<string, string>();
+                    vaccine.Add("vaccine_id", "" + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) );
+                    vaccine.Add("category", (rdr.IsDBNull(1) ? "" : rdr.GetString(1)) );
+                    vaccine.Add("disease", (rdr.IsDBNull(2) ? "" : rdr.GetString(2)) );
+                    vaccine.Add("description", (rdr.IsDBNull(3) ? "" : rdr.GetString(3)) );
+
+                    vaccines.Add(vaccine);
                 }
                 rdr.Close();
 
