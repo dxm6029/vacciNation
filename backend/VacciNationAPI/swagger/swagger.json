@@ -19,6 +19,10 @@
       "description": "Add/update/delete/view appointments and time slots"
     },
     {
+      "name": "Vaccines",
+      "description": "Add/update/delete/view vaccines and vaccine info"
+    },
+    {
       "name": "Report",
       "description": "Getting important vaccination, staff, and reaction information for reporting porposes"
     }
@@ -1865,6 +1869,533 @@
         }
       }
     },
+    "/vaccine/all": {
+      "get": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "gets all vaccines for display",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "202": {
+            "description": "json list of all vaccine info"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/vaccine": {
+      "post": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Create a new vaccine (priviliged users)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Authorization Token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Vaccine",
+            "description": "Create a vaccine (vaccine ID should remain null)",
+            "schema": {
+              "$ref": "#/definitions/Vaccine"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Update a vaccine",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Authorization Token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Vaccine",
+            "description": "The vaccine being updated (must have existing vaccine_id)",
+            "schema": {
+              "$ref": "#/definitions/Vaccine"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Get vaccines by category or disease",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "category_id",
+            "description": "Vaccine filtered by categoryID (first dose, second dose, etc)",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "disease_id",
+            "description": "Vaccine filtered by diseaseID (COVID19, FLU, etc)",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/vaccine/category": {
+      "post": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Create a new category (privileged users)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Authorization token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Category",
+            "description": "Create a vaccine category (ID should remain null/0)",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Update a category",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Bearer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Category",
+            "description": "The category being updated (must have existing id)",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Get vaccine categories",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "category_id",
+            "description": "ID to be returned. Returns all categories if not included",
+            "type": "integer",
+            "required": false
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/vaccine/disease": {
+      "post": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Create a new disease (privileged users)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Authorization token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Disease",
+            "description": "Create a vaccine disease (ID should remain null/0)",
+            "schema": {
+              "$ref": "#/definitions/Disease"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Update a category",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Bearer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Disease",
+            "description": "The disease being updated (must have existing id)",
+            "schema": {
+              "$ref": "#/definitions/Disease"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Get diseases",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "disease_id",
+            "description": "ID to be returned. Returns all diseases if not included",
+            "type": "integer",
+            "required": false
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/vaccine/dose": {
+      "post": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Add quantity number of doses with the given supplier, vaccine and location (privileged users)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Authorization token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Dose",
+            "description": "Dose information to be added",
+            "schema": {
+              "$ref": "#/definitions/Dose"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Update a dose",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Bearer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Dose",
+            "description": "The dose being updated (must have existing id)",
+            "schema": {
+              "$ref": "#/definitions/Dose"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Get doses",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Authorization token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "dose_id",
+            "description": "ID to be returned. Returns all doses if not included",
+            "type": "integer",
+            "required": false
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
     "/Report/staff/{staff_id}": {
       "get": {
         "tags": [
@@ -2070,6 +2601,74 @@
           "type": "string"
         },
         "first_name": {
+          "type": "string"
+        }
+      }
+    },
+    "Vaccine": {
+      "type": "object",
+      "properties": {
+        "vaccine_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "disease_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "Dose": {
+      "type": "object",
+      "properties": {
+        "dose_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "supplier": {
+          "type": "string"
+        },
+        "vaccine_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "location_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Disease": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
           "type": "string"
         }
       }

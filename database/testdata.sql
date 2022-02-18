@@ -108,18 +108,18 @@ INSERT INTO vaccine (vaccine_id, category, disease, description) VALUES (1, 2, 1
 INSERT INTO vaccine (vaccine_id, category, disease, description) VALUES (2, 3, 1, "Covid second dose, recommended 2 weeks after first dose");
 INSERT INTO vaccine (vaccine_id, category, disease, description) VALUES (3, 4, 1, "Covid booster, recommended 6 months after second dose");
 
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (1, "Pfizer", 1);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (2, "Pfizer", 1);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (3, "Pfizer", 1);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (4, "Pfizer", 1);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (5, "Pfizer", 2);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (6, "Pfizer", 2);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (7, "Pfizer", 2);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (8, "Pfizer", 2);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (9, "Pfizer", 3);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (10, "Pfizer", 3);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (11, "Pfizer", 3);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (12, "Pfizer", 3);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (1, "Pfizer", 1, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (2, "Pfizer", 1, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (3, "Pfizer", 1, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (4, "Pfizer", 1, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (5, "Pfizer", 2, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (6, "Pfizer", 2, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (7, "Pfizer", 2, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (8, "Pfizer", 2, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (9, "Pfizer", 3, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (10, "Pfizer", 3, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (11, "Pfizer", 3, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (12, "Pfizer", 3, 1);
 
 INSERT INTO timeslot_status (status_id, description) VALUES (1, "AVAILABLE");
 INSERT INTO timeslot_status (status_id, description) VALUES (2, "RESERVED");
