@@ -204,13 +204,13 @@ namespace VacciNationAPI.Controllers
         public IActionResult GetDisease(){
 
             try{  
-                //get all categories if disease_id not set
+                //get all diseases if disease_id not set
                 if (String.IsNullOrEmpty(HttpContext.Request.Query["disease_id"]))
                 {
-                    List<Dictionary<string, string>> categories = vm.GetAllDiseases();
-                    return new ObjectResult(categories);
+                    List<Dictionary<string, string>> diseases = vm.GetAllDiseases();
+                    return new ObjectResult(diseases);
                 }
-                //get specific category
+                //get specific disease
                 else
                 {
                     int diseaseId = Int32.Parse(HttpContext.Request.Query["disease_id"]);
@@ -272,6 +272,89 @@ namespace VacciNationAPI.Controllers
                 
                 // should include category, disease, or description
                 bool result = vm.UpdateDisease(disease);
+
+                if(result){
+                    return Accepted();
+                }
+                
+                return BadRequest();
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
+        //get 1 or all doses
+        [HttpGet("dose")]
+        public IActionResult GetDose([FromHeader] string authorization){
+
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+            
+            try{  
+                //get all doses if dose_id not set
+                if (String.IsNullOrEmpty(HttpContext.Request.Query["dose_id"]))
+                {
+                    List<Dictionary<string, string>> doses = vm.GetAllDoses();
+                    return new ObjectResult(doses);
+                }
+                //get specific dose
+                else
+                {
+                    int doseId = Int32.Parse(HttpContext.Request.Query["dose_id"]);
+                    Dictionary<string, string> dose = vm.GetDoseById(doseId);
+                    return new ObjectResult(dose);
+                }
+                
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+        
+        // Creating new doses
+        [HttpPost("dose")]
+        public IActionResult CreateDose([FromBody] Dose dose,  [FromHeader] string authorization) {
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+
+            bool isAdmin = us.isSuperAdmin(uid);
+            if(!isAdmin){
+                return StatusCode(403);
+            }
+            
+            bool result = vm.InsertDoses(dose);
+
+            if(result){
+                return Accepted();
+            }
+
+            return BadRequest();
+        }
+
+        // Updating an existing dose
+        [HttpPut("dose")] 
+        public IActionResult UpdateDose([FromBody] Dose dose,  [FromHeader] string authorization){
+            try{
+                string token = authorization;
+                int uid = us.checkToken(token);
+                if (uid == -1){
+                    return Unauthorized();
+                }
+
+                bool isAdmin = us.isSuperAdmin(uid);
+                if(!isAdmin){
+                    return StatusCode(403);
+                }
+                
+                // should include category, disease, or description
+                bool result = vm.UpdateDose(dose);
 
                 if(result){
                     return Accepted();

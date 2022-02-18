@@ -2188,7 +2188,7 @@
         "tags": [
           "Vaccines"
         ],
-        "summary": "Get vaccine categories",
+        "summary": "Get diseases",
         "consumes": [
           "application/json"
         ],
@@ -2200,6 +2200,135 @@
             "in": "query",
             "name": "disease_id",
             "description": "ID to be returned. Returns all diseases if not included",
+            "type": "integer",
+            "required": false
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/vaccine/dose": {
+      "post": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Add quantity number of doses with the given supplier, vaccine and location (privileged users)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Authorization token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Dose",
+            "description": "Dose information to be added",
+            "schema": {
+              "$ref": "#/definitions/Dose"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Update a dose",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Bearer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Dose",
+            "description": "The dose being updated (must have existing id)",
+            "schema": {
+              "$ref": "#/definitions/Dose"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Vaccines"
+        ],
+        "summary": "Get doses",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Authorization token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "dose_id",
+            "description": "ID to be returned. Returns all doses if not included",
             "type": "integer",
             "required": false
           }
@@ -2287,6 +2416,30 @@
         },
         "description": {
           "type": "string"
+        }
+      }
+    },
+    "Dose": {
+      "type": "object",
+      "properties": {
+        "dose_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "supplier": {
+          "type": "string"
+        },
+        "vaccine_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "location_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
