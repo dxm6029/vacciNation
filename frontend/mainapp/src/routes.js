@@ -18,6 +18,10 @@ import SiteManagerLogin from './staffPages/sitemanagerlogin';
 import NurseLogin from './staffPages/nurselogin';
 import ForgotPassword from './staffPages/forgotPassword';
 
+import AdminHome from './staffPages/adminPages/home';
+import ViewLocations from './staffPages/adminPages/viewLocations';
+import AddLocation from './staffPages/adminPages/addLocation';
+
 class UBRoutes extends React.Component {
     render() {
         return (
@@ -40,6 +44,11 @@ class UBRoutes extends React.Component {
                 <Route path="/sitemanagerlogin" element={<SiteManagerLogin />}/>
                 <Route path="/nurselogin" element={<NurseLogin />}/>
                 <Route path="/forgotPassword" element={<ForgotPassword />}/>
+
+
+                <Route path="/adminHome" element={<AdminHome />} />
+                <Route path="/viewLocations" element={<ViewLocations />} />
+                <Route path="/addLocation" element={<AddLocation />}/>
             </Routes>
         );
     }
