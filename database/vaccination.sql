@@ -114,7 +114,8 @@ CREATE TABLE dose(
     vaccine_id INT NOT NULL,
     location_id INT NOT NULL,
     PRIMARY KEY (dose_id),
-    CONSTRAINT fk_dose_vaccine FOREIGN KEY (vaccine_id) REFERENCES vaccine (vaccine_id) ON UPDATE CASCADE
+    CONSTRAINT fk_dose_vaccine FOREIGN KEY (vaccine_id) REFERENCES vaccine (vaccine_id) ON UPDATE CASCADE,
+    CONSTRAINT fk_dose_location FOREIGN KEY (location_id) REFERENCES location (location_id) ON UPDATE CASCADE
 );
 
 CREATE TABLE timeslot_status(
