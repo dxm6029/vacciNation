@@ -145,6 +145,33 @@ namespace VacciNationAPI.DataLayer
             return result;
         }
 
+        public bool updateTimeslotReactions(Timeslot timeslot){
+            bool result = false;
+            MySqlConnection conn = connection.OpenConnection();
+            try{
+               
+                string query="Update timeslot set reactions=@reactions WHERE timeslot_id = @timeslot_id;";
+                MySqlCommand cd = new MySqlCommand(query, conn);
+                cd.Parameters.AddWithValue("@reactions", timeslot.reactions);
+                cd.Parameters.AddWithValue("@timeslot_id", timeslot.timeslot_id);
+
+                int rows = cd.ExecuteNonQuery();
+
+                if(rows > 0){
+                    result = true;
+                }
+
+            } catch (Exception e){ 
+                Console.WriteLine(e.Message); 
+                Console.WriteLine(e.StackTrace);
+            } 
+            finally{
+               connection.CloseConnection(conn);
+            }
+
+            return result;
+        }
+
         public bool removeTimeslot(int timeslot_id){
              bool status = false;
             MySqlConnection conn = new MySqlConnection();
@@ -234,7 +261,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT timeslot_id, timeslot.staff_id, staff.first_name, staff.last_name, timeslot.citizen_id, citizen.first_name, citizen.last_name, timeslot.location_id, location.name, timeslot.dose_id, dose.supplier, vaccine_category.category_id, vaccine_category.name, timeslot.date, timeslot.status_id, timeslot_status.description FROM timeslot JOIN staff USING(staff_id) JOIN dose USING(dose_id) JOIN timeslot_status USING(status_id) JOIN vaccine USING(vaccine_id) JOIN location USING(location_id) LEFT JOIN citizen USING(citizen_id) JOIN vaccine_category ON vaccine_category.category_id=vaccine.category WHERE citizen.citizen_id=@citizen_id";
+                string query = "SELECT timeslot_id, timeslot.staff_id, staff.first_name, staff.last_name, timeslot.citizen_id, citizen.first_name, citizen.last_name, timeslot.location_id, location.name, timeslot.dose_id, dose.supplier, vaccine_category.category_id, vaccine_category.name, timeslot.date, timeslot.status_id, timeslot_status.description, timeslot.reactions FROM timeslot JOIN staff USING(staff_id) JOIN dose USING(dose_id) JOIN timeslot_status USING(status_id) JOIN vaccine USING(vaccine_id) JOIN location USING(location_id) LEFT JOIN citizen USING(citizen_id) JOIN vaccine_category ON vaccine_category.category_id=vaccine.category WHERE citizen.citizen_id=@citizen_id";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@citizen_id", citizen_id);
@@ -244,7 +271,7 @@ namespace VacciNationAPI.DataLayer
                 while (rdr.Read())
                 {   
                     appointments.Add("{ appointment_id: " + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) + ", staff_id: " + ( rdr.IsDBNull(1) ? -1 : rdr.GetInt32(1)) + ", staff_first_name: " + (rdr.IsDBNull(2) ?  "" : rdr.GetString(2))+  ", staff_last_name: " +  (rdr.IsDBNull(3) ?  "" : rdr.GetString(3)) + ", citizen_id: " +  (rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4)) + ", citizen_first_name: " + (rdr.IsDBNull(5) ?  "" : rdr.GetString(5))+  ", citizen_last_name: " +  (rdr.IsDBNull(6) ?  "" : rdr.GetString(6)) + ", location_id: " + ( rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7)) + ", location_name: " + (rdr.IsDBNull(8) ?  "" : rdr.GetString(8)) + ", dose_id: " + ( rdr.IsDBNull(9) ? -1 : rdr.GetInt32(9)) + ", supplier: " + (rdr.IsDBNull(10) ?  "" : rdr.GetString(10)) 
-                    + ", category_id: " + (rdr.IsDBNull(11) ? -1: rdr.GetInt32(11)) +  ", description: " + (rdr.IsDBNull(12) ?  "" : rdr.GetString(12)) + ", date: " + (rdr.IsDBNull(13) ?  "" : rdr.GetString(13))  + ", status_id: " + ( rdr.IsDBNull(14) ? -1 : rdr.GetInt32(14)) + ", status_desc: " + (rdr.IsDBNull(15) ?  "" : rdr.GetString(15)) +"},");
+                    + ", category_id: " + (rdr.IsDBNull(11) ? -1: rdr.GetInt32(11)) +  ", description: " + (rdr.IsDBNull(12) ?  "" : rdr.GetString(12)) + ", date: " + (rdr.IsDBNull(13) ?  "" : rdr.GetString(13))  + ", status_id: " + ( rdr.IsDBNull(14) ? -1 : rdr.GetInt32(14)) + ", status_desc: " + (rdr.IsDBNull(15) ?  "" : rdr.GetString(15)) + ", reactions: " + (rdr.IsDBNull(16) ?  "" : rdr.GetString(16)) +"}");
                 }
                 rdr.Close();
 

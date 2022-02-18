@@ -21,6 +21,10 @@
     {
       "name": "Vaccines",
       "description": "Add/update/delete/view vaccines and vaccine info"
+    },
+    {
+      "name": "Report",
+      "description": "Getting important vaccination, staff, and reaction information for reporting porposes"
     }
   ],
   "schemes": [
@@ -1736,6 +1740,49 @@
         }
       }
     },
+    "/Appointment/AddReactions": {
+      "put": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "updates an appointment with reactions a citizen experiences while they wait to be released after the vaccine is administered",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Timeslot",
+            "description": "add a reaction for a citizen through a timeslot (ONLY accepts reactions string and timeslotID)",
+            "schema": {
+              "$ref": "#/definitions/Timeslot"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
     "/Appointment/AssignStaff": {
       "put": {
         "tags": [
@@ -2348,6 +2395,138 @@
           }
         }
       }
+    },
+    "/Report/staff/{staff_id}": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "get all reporting insights for a specific staff member",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "staff_id",
+            "description": "filters staff insight results by this staff_id",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "date",
+            "description": "filters staff_id insight results by this date",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "returns information about total vaccinations given by staff member filtered by date, type, type and date"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Report/vaccine": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "get all reporting insights for vaccines",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "date",
+            "description": "filters vaccine insight results by this date",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "returns information about total vaccinations filtered by date, type, type and date, status"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Report/reactions": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "get all reporting insights for reactions",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "returns information about all reactions"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
     }
   },
   "securityDefinitions": {
@@ -2396,6 +2575,33 @@
         "status": {
           "type": "integer",
           "format": "int64"
+        },
+        "reactions": {
+          "type": "string"
+        }
+      }
+    },
+    "Staff": {
+      "type": "object",
+      "properties": {
+        "staff_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "email": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
         }
       }
     },
@@ -2443,26 +2649,26 @@
         }
       }
     },
-    "Staff": {
+    "Disease": {
       "type": "object",
       "properties": {
-        "staff_id": {
+        "id": {
           "type": "integer",
           "format": "int64"
         },
-        "email": {
+        "name": {
           "type": "string"
+        }
+      }
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
         },
-        "username": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
-        "last_name": {
-          "type": "string"
-        },
-        "first_name": {
+        "name": {
           "type": "string"
         }
       }
@@ -2553,190 +2759,6 @@
           "type": "string"
         },
         "password": {
-          "type": "string"
-        }
-      }
-    },
-    "Order": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "petId": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "quantity": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "shipDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "status": {
-          "type": "string",
-          "description": "Order Status",
-          "enum": [
-            "placed",
-            "approved",
-            "delivered"
-          ]
-        },
-        "complete": {
-          "type": "boolean",
-          "default": false
-        }
-      },
-      "xml": {
-        "name": "Order"
-      }
-    },
-    "Category": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "xml": {
-        "name": "Category"
-      }
-    },
-    "Disease": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "xml": {
-        "name": "Disease"
-      }
-    },
-    "User": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "username": {
-          "type": "string"
-        },
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
-        "phone": {
-          "type": "string"
-        },
-        "userStatus": {
-          "type": "integer",
-          "format": "int32",
-          "description": "User Status"
-        }
-      },
-      "xml": {
-        "name": "User"
-      }
-    },
-    "Tag": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "xml": {
-        "name": "Tag"
-      }
-    },
-    "Pet": {
-      "type": "object",
-      "required": [
-        "name",
-        "photoUrls"
-      ],
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "category": {
-          "$ref": "#/definitions/Category"
-        },
-        "name": {
-          "type": "string",
-          "example": "doggie"
-        },
-        "photoUrls": {
-          "type": "array",
-          "xml": {
-            "name": "photoUrl",
-            "wrapped": true
-          },
-          "items": {
-            "type": "string"
-          }
-        },
-        "tags": {
-          "type": "array",
-          "xml": {
-            "name": "tag",
-            "wrapped": true
-          },
-          "items": {
-            "$ref": "#/definitions/Tag"
-          }
-        },
-        "status": {
-          "type": "string",
-          "description": "pet status in the store",
-          "enum": [
-            "available",
-            "pending",
-            "sold"
-          ]
-        }
-      },
-      "xml": {
-        "name": "Pet"
-      }
-    },
-    "ApiResponse": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "type": {
-          "type": "string"
-        },
-        "message": {
           "type": "string"
         }
       }

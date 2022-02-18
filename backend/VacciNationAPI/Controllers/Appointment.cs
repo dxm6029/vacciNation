@@ -108,6 +108,29 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        [HttpPut("AddReactions")] // add reaction to timeslot, only authorized users
+        public IActionResult PutTimeslotReactions([FromBody] Timeslot timeslot,  [FromHeader] string authorization){
+             try{
+                string token = authorization;
+                int uid = us.checkToken(token);
+                if (uid == -1){
+                    return Unauthorized();
+                }
+
+                // should include citizen id, timeslot id, and vaccine type
+                bool result = am.updateTimeslotReactions(timeslot);
+
+                if(result){
+                    return Accepted();
+                }else {
+                    return BadRequest();
+                }
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
         // admin only?  
         [HttpDelete]
         public IActionResult DeleteTimeslot([FromHeader] string authorization){
