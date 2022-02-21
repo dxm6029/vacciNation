@@ -770,11 +770,10 @@ namespace VacciNationAPI.DataLayer
             MySqlConnection conn = connection.OpenConnection();
 
             try{
-                string query = "INSERT INTO insurance (last_name, first_name, carrier, group_number, member_id) VALUES(@last_name, @first_name, @carrier, @group_number, @member_id)";
+                string query = "INSERT INTO insurance (name, carrier, group_number, member_id) VALUES(@last_name, @first_name, @carrier, @group_number, @member_id)";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@last_name", insurance.last_name);
-                cmd.Parameters.AddWithValue("@first_name", insurance.first_name);
+                cmd.Parameters.AddWithValue("@name", insurance.name);
                 cmd.Parameters.AddWithValue("@carrier", insurance.carrier);
                 cmd.Parameters.AddWithValue("@group_number", insurance.group_number);
                 cmd.Parameters.AddWithValue("@member_id", insurance.member_id);

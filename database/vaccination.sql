@@ -4,10 +4,9 @@ USE vaccination;
 
 CREATE TABLE insurance(
 	insurance_id INT NOT NULL AUTO_INCREMENT,
-    last_name VARCHAR(50) NOT NULL,
-    first_name VARCHAR(50) NOT NULL,
+    name VARCHAR(100),
     carrier VARCHAR(50) NOT NULL,
-    group_number INT,
+    group_number VARCHAR(50),
     member_id VARCHAR(50) NOT NULL,
     PRIMARY KEY (insurance_id)
 );
@@ -38,9 +37,12 @@ CREATE TABLE citizen(
     insurance_id INT,
     phone_number VARCHAR(15),
     address_id INT,
+    id_type VARCHAR(20),
+    id_number VARCHAR(50),
     PRIMARY KEY (citizen_id),
     CONSTRAINT fk_citizen_insurance FOREIGN KEY (insurance_id) REFERENCES insurance (insurance_id) ON UPDATE CASCADE,
-    CONSTRAINT fk_citizen_address FOREIGN KEY (address_id) REFERENCES address (address_id) ON UPDATE CASCADE
+    CONSTRAINT fk_citizen_address FOREIGN KEY (address_id) REFERENCES address (address_id) ON UPDATE CASCADE,
+    CONSTRAINT citizen_contact CHECK (email IS NOT NULL OR phone_number IS NOT NULL)
 );
 
 CREATE TABLE staff(

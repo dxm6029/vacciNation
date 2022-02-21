@@ -2735,17 +2735,14 @@
           "type": "integer",
           "format": "int64"
         },
-        "last_name": {
-          "type": "string"
-        },
-        "first_name": {
+        "name": {
           "type": "string"
         },
         "carrier": {
           "type": "string"
         },
         "group_number": {
-          "type": "integer"
+          "type": "string"
         },
         "member_id": {
           "type": "string"
