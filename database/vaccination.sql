@@ -143,6 +143,43 @@ CREATE TABLE timeslot(
     CONSTRAINT fk_timeslot_status FOREIGN KEY (status_id) REFERENCES timeslot_status (status_id) ON UPDATE CASCADE
 );
 
+CREATE TABLE eligibility(
+	eligibility_id INT NOT NULL AUTO_INCREMENT,
+    vaccine_id INT NOT NULL,
+    dependency INT,
+    PRIMARY KEY (eligibility_id),
+    CONSTRAINT fk_eligibility_vaccine FOREIGN KEY (vaccine_id) REFERENCES vaccine (vaccine_id) ON UPDATE CASCADE    
+);
+
+CREATE TABLE eligibility_text(
+	text_id INT NOT NULL,
+    language CHAR(2) NOT NULL,
+    eligibility_id INT NOT NULL,
+    type CHAR(1) NOT NULL,
+    text VARCHAR(1023) NOT NULL,
+    PRIMARY KEY (text_id, language),
+    CONSTRAINT type_is_qa CHECK (type IN ('Q', 'A'))
+);
+
+ALTER TABLE eligibility ADD CONSTRAINT fk_eligibility_dependency FOREIGN KEY (dependency) REFERENCES eligibility_text (text_id);
+
+CREATE TABLE faq(
+	faq_id INT NOT NULL,
+    type CHAR(1) NOT NULL,
+    language CHAR(2) NOT NULL,
+    text VARCHAR(1023) NOT NULL,
+    PRIMARY KEY (faq_id, type, language),
+    CONSTRAINT faq_type_is_qa CHECK (type IN ('Q', 'A'))
+);
+
+CREATE TABLE vaccine_faq(
+	vaccine_id INT NOT NULL,
+    faq_id INT NOT NULL,
+    PRIMARY KEY (vaccine_id, faq_id),
+    CONSTRAINT fk_vaccine_faq_vaccine FOREIGN KEY (vaccine_id) REFERENCES vaccine (vaccine_id) ON UPDATE CASCADE,
+    CONSTRAINT fk_vaccine_faq_faq FOREIGN KEY (faq_id) REFERENCES faq (faq_id) ON UPDATE CASCADE
+);
+
 CREATE TABLE change_history(
 	change_id INT NOT NULL AUTO_INCREMENT,
 	change_table VARCHAR(50) NOT NULL,
@@ -154,4 +191,20 @@ CREATE TABLE change_history(
     changed_by INT NOT NULL,
     PRIMARY KEY (change_id),
     CONSTRAINT fk_history_staff FOREIGN KEY (changed_by) REFERENCES staff (staff_id) ON UPDATE CASCADE
+);
+
+CREATE TABLE nav_link(
+	link_id INT NOT NULL,
+    address VARCHAR(511),
+    title_en VARCHAR(50),
+    title_es VARCHAR(50),
+    PRIMARY KEY(link_id)
+);
+
+CREATE TABLE content(
+	content_id INT NOT NULL,
+    label VARCHAR(20),
+    text_en TEXT,
+    text_es TEXT,
+    PRIMARY KEY (content_id)
 );
