@@ -9,7 +9,7 @@ namespace VacciNationAPI.Models
         public string group_number {get; set;}
         public string member_id {get; set;}
 
-        public Insurance(int insurance_id, string last_name, string first_name, string carrier, string group_number, string member_id){
+        public Insurance(int insurance_id, string name, string carrier, string group_number, string member_id){
             this.insurance_id = insurance_id;
             this.name = name;
             this.carrier = carrier;
