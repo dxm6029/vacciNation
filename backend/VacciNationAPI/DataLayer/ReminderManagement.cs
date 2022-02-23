@@ -22,7 +22,7 @@ namespace VacciNationAPI.DataLayer
             Console.WriteLine(apiKey);
 
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("dmolee@gmail.com", "VacciNation");
+            var from = new EmailAddress("vaccineschedulingassistant@gmail.com", "Vaccination Scheduling Support");
             var subject = "Sending with SendGrid is Fun";
             var to = new EmailAddress("dxm6029@rit.edu", "Dominique Molee");
             var plainTextContent = "and easy to do anywhere, even with C#";
