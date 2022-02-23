@@ -30,6 +30,7 @@ namespace VacciNationAPI.DataLayer
 
             var response = await client.SendEmailAsync(msg);
             Console.WriteLine("trying to send");
+            Console.WriteLine(response);
 
         }
         public bool  sendNotifications(DateTime date){
