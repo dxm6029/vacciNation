@@ -19,6 +19,8 @@ namespace VacciNationAPI.DataLayer
         public static async Task Execute()
         {
             var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+            Console.WriteLine(apiKey);
+
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("dmolee@gmail.com", "VacciNation");
             var subject = "Sending with SendGrid is Fun";
@@ -31,7 +33,6 @@ namespace VacciNationAPI.DataLayer
             var response = await client.SendEmailAsync(msg);
             Console.WriteLine("trying to send");
             Console.WriteLine(response.StatusCode);
-            Console.WriteLine(response.Body.ToString());
 
         }
         public bool  sendNotifications(DateTime date){
