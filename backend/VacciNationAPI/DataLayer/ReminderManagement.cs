@@ -26,14 +26,22 @@ namespace VacciNationAPI.DataLayer
             var plainTextContent = "and easy to do anywhere, even with C#";
             var htmlContent = "<strong>and easy to do anywhere, even with C#</strong>";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            Console.WriteLine("email created");
+
             var response = await client.SendEmailAsync(msg);
+            Console.WriteLine("trying to send");
+
         }
         public bool  sendNotifications(DateTime date){
             MySqlConnection conn = new MySqlConnection();
             List<string> suppliers = new List<string>();
             try{ 
 
+            Console.WriteLine("execute");
+
                 Execute().Wait();
+            Console.WriteLine("execute finished");
+
 
 
                 //conn = connection.OpenConnection();

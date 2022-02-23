@@ -27,6 +27,7 @@ namespace VacciNationAPI.Controllers{
 
             
 
+            Console.WriteLine("attempting to enter send method");
             bool sentSuccessfully = rm.sendNotifications(tomorrow);
 
 
