@@ -15,16 +15,16 @@ function LoginComponent(props) {
         console.log(password);
         console.log(" ^ password and username ");
         event.preventDefault()
-        const response = await fetch('http://192.168.1.5:5000/UserStaff/login', {
-            method: 'GET',
+        const response = await fetch('http://localhost:5000/UserStaff/login', {
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            // body: JSON.stringify({
-            //     'username': username,
-            //     'password': password,
-            // })
+            body: JSON.stringify({
+                 'username': username,
+                 'password': password,
+            })
         })
         const responseJSON = await response.json()
         console.log("response " + responseJSON);
