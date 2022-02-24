@@ -32,7 +32,7 @@ namespace VacciNationAPI
 
             services.AddCors(options => {  
                 options.AddDefaultPolicy(builder => {  
-                    builder.WithOrigins("http://192.168.1.2:3000", "http://localhost:3000", "http://192.168.1.5:5000").AllowAnyMethod();  
+                    builder.WithOrigins("http://192.168.1.2:3000", "http://localhost:3000", "http://192.168.1.5:5000").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();  
                 });  
             });  
             services.AddControllers();
