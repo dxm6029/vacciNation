@@ -15,7 +15,7 @@ function LoginComponent(props) {
         console.log(password);
         console.log(" ^ password and username ");
         event.preventDefault()
-        const response = await fetch('http://localhost:5002/UserStaff/login', {
+        const response = await fetch('http://192.168.1.5:5000/UserStaff/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
