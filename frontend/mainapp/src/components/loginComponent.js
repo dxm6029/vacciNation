@@ -21,10 +21,10 @@ function LoginComponent(props) {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                'username': username,
-                'password': password,
-            })
+            // body: JSON.stringify({
+            //     'username': username,
+            //     'password': password,
+            // })
         })
         const responseJSON = await response.json()
         console.log("response " + responseJSON);
