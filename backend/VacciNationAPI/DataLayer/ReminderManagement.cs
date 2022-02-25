@@ -49,8 +49,11 @@ namespace VacciNationAPI.DataLayer
 
 
                 conn = connection.OpenConnection();
-              
-                var dateOnly = date.Date.ToShortDateString();
+ 
+                var month = date.Date.Month.ToString().Length == 1 ? "0" + date.Date.Month.ToString() : date.Date.Month.ToString();
+                var day = date.Date.Day.ToString().Length == 1 ? "0" + date.Date.Day.ToString() : date.Date.Day.ToString();
+                var year = date.Date.Year.ToString();
+                var dateOnly = year + "-" + month + "-" + day;
                 var start = dateOnly + " 00:00:00";
                 var end = dateOnly + " 23:59:59";
                 Console.WriteLine(dateOnly);
