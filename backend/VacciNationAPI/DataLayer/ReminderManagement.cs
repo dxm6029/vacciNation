@@ -16,7 +16,7 @@ namespace VacciNationAPI.DataLayer
         VacciNation.Connect connection = new VacciNation.Connect();
 
 
-        public static async Task Execute(string email, string date)
+        public static async Task Execute(string email, string date, string location, string category, string disease, string supplier)
         {
             var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
             Console.WriteLine(apiKey);
@@ -26,7 +26,7 @@ namespace VacciNationAPI.DataLayer
             var subject = "Reminder: Vaccine Appointment Upcoming";
             var to = new EmailAddress(email, "Citizen");
             var plainTextContent = "Hello, <br />";
-            var htmlContent = "We are just reaching out to remind you that your appointment is at <strong> </strong>";
+            var htmlContent = "We are just reaching out to remind you that your appointment is on <strong> " + date + " at " + location +  " </strong>. You will be recieving the " + category + " " + supplier + " " + disease + " vaccine. Please be sure to bring an ID and your insurance. <br /> <br /> <strong>**Do not reply to this email**</strong>";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             Console.WriteLine("email created");
 
@@ -81,7 +81,7 @@ namespace VacciNationAPI.DataLayer
                     Console.WriteLine(apptDate);
 
 
-                    //Execute(email, dateOnly).Wait();
+                    Execute(email, apptDate, location, category, disease, supplier).Wait();
                     //suppliers.Add(rdr.IsDBNull(0) ?  "" : rdr.GetString(0));
                 }
                 rdr.Close();
