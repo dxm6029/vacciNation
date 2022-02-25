@@ -48,7 +48,7 @@ namespace VacciNationAPI.DataLayer
 
 
 
-                //conn = connection.OpenConnection();
+                conn = connection.OpenConnection();
               
                 var dateOnly = date.Date.ToShortDateString();
                 var start = dateOnly + " 00:00:00";
