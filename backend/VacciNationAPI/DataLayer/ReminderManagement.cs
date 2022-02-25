@@ -37,21 +37,21 @@ namespace VacciNationAPI.DataLayer
         }
         public bool  sendNotifications(DateTime date){
             MySqlConnection conn = new MySqlConnection();
-            List<string> suppliers = new List<string>();
+            bool res = false;
             try{ 
 
+                
             Console.WriteLine("execute");
 
-                Execute().Wait();
+             //   Execute().Wait();
             Console.WriteLine("execute finished");
 
 
 
                 //conn = connection.OpenConnection();
               
-                // var dateOnly = date.Date;
-                // var start = dateOnly.ToString() + " 00:00:00";
-                // var end = dateOnly.ToString() + " 23:59:59";
+                var dateOnly = date.Date;
+                Console.WriteLine(dateOnly);
 
                 // string query = "SELECT email FROM citizen JOIN timeslot USING(citizen_id) WHERE date > @start AND date < @end";
                 // MySqlCommand cmd = new MySqlCommand(query, conn);
