@@ -53,6 +53,7 @@ namespace VacciNationAPI.DataLayer
                 var dateOnly = date.Date.ToShortDateString();
                 var start = dateOnly + " 00:00:00";
                 var end = dateOnly + " 23:59:59";
+                Console.WriteLine(dateOnly);
 
                 string query = "SELECT email, location.name, vaccine_category.name, vaccine_disease.name, dose.supplier, date FROM citizen JOIN timeslot USING(citizen_id) JOIN location USING(location_id) JOIN dose USING(dose_id) JOIN vaccine USING(vaccine_id) JOIN vaccine_category ON vaccine_category.category_id=vaccine.category JOIN vaccine_disease ON vaccine_disease.disease_id=vaccine.disease WHERE date > @start AND date < @end";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
