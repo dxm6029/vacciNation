@@ -25,9 +25,8 @@ namespace VacciNationAPI.DataLayer
             var from = new EmailAddress("vaccineschedulingassistant@gmail.com", "Vaccination Scheduling Support");
             var subject = "Reminder: Vaccine Appointment Upcoming";
             var to = new EmailAddress(email, "Citizen");
-            var plainTextContent = "Hello, <br />";
-            var htmlContent = "We are just reaching out to remind you that your appointment is on <strong> " + date + " at " + location +  " </strong>. You will be recieving the " + category + " " + supplier + " " + disease + " vaccine. Please be sure to bring an ID and your insurance. <br /> <br /> <strong>**Do not reply to this email**</strong>";
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            var htmlContent = "Hello, <br /> We are just reaching out to remind you that your appointment is on <strong> " + date + " at " + location +  "</strong>. You will be recieving the " + category + " of the " + supplier + " " + disease + " vaccine. Please be sure to bring an ID and your insurance. To ensure you recieve your vaccine on time, please try to arrive 10-15 minutes early to you vaccination site.<br /> <br /> <strong>**Do not reply to this email**</strong>";
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, "", htmlContent);
             Console.WriteLine("email created");
 
             var response = await client.SendEmailAsync(msg);
