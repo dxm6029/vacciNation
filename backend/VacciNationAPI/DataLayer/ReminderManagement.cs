@@ -50,7 +50,7 @@ namespace VacciNationAPI.DataLayer
 
                 //conn = connection.OpenConnection();
               
-                var dateOnly = date.Date;
+                var dateOnly = date.Date.ToShortDateString();
                 Console.WriteLine(dateOnly);
 
                 // string query = "SELECT email FROM citizen JOIN timeslot USING(citizen_id) WHERE date > @start AND date < @end";
