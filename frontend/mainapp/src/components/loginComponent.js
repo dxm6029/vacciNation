@@ -40,9 +40,9 @@ function LoginComponent(props) {
 
 //   }
 
-  function LOGIN(user, pass) {
+  function LOGIN() {
     return axios
-        .post("http://192.168.1.5:5000/UserStaff/login", {"username": user,"password": pass})
+        .post("http://192.168.1.5:5000/UserStaff/all", {})
         .then((response) => {
             if (response.data) {
                 console.log(response.data); 
@@ -72,7 +72,7 @@ function LoginComponent(props) {
           </div>
           <Link to="/forgotPassword">Forgot password?</Link>
 
-          <button type="submit" value="Sign in" onClick={() => {LOGIN("vi","test12345")}}></button>
+          <button type="submit" value="Sign in" onClick={() => {LOGIN()}}></button>
 
           <div id="formStatus"></div>
         </form>
