@@ -42,7 +42,7 @@ function LoginComponent(props) {
 
   function LOGIN(user, pass) {
     return axios
-        .post("http://localhost:5000/locations/findLocationsWithVaccineAndZipcode", {user, pass})
+        .post("http://192.168.1.5:5000/UserStaff/login", {user, pass})
         .then((response) => {
             if (response.data) {
                 console.log(response.data); 
