@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import '../staffPages/login.css';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function LoginComponent(props) {
   const handleSubmit = async(event) => {
@@ -39,11 +40,28 @@ function LoginComponent(props) {
 
   }
 
+  function LOGIN(user, pass) {
+    return axios
+        .post("http://localhost:5000/locations/findLocationsWithVaccineAndZipcode", {user, pass})
+        .then((response) => {
+            if (response.data) {
+                console.log(response.data); 
+            } else {
+                console.log('API failed: No data received!');
+                return null;
+            }
+        }).catch((err) => {
+            console.log('*** API Call Failed ***')
+            console.log(err.toString())
+            return null;
+        });
+}
+
   return (
     <>
         <h1>{props.title}</h1>
     
-        <form onSubmit={handleSubmit}> 
+        <form onSubmit={LOGIN("vi","test12345")}> 
           <label htmlFor="username">Username:</label>
           <input type="text" id="username" name="username"></input>
 
