@@ -42,7 +42,7 @@ function LoginComponent(props) {
 
   function LOGIN() {
     return axios
-        .post("http://192.168.1.5:5000/UserStaff/all", {})
+        .get("http://192.168.1.5:5000/UserStaff/all", {})
         .then((response) => {
             if (response.data) {
                 console.log(response.data); 
