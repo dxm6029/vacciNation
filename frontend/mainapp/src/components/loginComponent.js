@@ -42,7 +42,7 @@ function LoginComponent(props) {
 
   function LOGIN() {
     return axios
-        .get("http://192.168.1.5:5000/UserStaff/all")
+        .get("http://192.168.1.5:5000/UserStaff/all", {headers: {'Content-Type': 'application/json'}})
         .then((response) => {
             if (response) {
                 console.log(response); 
