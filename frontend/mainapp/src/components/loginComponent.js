@@ -61,7 +61,7 @@ function LoginComponent(props) {
     <>
         <h1>{props.title}</h1>
     
-        <form onSubmit={LOGIN("vi","test12345")}> 
+        <form onSubmit={() => {LOGIN("vi","test12345")}}> 
           <label htmlFor="username">Username:</label>
           <input type="text" id="username" name="username"></input>
 
