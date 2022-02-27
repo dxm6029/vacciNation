@@ -261,9 +261,10 @@ namespace VacciNationAPI.DataLayer
                 //if name is set, update name
                 if (!string.IsNullOrEmpty(location.name))
                 {
-                    query = "UPDATE location SET name=@name;";
+                    query = "UPDATE location SET name=@name WHERE location_id=@location_id;";
                     MySqlCommand locationUpdate = new MySqlCommand(query, conn);
                     locationUpdate.Parameters.AddWithValue("@name", location.name);
+                    locationUpdate.Parameters.AddWithValue("location_id", location.location_id);
                     
                     rows = locationUpdate.ExecuteNonQuery();
 
