@@ -30,6 +30,11 @@ namespace VacciNationAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddCors(options => {  
+                options.AddDefaultPolicy(builder => {  
+                    builder.WithOrigins("http://192.168.1.2:3000", "http://localhost:3000", "http://192.168.1.5:5000").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();  
+                });  
+            });  
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -57,6 +62,8 @@ namespace VacciNationAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
