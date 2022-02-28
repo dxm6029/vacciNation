@@ -178,18 +178,37 @@ namespace VacciNationAPI.DataLayer
 
                 int numAffected = insertAddress.ExecuteNonQuery();
 
+                
                 //address insert failed
                 if (numAffected < 1)
                 {
                     myTrans.Rollback();
                     return false;
                 }
+
+                query = "SELECT address_id FROM address WHERE street=@street AND city=@city AND state=@state and zip=@zip";
+                MySqlCommand selectAddressId = new MySqlCommand(query, conn);
+                selectAddressId.Parameters.AddWithValue("@street", location.street);
+                selectAddressId.Parameters.AddWithValue("@city", location.city);
+                selectAddressId.Parameters.AddWithValue("@state", location.state);
+                selectAddressId.Parameters.AddWithValue("@zip", location.zip);
                 
+                MySqlDataReader rdr = selectAddressId.ExecuteReader();
+                
+                rdr.Read();
+                int addressId = rdr.GetInt32(0);
+                rdr.Close();
+                
+                Console.WriteLine("Address was inserted with id " + addressId);
+
                 //insert location
-                query = "INSERT INTO location (name, address_id) VALUES(@name, LAST_INSERT_ID());";
+                query = "INSERT INTO location (name, address_id) VALUES(@name, @address_id);";
                 MySqlCommand insertLocation = new MySqlCommand(query, conn);
                 insertLocation.Parameters.AddWithValue("@name", location.name);
-                numAffected = insertAddress.ExecuteNonQuery();
+                insertLocation.Parameters.AddWithValue("@address_id", addressId);
+                numAffected = insertLocation.ExecuteNonQuery();
+                
+                Console.WriteLine("Num affected after insert location: " + numAffected);
                                
                 //location insert failed
                 if (numAffected < 1)
@@ -197,7 +216,7 @@ namespace VacciNationAPI.DataLayer
                     myTrans.Rollback();
                     return false;
                 }
-                
+
                 //success
                 myTrans.Commit();
                 
@@ -207,6 +226,7 @@ namespace VacciNationAPI.DataLayer
                 Console.WriteLine(e.Message); 
                 Console.WriteLine(e.StackTrace);
                 try{ myTrans.Rollback(); } catch(Exception ex){}
+                return false;
             } // probably should log something here eventually
             finally{
                 connection.CloseConnection(conn);
@@ -240,6 +260,7 @@ namespace VacciNationAPI.DataLayer
             catch (Exception e) {
                 Console.WriteLine(e.Message); 
                 Console.WriteLine(e.StackTrace);
+                return false;
             } // probably should log something here eventually
             finally{
                 connection.CloseConnection(conn);
