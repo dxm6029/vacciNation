@@ -181,7 +181,7 @@ namespace VacciNationAPI.Controllers{
             }
 
             try{                
-                List<string> appointments = am.getAllAppointments(false);
+                List<Dictionary<string, string>> appointments = am.getAllAppointments(false);
                 return new ObjectResult(appointments);
             }
             catch(Exception e){
@@ -193,7 +193,7 @@ namespace VacciNationAPI.Controllers{
         public IActionResult GetAllOpenAppointments(){
 
             try{                
-                List<string> appointments = am.getAllAppointments(true);
+                List<Dictionary<string, string>> appointments = am.getAllAppointments(true);
                 return new ObjectResult(appointments);
             }
             catch(Exception e){

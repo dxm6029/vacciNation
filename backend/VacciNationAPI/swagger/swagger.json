@@ -29,6 +29,10 @@
     {
       "name": "Reminders",
       "description": "Sending reminder emails to citizens with appointment information"
+    },
+    {
+      "name": "Location",
+      "description": "Add/Update/View vaccination locations"
     }
   ],
   "schemes": [
@@ -2400,6 +2404,267 @@
         }
       }
     },
+    "/location": {
+      "post": {
+        "tags": [
+          "Location"
+        ],
+        "summary": "Create a new location (priviliged users)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Authorization Token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Location",
+            "description": "Create a location (location ID should remain null)",
+            "schema": {
+              "$ref": "#/definitions/Location"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing or invalid auth token"
+          },
+          "403": {
+            "description": "Valid token, but doesn't have permission"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Location"
+        ],
+        "summary": "Update a location",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Authorization Token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Location",
+            "description": "The location being updated (must have existing location_id)",
+            "schema": {
+              "$ref": "#/definitions/Location"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing or invalid auth token"
+          },
+          "403": {
+            "description": "Valid token, but doesn't have permission"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Location"
+        ],
+        "summary": "Get locations by id, city, zip, or if none are specified the full list of locations",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "location_id",
+            "description": "Location ID",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "city",
+            "description": "Get locations filtered by city",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "zip",
+            "description": "Get locations filtered by 5 digit zip",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/location/staff": {
+      "post": {
+        "tags": [
+          "Location"
+        ],
+        "summary": "Assign a staff member to this location (priviliged users)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Authorization Token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "StaffLocation",
+            "description": "Assign specified staff member to specified location",
+            "schema": {
+              "$ref": "#/definitions/StaffLocation"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing or invalid auth token"
+          },
+          "403": {
+            "description": "Valid token, but doesn't have permission"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Location"
+        ],
+        "summary": "Get list of staff at this location",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "location_id",
+            "description": "Location ID",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Location"
+        ],
+        "summary": "Remove a staff member from this location",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Authorization Token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "StaffLocation",
+            "description": "Specified staff to be removed from specified location",
+            "schema": {
+              "$ref": "#/definitions/StaffLocation"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing or invalid auth token"
+          },
+          "403": {
+            "description": "Valid token, but doesn't have permission"
+          }
+        }
+      }
+    },
     "/Report/staff/{staff_id}": {
       "get": {
         "tags": [
@@ -2742,6 +3007,14 @@
         },
         "phone_number": {
           "type": "string"
+        },
+        "id_type": {
+          "type": "string",
+          "description": "Type of ID presented at checkin (Passport, Driver's License, etc)"
+        },
+        "id_number": {
+          "type": "string",
+          "description": "ID Number from presented ID document"
         }
       }
     },
@@ -2798,6 +3071,50 @@
         },
         "password": {
           "type": "string"
+        }
+      }
+    },
+    "Location": {
+      "type": "object",
+      "properties": {
+        "location_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "address_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "zip": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string"
+        },
+        "street_line2": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        }
+      }
+    },
+    "StaffLocation": {
+      "type": "object",
+      "properties": {
+        "staff_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "location_id": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     }
