@@ -75,7 +75,7 @@ function LoginComponent(props) {
     <>
         <h1>{props.title}</h1>
     
-        <form > 
+        <form onSubmit={e => {LOGIN(e)}}> 
           <label htmlFor="username">Username:</label>
           <input type="text" id="username" name="username"></input>
 
@@ -86,7 +86,7 @@ function LoginComponent(props) {
           </div>
           <Link to="/forgotPassword">Forgot password?</Link>
 
-          <button type="submit" value="Sign in" onClick={LOGIN}></button>
+          <button type="submit" value="Sign in"></button>
 
           <div id="formStatus"></div>
         </form>
