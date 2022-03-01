@@ -86,7 +86,7 @@ function LoginComponent(props) {
           </div>
           <Link to="/forgotPassword">Forgot password?</Link>
 
-          <button type="button" value="Sign in" onClick={LOGIN}></button>
+          <button type="Submit" value="Sign in" onClick={LOGIN}></button>
 
           <div id="formStatus"></div>
         </form>
