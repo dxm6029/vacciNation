@@ -40,7 +40,7 @@ function LoginComponent(props) {
 
 //   }
 
-  function LOGIN() {
+  const LOGIN = (event) => {
     let username = event.target.username.value;
          let password = event.target.password.value;
     return axios
@@ -85,7 +85,7 @@ function LoginComponent(props) {
           </div>
           <Link to="/forgotPassword">Forgot password?</Link>
 
-          <button type="button" value="Sign in" onClick={() => {LOGIN()}}></button>
+          <button type="button" value="Sign in" onClick={LOGIN}></button>
 
           <div id="formStatus"></div>
         </form>
