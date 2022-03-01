@@ -66,6 +66,7 @@ function LoginComponent(props) {
             }
         }).catch((err) => {
             console.log('*** API Call Failed ***')
+            console.log(err)
             console.log(err.toString())
             return null;
         });
