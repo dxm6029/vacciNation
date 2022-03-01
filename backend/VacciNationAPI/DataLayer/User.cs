@@ -326,37 +326,55 @@ namespace VacciNationAPI.DataLayer
         public bool putCitizenWithID(Citizen citizen){
             bool status = false;
             MySqlConnection conn = new MySqlConnection();
-            try{ 
+            try
+            {
                 conn = connection.OpenConnection();
 
                 string query = "UPDATE citizen SET";
 
-                if(citizen.email != null){
+                if (citizen.email != null)
+                {
                     query += " email = @email,";
                 }
 
-                if(citizen.first_name != null){
+                if (citizen.first_name != null)
+                {
                     query += " first_name = @firstName,";
                 }
 
-                if(citizen.last_name != null){
+                if (citizen.last_name != null)
+                {
                     query += " last_name = @lastName,";
                 }
 
-                if(citizen.phone_number != null){
+                if (citizen.phone_number != null)
+                {
                     query += " phone_number = @phone_number,";
                 }
 
-                if(citizen.date_of_birth != null){
+                if (citizen.date_of_birth != null)
+                {
                     query += " date_of_birth = @date_of_birth,";
                 }
 
-                if(citizen.address_id != -1){
-                     query += " address_id = @address_id,";
+                if (citizen.address_id > 0)
+                {
+                    query += " address_id = @address_id,";
                 }
 
-                if(citizen.insurance_id != -1){
-                     query += " insurance_id = @insurance_id,";
+                if (citizen.insurance_id > 0)
+                {
+                    query += " insurance_id = @insurance_id,";
+                }
+
+                if (citizen.id_type != null)
+                {
+                    query += " id_type = @id_type,";
+                }
+
+                if (citizen.id_number != null)
+                {
+                    query += "id_number = @id_number,";
                 }
 
                 query = query.TrimEnd(',');
@@ -367,41 +385,64 @@ namespace VacciNationAPI.DataLayer
 
                 cmd.Parameters.AddWithValue("@id", citizen.citizen_id);
 
-                if(citizen.email != null){
+                if (citizen.email != null)
+                {
                     cmd.Parameters.AddWithValue("@email", citizen.email);
                 }
 
-                if(citizen.first_name != null){
+                if (citizen.first_name != null)
+                {
                     cmd.Parameters.AddWithValue("@firstName", citizen.first_name);
                 }
 
-                if(citizen.last_name != null){
+                if (citizen.last_name != null)
+                {
                     cmd.Parameters.AddWithValue("@lastName", citizen.last_name);
                 }
 
-                if(citizen.phone_number != null){
+                if (citizen.phone_number != null)
+                {
                     cmd.Parameters.AddWithValue("@phone_number", citizen.phone_number);
                 }
 
-                if(citizen.date_of_birth != null){
+                if (citizen.date_of_birth != null)
+                {
                     cmd.Parameters.AddWithValue("@date_of_birth", citizen.date_of_birth);
                 }
 
-                if(citizen.address_id != -1){
+                if (citizen.address_id > 0)
+                {
                     cmd.Parameters.AddWithValue("@address_id", citizen.address_id);
                 }
 
-                if(citizen.insurance_id != -1){
+                if (citizen.insurance_id > 0)
+                {
                     cmd.Parameters.AddWithValue("@insurance_id", citizen.insurance_id);
+                }
+
+                if (citizen.id_type != null)
+                {
+                    cmd.Parameters.AddWithValue("@id_type", citizen.id_type);
+                }
+
+                if (citizen.id_number != null)
+                {
+                    cmd.Parameters.AddWithValue("@id_number", citizen.id_number);
                 }
 
                 int rows = cmd.ExecuteNonQuery();
 
-                if(rows > 0){
+                if (rows > 0)
+                {
                     status = true;
                 }
 
-            }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error updating citizen object: " + citizen.ToString());
+                Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);
+            }
             finally{
                 connection.CloseConnection(conn);
             }
@@ -440,7 +481,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT citizen_id, email, last_name, first_name, insurance_id, date_of_birth, phone_number, address_id FROM citizen WHERE email=@email AND first_name=@firstname AND last_name=@lastname";
+                string query = "SELECT citizen_id, email, last_name, first_name, insurance_id, date_of_birth, phone_number, address_id, id_type, id_number FROM citizen WHERE email=@email AND first_name=@firstname AND last_name=@lastname";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@email", email);
                 cmd.Parameters.AddWithValue("@firstname", firstname);
@@ -450,7 +491,7 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    citizen = new Citizen(rdr.GetInt32(0), rdr.IsDBNull(1) ?  "" : rdr.GetString(1), rdr.IsDBNull(2) ?  "" : rdr.GetString(2), rdr.IsDBNull(3) ?  "": rdr.GetString(3), rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4) , rdr.GetMySqlDateTime(5).ToString(), rdr.IsDBNull(6) ?  "" : rdr.GetString(6), rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7) );
+                    citizen = new Citizen(rdr.GetInt32(0), rdr.IsDBNull(1) ?  "" : rdr.GetString(1), rdr.IsDBNull(2) ?  "" : rdr.GetString(2), rdr.IsDBNull(3) ?  "": rdr.GetString(3), rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4) , rdr.GetMySqlDateTime(5).ToString(), rdr.IsDBNull(6) ?  "" : rdr.GetString(6), rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7), rdr.IsDBNull(8) ?  "": rdr.GetString(8),rdr.IsDBNull(9) ?  "": rdr.GetString(9));
                 }
                 rdr.Close();
 
@@ -468,7 +509,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT citizen_id, email, last_name, first_name, insurance_id, date_of_birth, phone_number, address_id FROM citizen WHERE citizen_id=@id";
+                string query = "SELECT citizen_id, email, last_name, first_name, insurance_id, date_of_birth, phone_number, address_id, id_type, id_number FROM citizen WHERE citizen_id=@id";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", id);
 
@@ -476,7 +517,7 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    citizen = new Citizen(rdr.GetInt32(0), rdr.IsDBNull(1) ?  "" : rdr.GetString(1), rdr.IsDBNull(2) ?  "" : rdr.GetString(2), rdr.IsDBNull(3) ?  "": rdr.GetString(3), rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4) , rdr.GetMySqlDateTime(5).ToString(), rdr.IsDBNull(6) ?  "" : rdr.GetString(6), rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7) );
+                    citizen = new Citizen(rdr.GetInt32(0), rdr.IsDBNull(1) ?  "" : rdr.GetString(1), rdr.IsDBNull(2) ?  "" : rdr.GetString(2), rdr.IsDBNull(3) ?  "": rdr.GetString(3), rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4) , rdr.GetMySqlDateTime(5).ToString(), rdr.IsDBNull(6) ?  "" : rdr.GetString(6), rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7), rdr.IsDBNull(8) ?  "": rdr.GetString(8),rdr.IsDBNull(9) ?  "": rdr.GetString(9) );
                 }
                 rdr.Close();
 
@@ -527,7 +568,7 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    citizen.Add(new Citizen(rdr.GetInt32(0), rdr.IsDBNull(1) ?  "" : rdr.GetString(1), rdr.IsDBNull(2) ?  "" : rdr.GetString(2), rdr.IsDBNull(3) ?  "": rdr.GetString(3), rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4) , rdr.GetMySqlDateTime(5).ToString(), rdr.IsDBNull(6) ?  "" : rdr.GetString(6), rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7)));
+                    citizen.Add(new Citizen(rdr.GetInt32(0), rdr.IsDBNull(1) ?  "" : rdr.GetString(1), rdr.IsDBNull(2) ?  "" : rdr.GetString(2), rdr.IsDBNull(3) ?  "": rdr.GetString(3), rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4) , rdr.GetMySqlDateTime(5).ToString(), rdr.IsDBNull(6) ?  "" : rdr.GetString(6), rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7), "", ""));
                 }
                 rdr.Close();
 
@@ -716,7 +757,7 @@ namespace VacciNationAPI.DataLayer
                 int address_id = (int)cmd.LastInsertedId;
 
                 // update citizen
-                Citizen citizen = new Citizen(citizen_id, null, null, null, -1, null, null, address_id);
+                Citizen citizen = new Citizen(citizen_id, null, null, null, -1, null, null, address_id, null, null);
 
 
                 res = putCitizenWithID(citizen);
@@ -770,11 +811,10 @@ namespace VacciNationAPI.DataLayer
             MySqlConnection conn = connection.OpenConnection();
 
             try{
-                string query = "INSERT INTO insurance (last_name, first_name, carrier, group_number, member_id) VALUES(@last_name, @first_name, @carrier, @group_number, @member_id)";
+                string query = "INSERT INTO insurance (name, carrier, group_number, member_id) VALUES(@name, @carrier, @group_number, @member_id)";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@last_name", insurance.last_name);
-                cmd.Parameters.AddWithValue("@first_name", insurance.first_name);
+                cmd.Parameters.AddWithValue("@name", insurance.name);
                 cmd.Parameters.AddWithValue("@carrier", insurance.carrier);
                 cmd.Parameters.AddWithValue("@group_number", insurance.group_number);
                 cmd.Parameters.AddWithValue("@member_id", insurance.member_id);
@@ -789,7 +829,7 @@ namespace VacciNationAPI.DataLayer
                 int insurance_id = (int)cmd.LastInsertedId;
 
                 // update citizen
-                Citizen citizen = new Citizen(citizen_id, null, null, null, insurance_id, null, null, -1);
+                Citizen citizen = new Citizen(citizen_id, null, null, null, insurance_id, null, null, -1, null, null);
 
 
                 res = putCitizenWithID(citizen);

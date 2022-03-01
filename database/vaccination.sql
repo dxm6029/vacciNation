@@ -4,10 +4,9 @@ USE vaccination;
 
 CREATE TABLE insurance(
 	insurance_id INT NOT NULL AUTO_INCREMENT,
-    last_name VARCHAR(50) NOT NULL,
-    first_name VARCHAR(50) NOT NULL,
+    name VARCHAR(100),
     carrier VARCHAR(50) NOT NULL,
-    group_number INT,
+    group_number VARCHAR(50),
     member_id VARCHAR(50) NOT NULL,
     PRIMARY KEY (insurance_id)
 );
@@ -38,9 +37,12 @@ CREATE TABLE citizen(
     insurance_id INT,
     phone_number VARCHAR(15),
     address_id INT,
+    id_type VARCHAR(20),
+    id_number VARCHAR(50),
     PRIMARY KEY (citizen_id),
     CONSTRAINT fk_citizen_insurance FOREIGN KEY (insurance_id) REFERENCES insurance (insurance_id) ON UPDATE CASCADE,
-    CONSTRAINT fk_citizen_address FOREIGN KEY (address_id) REFERENCES address (address_id) ON UPDATE CASCADE
+    CONSTRAINT fk_citizen_address FOREIGN KEY (address_id) REFERENCES address (address_id) ON UPDATE CASCADE,
+    CONSTRAINT citizen_contact CHECK (email IS NOT NULL OR phone_number IS NOT NULL)
 );
 
 CREATE TABLE staff(
@@ -112,8 +114,10 @@ CREATE TABLE dose(
 	dose_id INT NOT NULL AUTO_INCREMENT,
     supplier VARCHAR(50) NOT NULL,
     vaccine_id INT NOT NULL,
+    location_id INT NOT NULL,
     PRIMARY KEY (dose_id),
-    CONSTRAINT fk_dose_vaccine FOREIGN KEY (vaccine_id) REFERENCES vaccine (vaccine_id) ON UPDATE CASCADE
+    CONSTRAINT fk_dose_vaccine FOREIGN KEY (vaccine_id) REFERENCES vaccine (vaccine_id) ON UPDATE CASCADE,
+    CONSTRAINT fk_dose_location FOREIGN KEY (location_id) REFERENCES location (location_id) ON UPDATE CASCADE
 );
 
 CREATE TABLE timeslot_status(
@@ -139,6 +143,43 @@ CREATE TABLE timeslot(
     CONSTRAINT fk_timeslot_status FOREIGN KEY (status_id) REFERENCES timeslot_status (status_id) ON UPDATE CASCADE
 );
 
+CREATE TABLE eligibility(
+	eligibility_id INT NOT NULL AUTO_INCREMENT,
+    vaccine_id INT NOT NULL,
+    dependency INT,
+    PRIMARY KEY (eligibility_id),
+    CONSTRAINT fk_eligibility_vaccine FOREIGN KEY (vaccine_id) REFERENCES vaccine (vaccine_id) ON UPDATE CASCADE    
+);
+
+CREATE TABLE eligibility_text(
+	text_id INT NOT NULL,
+    language CHAR(2) NOT NULL,
+    eligibility_id INT NOT NULL,
+    type CHAR(1) NOT NULL,
+    text VARCHAR(1023) NOT NULL,
+    PRIMARY KEY (text_id, language),
+    CONSTRAINT type_is_qa CHECK (type IN ('Q', 'A'))
+);
+
+ALTER TABLE eligibility ADD CONSTRAINT fk_eligibility_dependency FOREIGN KEY (dependency) REFERENCES eligibility_text (text_id);
+
+CREATE TABLE faq(
+	faq_id INT NOT NULL,
+    type CHAR(1) NOT NULL,
+    language CHAR(2) NOT NULL,
+    text VARCHAR(1023) NOT NULL,
+    PRIMARY KEY (faq_id, type, language),
+    CONSTRAINT faq_type_is_qa CHECK (type IN ('Q', 'A'))
+);
+
+CREATE TABLE vaccine_faq(
+	vaccine_id INT NOT NULL,
+    faq_id INT NOT NULL,
+    PRIMARY KEY (vaccine_id, faq_id),
+    CONSTRAINT fk_vaccine_faq_vaccine FOREIGN KEY (vaccine_id) REFERENCES vaccine (vaccine_id) ON UPDATE CASCADE,
+    CONSTRAINT fk_vaccine_faq_faq FOREIGN KEY (faq_id) REFERENCES faq (faq_id) ON UPDATE CASCADE
+);
+
 CREATE TABLE change_history(
 	change_id INT NOT NULL AUTO_INCREMENT,
 	change_table VARCHAR(50) NOT NULL,
@@ -150,4 +191,20 @@ CREATE TABLE change_history(
     changed_by INT NOT NULL,
     PRIMARY KEY (change_id),
     CONSTRAINT fk_history_staff FOREIGN KEY (changed_by) REFERENCES staff (staff_id) ON UPDATE CASCADE
+);
+
+CREATE TABLE nav_link(
+	link_id INT NOT NULL,
+    address VARCHAR(511),
+    title_en VARCHAR(50),
+    title_es VARCHAR(50),
+    PRIMARY KEY(link_id)
+);
+
+CREATE TABLE content(
+	content_id INT NOT NULL,
+    label VARCHAR(20),
+    text_en TEXT,
+    text_es TEXT,
+    PRIMARY KEY (content_id)
 );
