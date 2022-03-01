@@ -40,7 +40,7 @@ function App() {
           prescreeningQs = {[
             ["Date", "Date of Birth"],
             ["Radio", "Are you a healthcare worker?", ["Yes", "No"]],
-            ["Radio", "Do you have any of the following health conditions? [blahblahblah]", ["Yes", "No"]],
+            ["Radio", "Do you have any of the following underlying health conditions?", ["Yes", "No"]],
             ["Dropdown", "How many doses of the vaccine have you received so far?", ["Zero", "One dose", "Two doses"]],
             ["Date", "Date of your last dose"],
             ["Radio", "Please select the brand of your COVID vaccine", ["Pfizer", "Moderna", "J&J", "Other"]]
