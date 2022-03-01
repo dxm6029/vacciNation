@@ -37,11 +37,12 @@ function LoginComponent(props) {
             
 //             return
 //         }
+
 //   }
 
   function LOGIN() {
     return axios
-        .get("http://192.168.1.5:5000/UserStaff/all", {headers: {'Content-Type': 'application/json'}})
+        .get("http://192.168.1.5:5000/UserStaff/all", {headers: {'Content-Type': 'application/json', "Cache-Control": "no-cache, no-store, must-revalidate", "Pragma": "no-cache", "Expires": 0}})
         .then((response) => {
             if (response) {
                 console.log(response); 
@@ -54,7 +55,7 @@ function LoginComponent(props) {
             console.log(err.toString())
             return null;
         });
-  }
+}
 
   return (
     <>
@@ -71,7 +72,7 @@ function LoginComponent(props) {
           </div>
           <Link to="/forgotPassword">Forgot password?</Link>
 
-          <button type="submit" value="Sign in" onClick={() => {LOGIN()}}></button>
+          <button type="button" value="Sign in" onClick={() => {LOGIN()}}></button>
 
           <div id="formStatus"></div>
         </form>
