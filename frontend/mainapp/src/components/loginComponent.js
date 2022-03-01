@@ -41,6 +41,7 @@ function LoginComponent(props) {
 //   }
 
   const LOGIN = (event) => {
+    console.log(event.target);
     let username = event.target.username.value;
          let password = event.target.password.value;
     return axios
