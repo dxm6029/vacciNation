@@ -15,11 +15,16 @@ function LoginComponent(props) {
         console.log(password);
         console.log(" ^ password and username ");
         event.preventDefault()
+        //.get("http://192.168.1.5:5000/UserStaff/all", {headers: {'Content-Type': 'application/json', "Cache-Control": "no-cache, no-store, must-revalidate", "Pragma": "no-cache", "Expires": 0}})
+        
         const response = await fetch('http://192.168.1.5:5000/UserStaff/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                "Cache-Control": "no-cache, no-store, must-revalidate",
+                "Pragma": "no-cache", 
+                "Expires": 0
             },
             body: JSON.stringify({
                  'username': username,
