@@ -41,6 +41,7 @@ function LoginComponent(props) {
 //   }
 
   const LOGIN = (event) => {
+    event.preventDefault();
     console.log(event.target);
     let username = event.target.username.value;
          let password = event.target.password.value;
