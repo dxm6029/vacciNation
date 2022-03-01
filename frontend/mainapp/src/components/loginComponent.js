@@ -41,6 +41,8 @@ function LoginComponent(props) {
 //   }
 
   function LOGIN() {
+    let username = event.target.username.value;
+         let password = event.target.password.value;
     return axios
         .post("http://192.168.1.5:5000/UserStaff/login", 
         {
