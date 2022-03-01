@@ -9,38 +9,6 @@ function LoginComponent(props) {
 //         function setFailure() {
 //             document.getElementById("FormStatus").innerText = "Form Submission Failed, Please Try Again";
 //         }
-
-        let username = event.target.username.value;
-        let password = event.target.password.value;
-        console.log(username);
-        console.log(password);
-        console.log(" ^ password and username ");
-        event.preventDefault()
-        //.get("http://192.168.1.5:5000/UserStaff/all", {headers: {'Content-Type': 'application/json', "Cache-Control": "no-cache, no-store, must-revalidate", "Pragma": "no-cache", "Expires": 0}})
-        
-        const response = await fetch('http://192.168.1.5:5000/UserStaff/login', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                "Cache-Control": "no-cache, no-store, must-revalidate",
-                "Pragma": "no-cache", 
-                "Expires": 0
-            },
-            body: JSON.stringify({
-                 'username': username,
-                 'password': password,
-            })
-        })
-        const responseJSON = await response.json()
-        console.log("response " + responseJSON);
-        if (response.status == 202) {
-            console.log("login successful")
-        }
-        if (response.status > 200) {
-            console.log("Login failure: " + response.status)
-        }
-    
 //         let username = event.target.username.value;
 //         let password = event.target.password.value;
 //         console.log(username);
@@ -86,7 +54,7 @@ function LoginComponent(props) {
             console.log(err.toString())
             return null;
         });
-    }
+}
 
   return (
     <>

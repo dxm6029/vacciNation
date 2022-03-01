@@ -1,10 +1,14 @@
 USE vaccination;
 
-INSERT INTO insurance (insurance_id, last_name, first_name, carrier, group_number, member_id) VALUES (1, "Anderson", "Tony", "BlueCrossBlueShield", 4579543, "U6475484451");
-INSERT INTO insurance (insurance_id, last_name, first_name, carrier, group_number, member_id) VALUES (2, "Donaghy", "Hannah", "BlueCrossBlueShield", 4532153, "U6574254865");
-INSERT INTO insurance (insurance_id, last_name, first_name, carrier, group_number, member_id) VALUES (3, "Tavis", "Bruce", "Cigna", 3842335, "U3214754867");
-INSERT INTO insurance (insurance_id, last_name, first_name, carrier, group_number, member_id) VALUES (4, "Connors", "Kendra", "BlueCrossBlueShield", 7896528, "U6541247845");
-INSERT INTO insurance (insurance_id, last_name, first_name, carrier, group_number, member_id) VALUES (5, "Zegt", "Simon", "Cigna", 1567657, "U63541274574");
+INSERT INTO insurance (insurance_id, name, carrier, group_number, member_id) VALUES (1, "Tony Anderson", "BlueCrossBlueShield", "4579543", "U6475484451");
+INSERT INTO insurance (insurance_id, name, carrier, group_number, member_id) VALUES (2, "Hannah Donaghy", "BlueCrossBlueShield", "4532153", "U6574254865");
+INSERT INTO insurance (insurance_id, name, carrier, group_number, member_id) VALUES (3, "Bruce Tavis", "Cigna", "3842335", "U3214754867");
+INSERT INTO insurance (insurance_id, name, carrier, group_number, member_id) VALUES (4, "Kendra Connors", "BlueCrossBlueShield", "7896528", "U6541247845");
+INSERT INTO insurance (insurance_id, name, carrier, group_number, member_id) VALUES (5, "Simon Zegt", "Cigna", "1567657", "U63541274574");
+INSERT INTO insurance (insurance_id, name, carrier, member_id, group_number) VALUES (6, "Robert C. Jones", "Excellus BC/BS", "ZGJ8043434", "TQ570-A0");
+INSERT INTO insurance (insurance_id, carrier, member_id, group_number) VALUES (7, "Excellus BC/BS", "XZA XZ99999", "Y0831-AC");
+INSERT INTO insurance (insurance_id, carrier, member_id, group_number) VALUES (8, "Aetna", "W1234 56789", "123456-101");
+INSERT INTO insurance (insurance_id, carrier, member_id) VALUES (9, "Excellus BC/BS", "MSS 5409200");
 
 INSERT INTO state (state_code, name) VALUES ("AL", "Alabama");
 INSERT INTO state (state_code, name) VALUES ("AK", "Alaska");
@@ -62,6 +66,11 @@ INSERT INTO address (address_id, zip, street, city, state) VALUES (1, "14623", "
 INSERT INTO address (address_id, zip, street, city, state) VALUES (2, "03063", "12 Adminstration St", "Nashua", "NH");
 INSERT INTO address (address_id, zip, street, city, state) VALUES (3, "14623", "12 Street Rd", "Rochester", "NY");
 INSERT INTO address (address_id, zip, street, street_line2, city, state) VALUES (4, "14623", "220 Citizen St", "Apt 1120", "Nashua", "NH");
+INSERT INTO address (address_id, zip, street, city, state) VALUES (5, "14624", "12 Ames St", "Chili", "NY");
+INSERT INTO address (address_id, zip, street, city, state) VALUES (6, "14604", "3200 Main St", "Rochester", "NY");
+INSERT INTO address (address_id, zip, street, city, state) VALUES (7, "14614", "450 East Ave", "Rochester", "NY");
+INSERT INTO address (address_id, zip, street, city, state) VALUES (8, "14580", "1234 Lake Rd", "Rochester", "NY");
+INSERT INTO address (address_id, zip, street, street_line2, city, state) VALUES (9, "14623", "2400 Jefferson Rd", "Apt 3A", "Rochester", "NY");
 
 INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id, date_of_birth) VALUES (1, "tanderson@fake.notreal", "Anderson", "Tony", 1, "1990-04-12");
 INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id, date_of_birth) VALUES (2, "banderson@fake.notreal", "Anderson", "Barbara", 1, "1991-12-26");
@@ -70,8 +79,13 @@ INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id, dat
 INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id, date_of_birth, phone_number, address_id) VALUES (5, "novak_tavis@fake.notreal", "Tavis", "Novak", 3, "2000-05-12", "5558729582", 3);
 INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id, date_of_birth) VALUES (6, "kc4431@fake.notreal", "Connors", "Kendra", 4, "1994-04-05");
 INSERT INTO citizen (citizen_id, email, last_name, first_name, insurance_id, date_of_birth) VALUES (7, "simonsaystext@me.instead", "Zegt", "Simon", 5, "1969-01-14");
-INSERT INTO citizen (citizen_id, last_name, first_name, date_of_birth, address_id) VALUES (8, "Slomljen", "Hazel Sophia", "1996-06-25", 4);
+INSERT INTO citizen (citizen_id, last_name, first_name, date_of_birth, address_id, phone_number) VALUES (8, "Slomljen", "Hazel Sophia", "1996-06-25", 4, "5552452454");
 INSERT INTO citizen (citizen_id, email, last_name, first_name, date_of_birth) VALUES (9, "khiggs207@fake.notreal", "Higgins", "Kyle", "1998-02-25");
+INSERT INTO citizen (citizen_id, first_name, last_name, date_of_birth, email, address_id, insurance_id) VALUES (10, "Amanda", "Jones", "1990-01-01", "sample@yahoo.com", 5, 6);
+INSERT INTO citizen (citizen_id, first_name, last_name, date_of_birth, email, address_id, insurance_id) VALUES (11, "Nathan Donald", "Green", "1997-02-01", "sample@aol.com", 6, 7);
+INSERT INTO citizen (citizen_id, first_name, last_name, date_of_birth, email, phone_number, address_id, insurance_id) VALUES (12, "Lavonne", "Davis", "2001-12-05", "sample@gmail.com", "5851234567", 7, 8);
+INSERT INTO citizen (citizen_id, first_name, last_name, date_of_birth, phone_number, address_id, insurance_id) VALUES (13, "Harold James", "Clark", "1967-03-17", "5852345678", 8, 9);
+INSERT INTO citizen (citizen_id, first_name, last_name, date_of_birth, email, address_id) VALUES (14, "Susan", "Lee", "1985-04-10", "sample2@gmail.com", 9);
 
 INSERT INTO staff (staff_id, email, username, password, last_name, first_name, token) VALUES (1, "admin@staff.email", "superadmin", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "admin", "super", "vqaB/WFKQpb+neW3OY+UktHWL6jPHbB8VCmVsoIut7k=");
 INSERT INTO staff (staff_id, email, username, password, last_name, first_name) VALUES (2, "js@staff.email", "js", "$argon2id$v=19$m=16,t=2,p=1$MTIzNDU2Nzg$Dhk8fwnes+f9vzOwgdALlA", "Smith", "John");
@@ -108,18 +122,18 @@ INSERT INTO vaccine (vaccine_id, category, disease, description) VALUES (1, 2, 1
 INSERT INTO vaccine (vaccine_id, category, disease, description) VALUES (2, 3, 1, "Covid second dose, recommended 2 weeks after first dose");
 INSERT INTO vaccine (vaccine_id, category, disease, description) VALUES (3, 4, 1, "Covid booster, recommended 6 months after second dose");
 
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (1, "Pfizer", 1);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (2, "Pfizer", 1);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (3, "Pfizer", 1);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (4, "Pfizer", 1);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (5, "Pfizer", 2);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (6, "Pfizer", 2);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (7, "Pfizer", 2);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (8, "Pfizer", 2);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (9, "Pfizer", 3);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (10, "Pfizer", 3);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (11, "Pfizer", 3);
-INSERT INTO dose (dose_id, supplier, vaccine_id) VALUES (12, "Pfizer", 3);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (1, "Pfizer", 1, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (2, "Pfizer", 1, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (3, "Pfizer", 1, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (4, "Pfizer", 1, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (5, "Pfizer", 2, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (6, "Pfizer", 2, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (7, "Pfizer", 2, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (8, "Pfizer", 2, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (9, "Pfizer", 3, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (10, "Pfizer", 3, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (11, "Pfizer", 3, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (12, "Pfizer", 3, 1);
 
 INSERT INTO timeslot_status (status_id, description) VALUES (1, "AVAILABLE");
 INSERT INTO timeslot_status (status_id, description) VALUES (2, "RESERVED");
