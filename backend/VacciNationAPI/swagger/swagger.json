@@ -27,6 +27,10 @@
       "description": "Getting important vaccination, staff, and reaction information for reporting porposes"
     },
     {
+      "name": "Reminders",
+      "description": "Sending reminder emails to citizens with appointment information"
+    },
+    {
       "name": "Location",
       "description": "Add/Update/View vaccination locations"
     }
@@ -2780,6 +2784,43 @@
         "responses": {
           "202": {
             "description": "returns information about all reactions"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Reminders/SendReminders": {
+      "get": {
+        "tags": [
+          "Reminders"
+        ],
+        "summary": "send email reminder with appointment information to all citizens with an appointment the next day",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "successful response"
           },
           "400": {
             "description": "json here - can adjust response code"
