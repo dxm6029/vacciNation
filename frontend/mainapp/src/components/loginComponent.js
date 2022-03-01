@@ -44,18 +44,17 @@ function LoginComponent(props) {
     let username = event.target.username.value;
          let password = event.target.password.value;
     return axios
-        .post("http://192.168.1.5:5000/UserStaff/login", 
+        .post("http://192.168.1.5:5000/UserStaff/login", {
+          'username': username,
+          'password': password,
+        },
         {
           headers: {
           'Content-Type': 'application/json', 
           "Cache-Control": "no-cache, no-store, must-revalidate", 
           "Pragma": "no-cache", 
           "Expires": 0
-          },
-          body: JSON.stringify({
-            'username': username,
-            'password': password,
-          })
+          }
         })
         .then((response) => {
             if (response) {
