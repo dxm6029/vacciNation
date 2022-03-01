@@ -9,6 +9,7 @@ function LoginComponent(props) {
 //         function setFailure() {
 //             document.getElementById("FormStatus").innerText = "Form Submission Failed, Please Try Again";
 //         }
+
 //         let username = event.target.username.value;
 //         let password = event.target.password.value;
 //         console.log(username);
@@ -36,7 +37,6 @@ function LoginComponent(props) {
             
 //             return
 //         }
-
 //   }
 
   function LOGIN() {
@@ -54,7 +54,7 @@ function LoginComponent(props) {
             console.log(err.toString())
             return null;
         });
-}
+  }
 
   return (
     <>
