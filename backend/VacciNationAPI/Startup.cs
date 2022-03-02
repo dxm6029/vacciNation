@@ -31,9 +31,14 @@ namespace VacciNationAPI
         {
 
             services.AddCors(options => {  
-                options.AddPolicy("openCors", builder => {  
+                options.AddDefaultPolicy(builder => {  
                     builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();  
-                });  
+                }); 
+                options.AddPolicy(name: "openCors",
+                      builder =>
+                      {
+                          builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                      }); 
             });  
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -63,13 +68,13 @@ namespace VacciNationAPI
 
             app.UseRouting();
 
-            app.UseCors("openCors");
+            app.UseCors();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers().RequireCors("openCors");
             });
         }
     }
