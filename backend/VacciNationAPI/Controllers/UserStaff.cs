@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using VacciNationAPI.Models;
 using VacciNationAPI.DataLayer;
+using System.Web.Http.Cors;
 
 namespace VacciNationAPI.Controllers{
 
     [ApiController]
     [Route("[controller]")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UserStaff: Controller {
         User us = new User();
 
