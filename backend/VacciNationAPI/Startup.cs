@@ -74,7 +74,7 @@ namespace VacciNationAPI
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers().RequireCors("openCors");
+                endpoints.MapControllers();
             });
         }
     }
