@@ -9,7 +9,7 @@ namespace VacciNationAPI.Controllers{
 
     [ApiController]
     [Route("[controller]")]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UserStaff: Controller {
         User us = new User();
 
