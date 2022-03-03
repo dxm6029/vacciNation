@@ -30,15 +30,15 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
-        [HttpPost("{eligibility_id}")]
-        public IActionResult AddEligibilityReq([FromHeader] string authorization, [FromBody] EligibilityText eligibility, int eligibility_id) {
+        [HttpPost]
+        public IActionResult AddEligibilityReq([FromHeader] string authorization, [FromBody] EligibilityText eligibility) {
             string token = authorization;
             int uid = us.checkToken(token);
             if (uid == -1){
                 return Unauthorized();
             }
 
-            bool added = em.AddEligibilityQnA(eligibility, eligibility_id);
+            bool added = em.AddEligibilityQnA(eligibility, eligibility.eligibility_id);
 
             if(added){
                 return Accepted();
