@@ -2973,57 +2973,6 @@
       }
     },
     "/Eligibility/{eligibility_id}": {
-      "post": {
-        "tags": [
-          "Eligibility"
-        ],
-        "summary": "set eligibility category information",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "description": "baerer token for security and autorization",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "body",
-            "name": "eligibility",
-            "description": "eligibility object to be added (no id needed)",
-            "schema": {
-              "$ref": "#/definitions/EligibilityText"
-            },
-            "required": true
-          },
-          {
-            "in": "path",
-            "name": "eligibility_id",
-            "description": "the eligibility id to tie the text question and answer to",
-            "type": "integer",
-            "required": true
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "successful response"
-          },
-          "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
-          }
-        }
-      },
       "delete": {
         "tags": [
           "Eligibility"
@@ -3068,6 +3017,50 @@
       }
     },
     "/Eligibility": {
+      "post": {
+        "tags": [
+          "Eligibility"
+        ],
+        "summary": "set eligibility category information",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "eligibility",
+            "description": "eligibility object to be added (no id needed)",
+            "schema": {
+              "$ref": "#/definitions/EligibilityText"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "successful response"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
       "put": {
         "tags": [
           "Eligibility"
