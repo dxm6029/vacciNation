@@ -130,10 +130,6 @@ namespace VacciNationAPI.DataLayer
 
                 string query = "UPDATE eligibility_text SET";
 
-                if(eligibility.language != null){
-                    query += " language = @language,";
-                }
-
                 if(eligibility.eligibility_id != -1){
                     query += " eligibility_id = @eligibility_id,";
                 }
@@ -148,17 +144,13 @@ namespace VacciNationAPI.DataLayer
 
                 query = query.TrimEnd(',');
 
-                query += " WHERE text_id = @id";
+                query += " WHERE text_id = @id AND language = @lang";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
                 cmd.Parameters.AddWithValue("@id", eligibility.text_id);
+                cmd.Parameters.AddWithValue("@language", eligibility.language);
 
-
-                if(eligibility.language != null){
-                    cmd.Parameters.AddWithValue("@language", eligibility.language);
-
-                }
 
                 if(eligibility.eligibility_id != -1){
                     cmd.Parameters.AddWithValue("@eligibility_id", eligibility.eligibility_id);
