@@ -89,6 +89,7 @@ namespace VacciNationAPI.DataLayer
                 query = query.TrimEnd(',');
 
                 query += " WHERE eligibility_id = @id";
+                Console.WriteLine(query);
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
