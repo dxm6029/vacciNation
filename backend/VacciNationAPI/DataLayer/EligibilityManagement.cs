@@ -19,12 +19,13 @@ namespace VacciNationAPI.DataLayer
             MySqlConnection conn = new MySqlConnection();
             try{ 
 
+                Console.WriteLine(eligibility.dependency);
                 conn = connection.OpenConnection();
 
                 string query = "INSERT INTO eligibility(vaccine_id, dependency) VALUES (@vaccine_id, @dependency)";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@vaccine_id", eligibility.vaccine_id);
-                cmd.Parameters.AddWithValue("@dependency", eligibility.dependency);
+                cmd.Parameters.AddWithValue("@dependency", eligibility.dependency == 0 ? "null" : eligibility.dependency);
             
 
                 int rows = cmd.ExecuteNonQuery();
