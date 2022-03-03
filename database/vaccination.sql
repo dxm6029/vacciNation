@@ -157,8 +157,10 @@ CREATE TABLE eligibility_text(
     eligibility_id INT NOT NULL,
     type CHAR(1) NOT NULL,
     text VARCHAR(1023) NOT NULL,
+    is_eligible BOOL,
     PRIMARY KEY (text_id, language),
     CONSTRAINT type_is_qa CHECK (type IN ('Q', 'A')),
+    CONSTRAINT only_a_eligible CHECK (type = 'A' OR is_eligible IS NULL),
     CONSTRAINT fk_eligibility_text FOREIGN KEY (eligibility_id) REFERENCES eligibility (eligibility_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
