@@ -158,10 +158,11 @@ CREATE TABLE eligibility_text(
     type CHAR(1) NOT NULL,
     text VARCHAR(1023) NOT NULL,
     PRIMARY KEY (text_id, language),
-    CONSTRAINT type_is_qa CHECK (type IN ('Q', 'A'))
+    CONSTRAINT type_is_qa CHECK (type IN ('Q', 'A')),
+    CONSTRAINT fk_eligibility_text FOREIGN KEY (eligibility_id) REFERENCES eligibility (eligibility_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-ALTER TABLE eligibility ADD CONSTRAINT fk_eligibility_dependency FOREIGN KEY (dependency) REFERENCES eligibility_text (text_id);
+ALTER TABLE eligibility ADD CONSTRAINT fk_eligibility_dependency FOREIGN KEY (dependency) REFERENCES eligibility_text (text_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 CREATE TABLE faq(
 	faq_id INT NOT NULL,
