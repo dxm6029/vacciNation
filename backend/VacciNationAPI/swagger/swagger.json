@@ -33,6 +33,10 @@
     {
       "name": "Location",
       "description": "Add/Update/View vaccination locations"
+    },
+    {
+      "name": "Eligibility",
+      "description": "manage eligibility requirements for vaccines"
     }
   ],
   "schemes": [
@@ -2833,6 +2837,304 @@
           }
         }
       }
+    },
+    "/Eligibility/Category": {
+      "post": {
+        "tags": [
+          "Eligibility"
+        ],
+        "summary": "set eligibility category information",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "eligibility",
+            "description": "eligibility object to be added (no id needed)",
+            "schema": {
+              "$ref": "#/definitions/Eligibility"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "successful response"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Eligibility"
+        ],
+        "summary": "update eligibility category information",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "eligibility",
+            "description": "eligibility object to be updated",
+            "schema": {
+              "$ref": "#/definitions/Eligibility"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "successful response"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Eligibility/Category/{eligibility_id}": {
+      "delete": {
+        "tags": [
+          "Eligibility"
+        ],
+        "summary": "delete eligibility category",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "eligibility_id",
+            "description": "id of eligibility category to delete",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "successful response"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Eligibility/{eligibility_id}": {
+      "post": {
+        "tags": [
+          "Eligibility"
+        ],
+        "summary": "set eligibility category information",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "eligibility",
+            "description": "eligibility object to be added (no id needed)",
+            "schema": {
+              "$ref": "#/definitions/EligibilityText"
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "eligibility_id",
+            "description": "the eligibility id to tie the text question and answer to",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "successful response"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Eligibility"
+        ],
+        "summary": "delete eligibility text",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "eligibility_id",
+            "description": "id of eligibility text to delete",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "successful response"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Eligibility": {
+      "put": {
+        "tags": [
+          "Eligibility"
+        ],
+        "summary": "update eligibility information",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "eligibility",
+            "description": "eligibility object to be updated",
+            "schema": {
+              "$ref": "#/definitions/EligibilityText"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "successful response"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Eligibility"
+        ],
+        "summary": "get all eligibility information",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "202": {
+            "description": "dictionary structure with all eligibility objects and associated questions and answers in each language"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
     }
   },
   "securityDefinitions": {
@@ -2852,6 +3154,48 @@
     }
   },
   "definitions": {
+    "Eligibility": {
+      "type": "object",
+      "properties": {
+        "eligibility_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "vaccine_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "dependency": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "EligibilityText": {
+      "type": "object",
+      "properties": {
+        "text_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "language": {
+          "type": "string"
+        },
+        "eligibility_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type": {
+          "type": "string"
+        },
+        "textQ": {
+          "type": "string"
+        },
+        "textA": {
+          "type": "string"
+        }
+      }
+    },
     "Timeslot": {
       "type": "object",
       "properties": {

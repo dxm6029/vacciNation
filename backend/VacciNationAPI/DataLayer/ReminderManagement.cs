@@ -19,7 +19,6 @@ namespace VacciNationAPI.DataLayer
         public static async Task Execute(string email, string date, string location, string category, string disease, string supplier)
         {
             var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
-            Console.WriteLine(apiKey);
 
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("vaccineschedulingassistant@gmail.com", "Vaccination Scheduling Support");
@@ -30,22 +29,12 @@ namespace VacciNationAPI.DataLayer
             Console.WriteLine("email created");
 
             var response = await client.SendEmailAsync(msg);
-            Console.WriteLine("trying to send");
             Console.WriteLine(response.StatusCode);
 
         }
         public bool  sendNotifications(DateTime date){
             MySqlConnection conn = new MySqlConnection();
-            bool res = false;
             try{ 
-
-                
-            Console.WriteLine("execute");
-
-               // Execute().Wait();
-            Console.WriteLine("execute finished");
-
-
 
                 conn = connection.OpenConnection();
  
@@ -72,22 +61,14 @@ namespace VacciNationAPI.DataLayer
                     string disease = rdr.IsDBNull(3) ?  "" : rdr.GetString(3);
                     string supplier = rdr.IsDBNull(4) ?  "" : rdr.GetString(4);
                     string apptDate = rdr.IsDBNull(5) ?  "" : rdr.GetString(5);
-                    Console.WriteLine(email);
-                    Console.WriteLine(location);
-                    Console.WriteLine(category);
-                    Console.WriteLine(disease);
-                    Console.WriteLine(supplier);
-                    Console.WriteLine(apptDate);
-
 
                     Execute(email, apptDate, location, category, disease, supplier).Wait();
-                    //suppliers.Add(rdr.IsDBNull(0) ?  "" : rdr.GetString(0));
                 }
                 rdr.Close();
 
-            }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace); }
+            }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace); return false; }
             finally{
-                //connection.CloseConnection(conn);
+                connection.CloseConnection(conn);
             }
 
             return true;
