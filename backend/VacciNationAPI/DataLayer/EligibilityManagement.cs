@@ -105,6 +105,11 @@ namespace VacciNationAPI.DataLayer
 
                 int rows = cmd.ExecuteNonQuery();
 
+                Console.WriteLine(eligibility.vaccine_id);
+                Console.WriteLine(eligibility.dependency);
+                Console.WriteLine(eligibility.eligibility_id);
+
+
                 if(rows > 0){
                     status = true;
                 }
