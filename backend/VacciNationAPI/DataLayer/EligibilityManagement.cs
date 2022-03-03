@@ -19,7 +19,6 @@ namespace VacciNationAPI.DataLayer
             MySqlConnection conn = new MySqlConnection();
             try{ 
 
-                Console.WriteLine(eligibility.dependency);
                 conn = connection.OpenConnection();
 
                 string query = "INSERT INTO eligibility(vaccine_id, dependency) VALUES (@vaccine_id, @dependency)";
@@ -48,7 +47,7 @@ namespace VacciNationAPI.DataLayer
 
                 conn = connection.OpenConnection();
 
-                string query = "INSERT INTO eligibility_text(lanugage, eligibility_id, type, text) VALUES (@lang, @eligibility_id, @type, @text)";
+                string query = "INSERT INTO eligibility_text(language, eligibility_id, type, text) VALUES (@lang, @eligibility_id, @type, @text)";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@lang", eligibility.language);
                 cmd.Parameters.AddWithValue("@eligibility_id", eligibility.eligibility_id);
