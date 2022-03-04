@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  db:
+    image: mariadb
+    ports:
+    - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: root_secret_password
+    volumes:
+      - ./database/mariadb-data:/var/lib/mysql
+      - ./database/vaccination.sql:/docker-entrypoint-initdb.d/init.sql
+
+  api:
+    build: ./backend/VacciNationAPI
+    environment:
+      DB_IP: db
+      DB_NAME: vaccination
+      DB_USER: root
+      DB_PWD: root_secret_password
+      DB_PORT: 3306
+      SENDGRID_API_KEY: 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
+    ports:
+    - "5000:5000"
+    - "5001:5001"
