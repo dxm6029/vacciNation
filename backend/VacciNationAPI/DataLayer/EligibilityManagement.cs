@@ -143,7 +143,7 @@ namespace VacciNationAPI.DataLayer
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
                 cmd.Parameters.AddWithValue("@id", eligibility.text_id);
-                cmd.Parameters.AddWithValue("@language", eligibility.language);
+                cmd.Parameters.AddWithValue("@lang", eligibility.language);
 
 
                 if(eligibility.eligibility_id != -1){
