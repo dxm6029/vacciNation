@@ -192,7 +192,7 @@ namespace VacciNationAPI.DataLayer
                     } else {
                         List<EligibilityText> newText = new List<EligibilityText>();
                         newText.Add(new EligibilityText(rdr.GetInt32(3), rdr.GetString(6), el_id, rdr.GetString(4), rdr.GetString(5)));
-                        eligibilityInfo.Add(el_id, new MultEligibility(new Eligibility(el_id, rdr.GetInt32(2), rdr.GetInt32(3)), newText));
+                        eligibilityInfo.Add(el_id, new MultEligibility(new Eligibility(el_id, rdr.GetInt32(1), rdr.GetInt32(2)), newText));
                     }
                     
                 }
