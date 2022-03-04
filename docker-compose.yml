@@ -10,7 +10,6 @@ services:
     volumes:
       - ./database/mariadb-data:/var/lib/mysql
       - ./database/vaccination.sql:/docker-entrypoint-initdb.d/init.sql
-
   api:
     build: ./backend/VacciNationAPI
     environment:
@@ -19,7 +18,13 @@ services:
       DB_USER: root
       DB_PWD: root_secret_password
       DB_PORT: 3306
-      SENDGRID_API_KEY:
+      SENDGRID_API_KEY: key_here
     ports:
+    - "5002:80"
     - "5000:5000"
     - "5001:5001"
+  ui:
+    build: ./frontend/mainapp
+    ports:
+    - "3000:3000"
+
