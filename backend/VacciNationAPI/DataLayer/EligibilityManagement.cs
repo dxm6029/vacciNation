@@ -238,17 +238,16 @@ namespace VacciNationAPI.DataLayer
                 conn = connection.OpenConnection();
 
 
-                // string query = "UPDATE eligibility SET dependency = @dep WHERE dependency=@removed";
-                // MySqlCommand cmd = new MySqlCommand(query, conn);
-                // cmd.Parameters.AddWithValue("@dep", null);
-                // cmd.Parameters.AddWithValue("@removed", text_id);
-
-                // int rowsUpdate = cmd.ExecuteNonQuery();
-
-                string query = "DELETE FROM eligibility_text WHERE text_id = @id AND language = @lang";
+                string query = "UPDATE eligibility SET dependency = @dep WHERE dependency=@removed";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@dep", null);
+                cmd.Parameters.AddWithValue("@removed", text_id);
+
+                int rowsUpdate = cmd.ExecuteNonQuery();
+
+                query = "DELETE FROM eligibility_text WHERE text_id = @id";
+                cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", text_id);
-                cmd.Parameters.AddWithValue("@lang", lang);
 
                 int rows = cmd.ExecuteNonQuery();
                 
