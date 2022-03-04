@@ -107,10 +107,10 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
-        [HttpDelete("{text_id}")]
-         public IActionResult deleteEligibility([FromHeader] string authorization, int text_id) {
+        [HttpDelete("{text_id}/{lang}")]
+         public IActionResult deleteEligibility([FromHeader] string authorization, int text_id, string lang) {
 
-            bool removed = em.removeEligibility(text_id);
+            bool removed = em.removeEligibility(text_id, lang);
 
             if(removed){
                 return Accepted();

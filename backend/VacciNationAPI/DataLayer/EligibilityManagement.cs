@@ -231,15 +231,16 @@ namespace VacciNationAPI.DataLayer
             return status;
         }
 
-         public bool removeEligibility(int text_id){
+         public bool removeEligibility(int text_id, string lang){
             bool status = false;
             MySqlConnection conn = new MySqlConnection();
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "DELETE FROM eligibility_text WHERE text_id = @id";
+                string query = "DELETE FROM eligibility_text WHERE text_id = @id AND language = @lang";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", text_id);
+                cmd.Parameters.AddWithValue("@lang", lang);
 
                 int rows = cmd.ExecuteNonQuery();
                 
