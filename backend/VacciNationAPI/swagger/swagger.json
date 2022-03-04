@@ -2972,7 +2972,7 @@
         }
       }
     },
-    "/Eligibility/{eligibility_id}/{lang}": {
+    "/Eligibility/{eligibility_id}": {
       "delete": {
         "tags": [
           "Eligibility"
@@ -2995,15 +2995,8 @@
           {
             "in": "path",
             "name": "eligibility_id",
-            "description": "id of eligibility text to delete",
+            "description": "id of eligibility text to delete (WILL DELETE ALL LANGS WITH THIS ID!)",
             "type": "integer",
-            "required": true
-          },
-          {
-            "in": "path",
-            "name": "lang",
-            "description": "language or eligibility text to delete",
-            "type": "string",
             "required": true
           }
         ],
