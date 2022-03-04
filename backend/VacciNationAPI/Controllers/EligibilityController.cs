@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using VacciNationAPI.Models;
 using VacciNationAPI.DataLayer;
+using  Newtonsoft.Json;
+
 
 namespace VacciNationAPI.Controllers{
 
@@ -87,7 +89,7 @@ namespace VacciNationAPI.Controllers{
             Dictionary<int, MultEligibility> added = em.getEligibilityInfo();
 
             if(added != null){
-                return new ObjectResult(added);
+                return new ObjectResult(JsonConvert.SerializeObject( added ));
             } else {
                 return BadRequest();
             }
