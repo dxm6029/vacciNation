@@ -231,7 +231,7 @@ namespace VacciNationAPI.DataLayer
             return status;
         }
 
-         public bool removeEligibility(int text_id, string lang){
+         public bool removeEligibility(int text_id){
             bool status = false;
             MySqlConnection conn = new MySqlConnection();
             try{ 
