@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
-
+using  Newtonsoft.Json;
 
 namespace VacciNationAPI.DataLayer
 {
@@ -196,6 +196,7 @@ namespace VacciNationAPI.DataLayer
                     }
                     
                 }
+                Console.WriteLine( JsonConvert.SerializeObject( eligibilityInfo ));
                 rdr.Close();
 
             }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
