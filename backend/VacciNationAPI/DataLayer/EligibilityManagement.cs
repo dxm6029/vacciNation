@@ -243,6 +243,14 @@ namespace VacciNationAPI.DataLayer
                 cmd.Parameters.AddWithValue("@lang", lang);
 
                 int rows = cmd.ExecuteNonQuery();
+
+
+                query = "UPDATE eligibility_text SET dependency = @dep WHERE dependency=@removed";
+                cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@dep", null);
+                cmd.Parameters.AddWithValue("@removed", text_id);
+
+                int rowsUpdate = cmd.ExecuteNonQuery();
                 
                 if(rows > 0){
                     status = true;
