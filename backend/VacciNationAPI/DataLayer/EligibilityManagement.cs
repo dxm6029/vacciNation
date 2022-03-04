@@ -223,7 +223,7 @@ namespace VacciNationAPI.DataLayer
                 if(rows > 0){
                     status = true;
                 }
-            } catch (Exception e){}
+            } catch (Exception e){Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
             finally {
                 connection.CloseConnection(conn);
             }
@@ -247,7 +247,7 @@ namespace VacciNationAPI.DataLayer
                 if(rows > 0){
                     status = true;
                 }
-            } catch (Exception e){}
+            } catch (Exception e){Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
             finally {
                 connection.CloseConnection(conn);
             }
