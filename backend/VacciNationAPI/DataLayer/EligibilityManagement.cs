@@ -89,7 +89,6 @@ namespace VacciNationAPI.DataLayer
                 query = query.TrimEnd(',');
 
                 query += " WHERE eligibility_id = @id";
-                Console.WriteLine(query);
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
@@ -104,11 +103,6 @@ namespace VacciNationAPI.DataLayer
                 }
 
                 int rows = cmd.ExecuteNonQuery();
-
-                Console.WriteLine(eligibility.vaccine_id);
-                Console.WriteLine(eligibility.dependency);
-                Console.WriteLine(eligibility.eligibility_id);
-
 
                 if(rows > 0){
                     status = true;
@@ -170,7 +164,7 @@ namespace VacciNationAPI.DataLayer
                     status = true;
                 }
 
-            }catch (Exception e){}
+            }catch (Exception e){Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
             finally{
                 connection.CloseConnection(conn);
             }
