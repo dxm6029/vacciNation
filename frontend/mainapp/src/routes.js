@@ -12,10 +12,6 @@ import Report from './pages/report';
 import SelectVaccine from './pages/selectVaccine';
 
 import LogIn from './staffPages/login';
-import StaffLogin from './staffPages/stafflogin';
-import AdminLogin from './staffPages/adminlogin';
-import SiteManagerLogin from './staffPages/sitemanagerlogin';
-import NurseLogin from './staffPages/nurselogin';
 import ForgotPassword from './staffPages/forgotPassword';
 
 import AdminHome from './staffPages/adminPages/home';
@@ -43,10 +39,6 @@ class UBRoutes extends React.Component {
 
 
                 <Route path="/login" element={<LogIn />}/>
-                <Route path="/stafflogin" element={<StaffLogin />}/>
-                <Route path="/adminlogin" element={<AdminLogin />}/>
-                <Route path="/sitemanagerlogin" element={<SiteManagerLogin />}/>
-                <Route path="/nurselogin" element={<NurseLogin />}/>
                 <Route path="/forgotPassword" element={<ForgotPassword />}/>
 
 
