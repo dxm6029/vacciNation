@@ -145,3 +145,55 @@ INSERT INTO timeslot (timeslot_id, staff_id, citizen_id, location_id, dose_id, d
 INSERT INTO timeslot (timeslot_id, staff_id, citizen_id, location_id, dose_id, date, status_id) VALUES (3, 3, 3, 1, 1, "2022-08-01 11:00:00", 2);
 INSERT INTO timeslot (timeslot_id, staff_id, location_id, dose_id, date, status_id) VALUES (4, 3, 1, 1, "2022-08-01 10:00:00", 1);
 INSERT INTO timeslot (timeslot_id, staff_id, citizen_id, location_id, dose_id, date, status_id) VALUES (5, 3, 4, 1, 1, "2022-02-01 10:00:00", 3);
+
+INSERT INTO eligibility (eligibility_id, vaccine_id, dependency) VALUES (1, 1, NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (1, "en", 1, "Q", "Are you aged 65 or older?", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (1, "es", 1, "Q", "Tiene 65 anos o mas?", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (2, "en", 1, "A", "Yes", TRUE);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (2, "es", 1, "A", "Si", TRUE);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (3, "en", 1, "A", "No", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (3, "es", 1, "A", "No", NULL);
+
+INSERT INTO eligibility (eligibility_id, vaccine_id, dependency) VALUES (2, 1, 3); -- Dependent on eligibility_text with text_id '3' i.e. this only appears if citizen chooses 'no' to being 65 or over
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (4, "en", 2, "Q", "Are you a healthcare worker or first responder?", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (4, "es", 2, "Q", "Eres un trabajador de la salud o socorrista?", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (5, "en", 2, "A", "Yes", TRUE);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (5, "es", 2, "A", "Si", TRUE);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (6, "en", 2, "A", "No", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (6, "es", 2, "A", "No", NULL);
+
+INSERT INTO eligibility (eligibility_id, vaccine_id, dependency) VALUES (3, 1, 6); -- Dependent on eligibility_text with text_id '6' i.e. not a healthcare worker
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (7, "en", 3, "Q", "Do you have any of the following health conditions?\n\nCancer\nChronic kidney disease\nChronic liver disease\nChronic lung diseases\nDementia or other neurological conditions\nDiabetes\nDown syndrome\nHeart conditions\nHIV infection\nImmunocompromised state (weakened immune system)\nMental health conditions\nOverweight and obesity\nPregnancy\nSickle cell disease or thalassemia\nSmoking, current or former\nSolid organ or blood stem cell transplant\nStroke or cerebrovascular disease, which affects blood flow to the brain\nSubstance use disorders\nTuberculosis", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (7, "es", 3, "Q", "Tiene alguna de las siguientes condiciones de salud?\n\nCancer\nenfermedad renal cronica\nEnfermedad cronica del higado\nenfermedades pulmonares cronicas\nDemencia u otras condiciones neurologicas\nDiabetes\nSindrome de Down\nEnfermedades del corazon\ninfeccion por VIH\nEstado inmunocomprometido (sistema inmunitario debilitado)\n\nCondiciones de salud mental\nSobrepeso y obesidad\nEl embarazo\nEnfermedad de celulas falciformes o talasemia\nFumar, actual o forma\nTrasplante de organos solidos o celulas madre sanguineas\nAccidente cerebrovascular o enfermedad cerebrovascular, que afecta el flujo de sangre al cerebro\nTrastornos por uso de sustancias\nTuberculosis", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (8, "en", 3, "A", "Yes", TRUE);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (8, "es", 3, "A", "Si", TRUE);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (9, "en", 3, "A", "No", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (9, "es", 3, "A", "No", NULL);
+
+INSERT INTO eligibility (eligibility_id, vaccine_id, dependency) VALUES (4, 1, 9); -- Dependent on eligibility_text with text_id '9' i.e. no health conditions
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (10, "en", 4, "Q", "How many doses of the COVID 19 vaccine have you had?", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (10, "es", 4, "Q", "Cuantas dosis de la vacuna COVID 19 ha recibido?", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (11, "en", 4, "A", "0 Zero", TRUE);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (11, "es", 4, "A", "0 Cero", TRUE);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (12, "en", 4, "A", "1 One", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (12, "es", 4, "A", "1 Uno", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (13, "en", 4, "A", "2 Two", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (13, "es", 4, "A", "2 Dos", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (14, "en", 4, "A", "3 Three", FALSE);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (14, "es", 4, "A", "3 Tres", FALSE);
+
+INSERT INTO eligibility (eligibility_id, vaccine_id, dependency) VALUES (5, 1, 12); -- Dependent on eligibility_text with text_id '12' i.e. one dose so far
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (15, "en", 5, "Q", "Was your last vaccine more than 3 weeks ago?", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (15, "es", 5, "Q", "Su ultima vacuna fue hace mas de 3 semanas?", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (16, "en", 5, "A", "Yes", TRUE);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (16, "es", 5, "A", "Si", TRUE);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (17, "en", 5, "A", "No", FALSE);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (17, "es", 5, "A", "No", FALSE);
+
+INSERT INTO eligibility (eligibility_id, vaccine_id, dependency) VALUES (6, 1, 13); -- Dependent on eligibility_text with text_id '13' i.e. two doses so far
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (18, "en", 6, "Q", "Was your last vaccine more than 6 months ago?", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (18, "es", 6, "Q", "Su ultima vacuna fue hace mas de 6 meses?", NULL);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (19, "en", 6, "A", "Yes", TRUE);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (19, "es", 6, "A", "Si", TRUE);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (20, "en", 6, "A", "No", FALSE);
+INSERT INTO eligibility_text (text_id, language, eligibility_id, type, text, is_eligible) VALUES (20, "es", 6, "A", "No", FALSE);
