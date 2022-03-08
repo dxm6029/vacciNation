@@ -18,6 +18,14 @@ import SiteManagerLogin from './staffPages/sitemanagerlogin';
 import NurseLogin from './staffPages/nurselogin';
 import ForgotPassword from './staffPages/forgotPassword';
 
+import AdminHome from './staffPages/adminPages/home';
+import ViewLocations from './staffPages/adminPages/viewLocations';
+import AddLocation from './staffPages/adminPages/addLocation';
+import EditLocation from './staffPages/adminPages/editLocation';
+import ViewLocation from './staffPages/adminPages/viewLocation';
+import ViewUsers from './staffPages/adminPages/viewUsers';
+import AddUser from './staffPages/adminPages/addUser';
+
 class UBRoutes extends React.Component {
     render() {
         return (
@@ -40,6 +48,15 @@ class UBRoutes extends React.Component {
                 <Route path="/sitemanagerlogin" element={<SiteManagerLogin />}/>
                 <Route path="/nurselogin" element={<NurseLogin />}/>
                 <Route path="/forgotPassword" element={<ForgotPassword />}/>
+
+
+                <Route path="/adminHome" element={<AdminHome />} />
+                <Route path="/viewLocations" element={<ViewLocations />} />
+                <Route path="/viewLocation" element={<ViewLocation />} />
+                <Route path="/addLocation" element={<AddLocation />}/>
+                <Route path="/editLocation" element={<EditLocation />}/>
+                <Route path="/viewUsers" element={<ViewUsers />}/>
+                <Route path="/addUser" element={<AddUser />}/>
             </Routes>
         );
     }

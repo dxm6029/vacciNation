@@ -1,0 +1,74 @@
+.viewLocations {
+    width: 80%;
+    margin-left: 10%;
+}
+
+h2 {
+    text-align: left;
+    font-size: 1.75em;
+    font-weight: bold;
+}
+
+.locationsTable {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+}
+
+.locationsTable thead tr {
+    background-color: #004494;
+    color: #ffffff;
+    text-align: left;
+}
+
+.locationsTable td, .locationsTable th {
+    padding: 12px 15px;
+}
+
+.locationsTable th {
+    color: white;
+}
+
+.locationsTable tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.locationsTable tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.locationsTable tbody tr:last-of-type {
+    border-bottom: 2px solid #004494;
+}
+
+.editLocation {
+    display: inline;
+    padding: 0 2%;
+    margin: 0 2%;
+    border: 1px solid gray;
+    border-radius: 50px;
+    color: black;
+    text-decoration: none;
+}
+
+.buttonContainer {
+    width: 100%;
+    padding-left: auto;
+    padding-right: auto;
+    text-align: center;
+}
+
+.columns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.column {
+    flex: 33.33%;
+}
