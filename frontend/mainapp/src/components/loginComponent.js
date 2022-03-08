@@ -40,9 +40,24 @@ function LoginComponent(props) {
 
 //   }
 
-  function LOGIN() {
+  const LOGIN = (event) => {
+    event.preventDefault();
+    console.log(event.target);
+    let username = event.target.username.value;
+         let password = event.target.password.value;
     return axios
-        .get("http://192.168.1.5:5000/UserStaff/all", {headers: {'Content-Type': 'application/json'}})
+        .post("http://192.168.1.5:5000/UserStaff/login", {
+          'username': username,
+          'password': password,
+        },
+        {
+          headers: {
+          'Content-Type': 'application/json', 
+          "Cache-Control": "no-cache, no-store, must-revalidate", 
+          "Pragma": "no-cache", 
+          "Expires": 0
+          }
+        })
         .then((response) => {
             if (response) {
                 console.log(response); 
@@ -52,6 +67,7 @@ function LoginComponent(props) {
             }
         }).catch((err) => {
             console.log('*** API Call Failed ***')
+            console.log(err)
             console.log(err.toString())
             return null;
         });
@@ -61,7 +77,7 @@ function LoginComponent(props) {
     <>
         <h1>{props.title}</h1>
     
-        <form > 
+        <form onSubmit={e => {LOGIN(e)}}> 
           <label htmlFor="username">Username:</label>
           <input type="text" id="username" name="username"></input>
 
@@ -72,7 +88,7 @@ function LoginComponent(props) {
           </div>
           <Link to="/forgotPassword">Forgot password?</Link>
 
-          <button type="button" value="Sign in" onClick={() => {LOGIN()}}></button>
+          <button type="submit" value="Sign in"></button>
 
           <div id="formStatus"></div>
         </form>

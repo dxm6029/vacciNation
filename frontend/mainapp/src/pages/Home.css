@@ -25,15 +25,20 @@
   left: 50%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
-  border: 1px solid #000000;
   background-color: white;
   box-sizing: border-box;
   color: black;
   border-radius: 96px;
   font-size: 24px;
   text-align: center;
-  padding: 10px;
+  padding: 15px;
   width: fit-content;
+  
+}
+
+.homepageImage button:hover {
+
+  background-color: "white" !important;
 }
 
 .welcome {
@@ -44,7 +49,7 @@
 }
 
 .header {
-  height: 24vh;
+  height: 16vh;
   width: 100%;
   background-color: #004494;
   box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.25);
