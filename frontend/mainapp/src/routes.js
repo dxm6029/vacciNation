@@ -22,6 +22,9 @@ import ViewLocation from './staffPages/adminPages/viewLocation';
 import ViewUsers from './staffPages/adminPages/viewUsers';
 import AddUser from './staffPages/adminPages/addUser';
 
+import NurseHome from './staffPages/nursePages/home';
+import FindPatient from './staffPages/nursePages/findPatient';
+
 class UBRoutes extends React.Component {
     render() {
         return (
@@ -49,6 +52,9 @@ class UBRoutes extends React.Component {
                 <Route path="/editLocation" element={<EditLocation />}/>
                 <Route path="/viewUsers" element={<ViewUsers />}/>
                 <Route path="/addUser" element={<AddUser />}/>
+
+                <Route path="/nurseHome" element={<NurseHome />} />
+                <Route path="/findPatient" element={<FindPatient />} />
             </Routes>
         );
     }
