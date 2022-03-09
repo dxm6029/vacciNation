@@ -70,3 +70,29 @@ input[type=text], input[type=date], select {
     display: table;
     clear: both;
 }
+
+.detailedInfo {
+    width: 80%;
+    margin-left: 10%;
+}
+
+.PIRectangle {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 2.5%;
+}
+
+.vaccineHistory {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 5%;
+}
+
+.vaccineHistory, .vaccineHistory td, .vaccineHistory th {
+    border: 1px solid;
+}
+
+.addVaccine {
+    float: right;
+}
+  

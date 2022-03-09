@@ -32,6 +32,77 @@ function PatientInfo() {
 
             <hr className='fullHR'/>
         </div>
+
+        <div className='detailedInfo'>
+            Personal Information
+            <div className='PIRectangle'>
+                <div className='row'>
+                    <div className='column'>
+                        Address <br/>
+                        City/State/Zip
+                    </div>
+                    <div className='column'>
+                        DOB <br/>
+                        Phone
+                    </div>
+                    <div className='column'>
+                        Email
+                    </div>
+                </div>
+            </div> <br/>
+
+            Emergency Contact
+            <div className='PIRectangle'>
+                <div className='row'>
+                    <div className='column'>
+                        Name <br/>
+                        Address
+                    </div>
+                    <div className='column'>
+                        Phone <br/>
+                        Email
+                    </div>
+                    <div className='column'>
+                        Relationship to patient
+                    </div>
+                </div>
+            </div> <br/>
+
+            Insurance Information
+            <div className='PIRectangle'>
+                <div className='row'>
+                    <div className='column'>
+                        Provider <br/>
+                        ID#
+                    </div>
+                    <div className='column'>
+                        Group # <br/>
+                        Medicare ID
+                    </div>
+                    <div className='column'>
+                        Uninsured State ID
+                    </div>
+                </div>
+            </div> <br/>
+
+            Vaccine History <span className='addVaccine'> Add a new vaccine entry</span>
+            <table className="vaccineHistory">
+                <tr>
+                    <th>Vaccine Type</th>
+                    <th>Date </th>
+                    <th>Manufacturer </th>
+                    <th>Batch Number </th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+            </table>
+
+            BUTTON
+        </div>
     </>
   );
 }
