@@ -28,3 +28,45 @@ input[type=text], input[type=date], select {
   input[type=submit]:hover {
     background-color: gray;
   }
+
+
+.patientInfo {
+    width: 100%;
+}
+
+.patientInfo .patientname {
+    font-size: 1.75em;
+    padding-right: 50px;
+    font-weight: bold;
+    color: black;
+    padding: 2.5%;
+}
+
+.patientInfo .extra {
+    font-size: 0.75em;
+    font-weight: normal;    
+}
+
+.fullHR {
+    width: 107%;
+    margin: 20px 0;
+    margin-left: -5%;
+}
+
+.appointmentInfo {
+    text-align: left;
+    padding: 2.5%;
+}
+
+.column {
+    float: left;
+    width: 30%;
+    padding: 10px;
+    text-align: center;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

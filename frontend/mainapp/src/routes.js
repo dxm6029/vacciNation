@@ -24,6 +24,7 @@ import AddUser from './staffPages/adminPages/addUser';
 
 import NurseHome from './staffPages/nursePages/home';
 import FindPatient from './staffPages/nursePages/findPatient';
+import PatientInfo from './staffPages/nursePages/patientInfo';
 
 class UBRoutes extends React.Component {
     render() {
@@ -55,6 +56,7 @@ class UBRoutes extends React.Component {
 
                 <Route path="/nurseHome" element={<NurseHome />} />
                 <Route path="/findPatient" element={<FindPatient />} />
+                <Route path="/patientInfo" element={<PatientInfo />}/>
             </Routes>
         );
     }
