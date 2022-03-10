@@ -15,12 +15,6 @@ function ToggleSwitch(props) {
         </label>
       </div>
       <span className="textLabel">{" "} {props.rightLabel}  </span>
-
-      <Link to="/login" className="signIn">
-        <div className="signIn">
-          Admin/Staff Sign In
-        </div>
-      </Link>
     </div>
   );
 }

@@ -12,10 +12,6 @@ import Report from './pages/report';
 import SelectVaccine from './pages/selectVaccine';
 
 import LogIn from './staffPages/login';
-import StaffLogin from './staffPages/stafflogin';
-import AdminLogin from './staffPages/adminlogin';
-import SiteManagerLogin from './staffPages/sitemanagerlogin';
-import NurseLogin from './staffPages/nurselogin';
 import ForgotPassword from './staffPages/forgotPassword';
 
 import AdminHome from './staffPages/adminPages/home';
@@ -25,6 +21,13 @@ import EditLocation from './staffPages/adminPages/editLocation';
 import ViewLocation from './staffPages/adminPages/viewLocation';
 import ViewUsers from './staffPages/adminPages/viewUsers';
 import AddUser from './staffPages/adminPages/addUser';
+
+import NurseHome from './staffPages/nursePages/home';
+import FindPatient from './staffPages/nursePages/findPatient';
+import PatientInfo from './staffPages/nursePages/patientInfo';
+import AddVaccineEntry from './staffPages/nursePages/addVaccineEntry';
+
+import FrontDeskHome from './staffPages/frontdesk/home';
 
 class UBRoutes extends React.Component {
     render() {
@@ -43,10 +46,6 @@ class UBRoutes extends React.Component {
 
 
                 <Route path="/login" element={<LogIn />}/>
-                <Route path="/stafflogin" element={<StaffLogin />}/>
-                <Route path="/adminlogin" element={<AdminLogin />}/>
-                <Route path="/sitemanagerlogin" element={<SiteManagerLogin />}/>
-                <Route path="/nurselogin" element={<NurseLogin />}/>
                 <Route path="/forgotPassword" element={<ForgotPassword />}/>
 
 
@@ -57,6 +56,13 @@ class UBRoutes extends React.Component {
                 <Route path="/editLocation" element={<EditLocation />}/>
                 <Route path="/viewUsers" element={<ViewUsers />}/>
                 <Route path="/addUser" element={<AddUser />}/>
+
+                <Route path="/nurseHome" element={<NurseHome />} />
+                <Route path="/findPatient" element={<FindPatient />} />
+                <Route path="/patientInfo" element={<PatientInfo />}/>
+                <Route path="/addVaccineEntry" element={<AddVaccineEntry/>}/>
+
+                <Route path="/frontdeskHome" element={<FrontDeskHome />}/>
             </Routes>
         );
     }
