@@ -27,6 +27,8 @@ import FindPatient from './staffPages/nursePages/findPatient';
 import PatientInfo from './staffPages/nursePages/patientInfo';
 import AddVaccineEntry from './staffPages/nursePages/addVaccineEntry';
 
+import FrontDeskHome from './staffPages/frontdesk/home';
+
 class UBRoutes extends React.Component {
     render() {
         return (
@@ -59,6 +61,8 @@ class UBRoutes extends React.Component {
                 <Route path="/findPatient" element={<FindPatient />} />
                 <Route path="/patientInfo" element={<PatientInfo />}/>
                 <Route path="/addVaccineEntry" element={<AddVaccineEntry/>}/>
+
+                <Route path="/frontdeskHome" element={<FrontDeskHome />}/>
             </Routes>
         );
     }
