@@ -1,5 +1,6 @@
 import './patient.css';
 import NavBar from './navBar';
+import {Link} from 'react-router-dom';
 
 function PatientInfo() {
   return (
@@ -85,7 +86,8 @@ function PatientInfo() {
                 </div>
             </div> <br/>
 
-            Vaccine History <span className='addVaccine'> Add a new vaccine entry</span>
+            Vaccine History <Link to="/addVaccineEntry" 
+                className='addVaccine'> Add a new vaccine entry</Link>
             <table className="vaccineHistory">
                 <tr>
                     <th>Vaccine Type</th>
