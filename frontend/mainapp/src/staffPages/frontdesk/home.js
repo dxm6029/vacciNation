@@ -1,4 +1,4 @@
-import './navbar.css';
+import './home.css';
 import NavBar from './navbar';
 import Calendar from './calendar.js';
 
@@ -7,7 +7,13 @@ function FrontDeskHome() {
   return (
     <>
         <NavBar />
-        <Calendar />
+
+        <h1> Appointments </h1>
+
+        <div className="calendar">
+          <Calendar />
+        </div>
+        
     </>
   );
 }
