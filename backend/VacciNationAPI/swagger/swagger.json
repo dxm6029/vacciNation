@@ -917,7 +917,7 @@
           {
             "in": "query",
             "name": "last_name",
-            "description": "first name of citizen",
+            "description": "last name of citizen",
             "required": true,
             "type": "string"
           },
