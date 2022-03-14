@@ -13,6 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
+import axios from 'axios';
 
 function Prescreening(props) {
 
@@ -33,6 +34,38 @@ function Prescreening(props) {
     const handleChange = (newValue) => {
         setValue(newValue);
     };
+
+    //DATABASE CONNECTION - SUBMIT PREESCREENING - TODO
+    const SUBMIT = (event) => {
+        event.preventDefault();
+        console.log(event.target);
+        let firstName = event.target.fname.value;
+        let lastName = event.target.lname.value;
+        let dob = event.target.dob.value;
+        let emailAddress = event.target.email.value;
+        return axios
+          .get("/UserCitizen"), {
+            params: {
+              first_name: firstName,
+              last_name: lastName,
+              email: emailAddress
+            }
+          }
+          .then((response) => {
+              if (response) {
+                  console.log(response); 
+              } else {
+                  console.log('API failed: No data received!');
+                  return null;
+              }
+          }).catch((err) => {
+              console.log('*** API Call Failed ***')
+              console.log(err)
+              console.log(err.toString())
+              return null;
+          });
+      }
+  
 
   return (
     <div className="scheduler">
