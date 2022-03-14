@@ -42,5 +42,35 @@ namespace VacciNationAPI.DataLayer
             }
         }
         
+        public List<Dictionary<string, string>> GetAllResponseTimes(){
+            MySqlConnection conn = connection.OpenConnection();
+            List<Dictionary<string, string>> responseTimes = new List<Dictionary<string, string>>();
+            try{ 
+                string query = "SELECT application, endpoint, response_time, response_code, timestamp FROM monitor;";
+                
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+
+                    Dictionary<string, string> monitor = new Dictionary<string, string>();
+                    monitor.Add("application", (rdr.IsDBNull(0) ? "" : rdr.GetString(0)) );
+                    monitor.Add("endpoint", (rdr.IsDBNull(1) ? "" : rdr.GetString(1)) );
+                    monitor.Add("response_time", "" + (rdr.IsDBNull(2) ? -1 : rdr.GetInt32(2)) );
+                    monitor.Add("response_code", (rdr.IsDBNull(3) ? "" : rdr.GetString(3)) );
+                    monitor.Add("timestamp", (rdr.IsDBNull(4) ? "" : rdr.GetString(4)) );
+
+                    responseTimes.Add(monitor);
+                }
+                rdr.Close();
+
+            }catch (Exception e){Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}
+            finally{
+                connection.CloseConnection(conn);
+            }
+            
+            return responseTimes;
+        }
     }
 }
