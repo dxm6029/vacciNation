@@ -211,3 +211,13 @@ CREATE TABLE content(
     text_es TEXT,
     PRIMARY KEY (content_id)
 );
+
+CREATE TABLE monitor(
+    monitor_id INT NOT NULL AUTO_INCREMENT,
+    application VARCHAR(50) NOT NULL,
+    endpoint VARCHAR(50) NOT NULL,
+    response_time INT NOT NULL,
+    response_code CHAR(3) NOT NULL,
+    timestamp DATETIME NOT NULL,
+    PRIMARY KEY (monitor_id)
+);

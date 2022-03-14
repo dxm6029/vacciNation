@@ -13,9 +13,14 @@ namespace VacciNationAPI.Controllers
         
         User us = new User();
         private LocationManagement locationManager = new LocationManagement();
+        private ApplicationMonitoringService monitor = new ApplicationMonitoringService();
         
         [HttpGet]
-        public IActionResult GetLocations(){
+        public IActionResult GetLocations()
+        {
+
+            long startTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            string responseCode = "200";
 
             try
             {
@@ -36,7 +41,7 @@ namespace VacciNationAPI.Controllers
                     List<Dictionary<string, string>> locations = locationManager.GetLocationsByZip(zip);
                     return new ObjectResult(locations);
                 }
-                
+
                 //get locations by city
                 if (!String.IsNullOrEmpty(HttpContext.Request.Query["city"]))
                 {
@@ -52,11 +57,16 @@ namespace VacciNationAPI.Controllers
                     List<Dictionary<string, string>> locations = locationManager.GetAllLocations();
                     return new ObjectResult(locations);
                 }
-                
+
             }
             catch (Exception e)
             {
+                responseCode = "400";
                 return BadRequest();
+            }
+            finally
+            {
+                monitor.RecordResponseTime("Backend", "GET /location", startTime, responseCode);
             }
 
         }
