@@ -4,11 +4,6 @@ import NavBar from './navBar';
 import axios from 'axios';
 
 function Schedule() {
-
-  const tableClick = () => {
-    // Here's where the user will select the row in the table
-  }
-
   var list;
 
   const FIND = (event) => {
@@ -17,13 +12,9 @@ function Schedule() {
     let datePick = event.target.datePick.value;
 
     console.log(datePick);
+    console.log("Before return");
 
-    return axios
-      .get("/Appointment/"), {
-        params: {
-          date: datePick
-        }
-      }
+    return axios.get(`http://localhost:5002/Appointment/date/${datePick}`)
       .then((response) => {
           if (response) {
               console.log(response); 
@@ -33,12 +24,12 @@ function Schedule() {
               return null;
           }
       }).catch((err) => {
-          console.log('*** API Call Failed ***')
-          console.log(err)
-          console.log(err.toString())
+          console.log('*** API Call Failed ***');
+          console.log(err);
+          console.log(err.toString());
           return null;
       });
-  }
+  };
 
   return (
     <div className="scheduler">
