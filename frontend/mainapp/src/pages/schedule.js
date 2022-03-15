@@ -1,11 +1,43 @@
 import './schedule.css';
 import { Link } from 'react-router-dom';
 import NavBar from './navBar';
+import axios from 'axios';
 
 function Schedule() {
 
   const tableClick = () => {
     // Here's where the user will select the row in the table
+  }
+
+  var list;
+
+  const FIND = (event) => {
+    event.preventDefault();
+    console.log(event.target);
+    let datePick = event.target.datePick.value;
+
+    console.log(datePick);
+
+    return axios
+      .get("/Appointment/"), {
+        params: {
+          date: datePick
+        }
+      }
+      .then((response) => {
+          if (response) {
+              console.log(response); 
+              list = response;
+          } else {
+              console.log('API failed: No data received!');
+              return null;
+          }
+      }).catch((err) => {
+          console.log('*** API Call Failed ***')
+          console.log(err)
+          console.log(err.toString())
+          return null;
+      });
   }
 
   return (
@@ -23,18 +55,30 @@ function Schedule() {
         <div className="schedule">
             <h1> Schedule Appointment </h1>
 
-            <label for="zipcode">Enter Zipcode:</label>
-            <input type="text" id="zipcode" name="Zipcode"></input>
+            <form onSubmit={e => {FIND(e)}}>
+              <label htmlFor="datePick">Pick a date:</label>
+              <input type="date" id="datePick" name="datePick"/>
+
+
+              <input type="submit" value="Search"/>
+            </form>
+            
 
             <table>
-              <tr>
-                <th>Location</th>
-                <th>Distance</th>
-              </tr>
-              <tr>
-                
-              Loop through more things here
-              </tr>
+              <thead>
+                <tr>
+                  <th>Location</th>
+                  <th>Distance</th>
+                </tr>
+              </thead>
+              <tbody>
+                {list && list.map((place, index) => (
+                  <div>
+                    <tr className="" key={`location ${index}`}>{place}</tr>
+                  </div>
+                ))}
+
+              </tbody>
             </table>
 
             <>
@@ -44,6 +88,7 @@ function Schedule() {
             <>
               Select a time
             </>
+            
         </div>
 
         <Link to="/personalInfo">

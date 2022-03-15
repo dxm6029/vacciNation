@@ -12,7 +12,7 @@ function NavBar() {
            
           <div className="nursenavBar">
               <Link to="/findpatient" className='nurselink'>Patient</Link>
-              <Link to="/" className='nurselink'>Vaccination Input</Link>
+              <Link to="/addVaccineEntry" className='nurselink'>Vaccination Input</Link>
           </div>
       </div>
     </>
