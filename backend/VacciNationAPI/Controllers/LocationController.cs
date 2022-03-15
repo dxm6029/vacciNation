@@ -73,50 +73,101 @@ namespace VacciNationAPI.Controllers
         
         [HttpPost]
         public IActionResult CreateLocation([FromBody] Location location,  [FromHeader] string authorization) {
-            string token = authorization;
-            int uid = us.checkToken(token);
-            if (uid == -1){
-                return Unauthorized();
+            
+            long startTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            string responseCode = "202";
+
+            try
+            {
+                string token = authorization;
+                int uid = us.checkToken(token);
+                if (uid == -1)
+                {
+                    responseCode = "401";
+                    return Unauthorized();
+                }
+
+                bool isAdmin = us.isSuperAdmin(uid);
+                if (!isAdmin)
+                {
+                    responseCode = "403";
+                    return StatusCode(403);
+                }
+
+                bool result = location.address_id > 0
+                    ? locationManager.InsertLocation(location)
+                    : locationManager.InsertLocationWithAddress(location);
+
+                if (result)
+                {
+                    return Accepted();
+                }
+
+                responseCode = "400";
+                return BadRequest();
             }
-
-            bool isAdmin = us.isSuperAdmin(uid);
-            if(!isAdmin){
-                return StatusCode(403);
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                responseCode = "400";
+                return BadRequest();
             }
-
-            bool result = location.address_id > 0 ? locationManager.InsertLocation(location) : locationManager.InsertLocationWithAddress(location);
-
-            if(result){
-                return Accepted();
+            finally
+            {
+                monitor.RecordResponseTime("Backend", "POST /location", startTime, responseCode);
             }
-
-            return BadRequest();
         }
         
         [HttpPut]
         public IActionResult UpdateLocation([FromBody] Location location,  [FromHeader] string authorization) {
-            string token = authorization;
-            int uid = us.checkToken(token);
-            if (uid == -1){
-                return Unauthorized();
+            
+            long startTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            string responseCode = "202";
+
+            try
+            {
+                string token = authorization;
+                int uid = us.checkToken(token);
+                if (uid == -1)
+                {
+                    responseCode = "401";
+                    return Unauthorized();
+                }
+
+                bool isAdmin = us.isSuperAdmin(uid);
+                if (!isAdmin)
+                {
+                    responseCode = "403";
+                    return StatusCode(403);
+                }
+
+                bool result = locationManager.UpdateLocation(location);
+
+                if (result)
+                {
+                    return Accepted();
+                }
+                
+                responseCode = "400";
+                return BadRequest();
+            }
+            catch (Exception e)
+            {
+                responseCode = "400";
+                return BadRequest();
+            }
+            finally
+            {
+                monitor.RecordResponseTime("Backend", "PUT /location", startTime, responseCode);
             }
 
-            bool isAdmin = us.isSuperAdmin(uid);
-            if(!isAdmin){
-                return StatusCode(403);
-            }
-
-            bool result = locationManager.UpdateLocation(location);
-
-            if(result){
-                return Accepted();
-            }
-
-            return BadRequest();
         }
         
         [HttpGet("staff")]
         public IActionResult GetStaff(){
+
+            long startTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            string responseCode = "200";
 
             try
             {
@@ -129,58 +180,109 @@ namespace VacciNationAPI.Controllers
                     return new ObjectResult(staff);
                 }
 
+                responseCode = "400";
                 return BadRequest();
 
             }
             catch (Exception e)
             {
+                responseCode = "400";
                 return BadRequest();
+            }
+            finally
+            {
+                monitor.RecordResponseTime("Backend", "GET /location/staff", startTime, responseCode);
             }
 
         }
         
         [HttpPost("staff")]
         public IActionResult CreateStaffLocation([FromBody] StaffLocation sl,  [FromHeader] string authorization) {
-            string token = authorization;
-            int uid = us.checkToken(token);
-            if (uid == -1){
-                return Unauthorized();
+            
+            long startTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            string responseCode = "202";
+
+            try
+            {
+                string token = authorization;
+                int uid = us.checkToken(token);
+                if (uid == -1)
+                {
+                    responseCode = "401";
+                    return Unauthorized();
+                }
+
+                bool isAdmin = us.isSuperAdmin(uid);
+                if (!isAdmin)
+                {
+                    responseCode = "403";
+                    return StatusCode(403);
+                }
+
+                bool result = locationManager.InsertStaffLocation(sl);
+
+                if (result)
+                {
+                    return Accepted();
+                }
+                
+                responseCode = "400";
+                return BadRequest();
+            }
+            catch (Exception e)
+            {
+                responseCode = "400";
+                return BadRequest();
+            }
+            finally
+            {
+                monitor.RecordResponseTime("Backend", "POST /location/staff", startTime, responseCode);
             }
 
-            bool isAdmin = us.isSuperAdmin(uid);
-            if(!isAdmin){
-                return StatusCode(403);
-            }
-
-            bool result = locationManager.InsertStaffLocation(sl);
-
-            if(result){
-                return Accepted();
-            }
-
-            return BadRequest();
         }
         
         [HttpDelete("staff")]
         public IActionResult DeleteStaffLocation([FromBody] StaffLocation sl,  [FromHeader] string authorization) {
-            string token = authorization;
-            int uid = us.checkToken(token);
-            if (uid == -1){
-                return Unauthorized();
+            
+            long startTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            string responseCode = "202";
+
+            try
+            {
+                string token = authorization;
+                int uid = us.checkToken(token);
+                if (uid == -1)
+                {
+                    responseCode = "401";
+                    return Unauthorized();
+                }
+
+                bool isAdmin = us.isSuperAdmin(uid);
+                if (!isAdmin)
+                {
+                    responseCode = "403";
+                    return StatusCode(403);
+                }
+
+                bool result = locationManager.DeleteStaffLocation(sl);
+
+                if (result)
+                {
+                    return Accepted();
+                }
+
+                responseCode = "400";
+                return BadRequest();
             }
-
-            bool isAdmin = us.isSuperAdmin(uid);
-            if(!isAdmin){
-                return StatusCode(403);
+            catch (Exception e)
+            {
+                responseCode = "400";
+                return BadRequest();
             }
-
-            bool result = locationManager.DeleteStaffLocation(sl);
-
-            if(result){
-                return Accepted();
+            finally
+            {
+                monitor.RecordResponseTime("Backend", "DELETE /location/staff", startTime, responseCode);
             }
-
-            return BadRequest();
         }
 
     }
