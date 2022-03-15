@@ -40,45 +40,60 @@ function LoginComponent(props) {
 
 //   }
 
-  function LOGIN() {
-    return axios
-        .get("http://192.168.1.5:5000/UserStaff/all", {headers: {'Content-Type': 'application/json'}})
-        .then((response) => {
-            if (response) {
-                console.log(response); 
-            } else {
-                console.log('API failed: No data received!');
-                return null;
-            }
-        }).catch((err) => {
-            console.log('*** API Call Failed ***')
-            console.log(err.toString())
-            return null;
-        });
+const LOGIN = (event) => {
+  event.preventDefault();
+  console.log(event.target);
+  let username = event.target.username.value;
+  let password = event.target.password.value;
+  return axios
+      .post("http://localhost:5002/UserStaff/login", {
+              'username': username,
+              'password': password,
+          },
+          {
+              headers: {
+                  'Content-Type': 'application/json',
+                  "Cache-Control": "no-cache, no-store, must-revalidate",
+                  "Pragma": "no-cache",
+                  "Expires": 0
+              }
+          })
+      .then((response) => {
+          if (response) {
+              console.log(response);
+          } else {
+              console.log('API failed: No data received!');
+              return null;
+          }
+      }).catch((err) => {
+          console.log(' API Call Failed ')
+          console.log(err)
+          console.log(err.toString())
+          return null;
+      });
 }
 
-  return (
-    <>
-        <h1>{props.title}</h1>
-    
-        <form > 
+return (
+  <>
+      <h1>{props.title}</h1>
+
+      <form onSubmit={e => {LOGIN(e)}}>
           <label htmlFor="username">Username:</label>
           <input type="text" id="username" name="username"></input>
 
           <div>
               <label htmlFor="pass">Password:</label>
               <input type="password" id="pass" name="password"
-                  minLength="8" required/>
+                     minLength="8" required/>
           </div>
           <Link to="/forgotPassword">Forgot password?</Link>
 
-          <button type="button" value="Sign in" onClick={() => {LOGIN()}}></button>
+          <button type="submit" value="Sign in"></button>
 
           <div id="formStatus"></div>
-        </form>
-        
-    </>
-  );
-}
+      </form>
 
+  </>
+);
+}
 export default LoginComponent;
