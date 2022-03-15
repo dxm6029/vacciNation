@@ -37,10 +37,6 @@
     {
       "name": "Eligibility",
       "description": "manage eligibility requirements for vaccines"
-    },
-    {
-      "name": "Monitoring",
-      "description": "Application status monitoring"
     }
   ],
   "schemes": [
@@ -921,7 +917,7 @@
           {
             "in": "query",
             "name": "last_name",
-            "description": "last name of citizen",
+            "description": "first name of citizen",
             "required": true,
             "type": "string"
           },
@@ -1601,6 +1597,43 @@
             "type": "string",
             "required": true
           },
+          {
+            "in": "query",
+            "name": "date",
+            "description": "date value to search on - needs to be in format YYYY-MM-DD",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Appointment/open/date": {
+      "get": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "get all appointments for a certain date (usecase example: citizen get appointments for current day)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
           {
             "in": "query",
             "name": "date",
@@ -3129,89 +3162,6 @@
           },
           "405": {
             "description": "json here - can adjust response code"
-          }
-        }
-      }
-    },
-    "/monitor": {
-      "get": {
-        "tags": [
-          "Monitoring"
-        ],
-        "summary": "Get api call response times",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "description": "Authorization Token",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "query",
-            "name": "application",
-            "description": "Filter by application (i.e. \"frontend\" or \"backend\")",
-            "type": "string",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "endpoint",
-            "description": "Filter by endpoints (i.e. all endpoints that include the given string, example endpoint string \"GET /location\")",
-            "type": "string",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "minmillis",
-            "description": "Filter by minimum response time (i.e. 100 to get responses over 100 millis to return)",
-            "type": "integer",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "maxmillis",
-            "description": "Filter by maximum response time (i.e. 100 to get responses under 100 millis to return)",
-            "type": "integer",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "code",
-            "description": "Filter by http response code, negative to exclude (i.e. 403 to return only forbidden responses, -200 to exclude all accepted responses)",
-            "type": "string",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "startdate",
-            "description": "Filter by date beginning at this date",
-            "type": "string",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "enddate",
-            "description": "Filter by date ending at this date",
-            "type": "string",
-            "required": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A json list of response times like {\"application\": \"Backend\", \"endpoint\": \"GET /location\", \"response_time\": \"43\", \"response_code\": \"200\", \"timestamp\": \"3/14/2022 1:04:57 PM\"}"
-          },
-          "401": {
-            "description": "Missing auth"
-          },
-          "403": {
-            "description": "Bad auth"
           }
         }
       }
