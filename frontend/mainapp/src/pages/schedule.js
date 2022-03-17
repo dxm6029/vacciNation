@@ -2,9 +2,10 @@ import './schedule.css';
 import { Link } from 'react-router-dom';
 import NavBar from './navBar';
 import axios from 'axios';
+import { useState } from 'react';
 
 function Schedule() {
-  var list;
+  const [list, setList] = useState(null);
 
   const FIND = (event) => {
     event.preventDefault();
@@ -14,11 +15,12 @@ function Schedule() {
     console.log(datePick);
     console.log("Before return");
 
-    return axios.get(`http://localhost:5002/Appointment/date/${datePick}`)
+    return axios.get(`http://localhost:5002/Appointment/open/date?date=${datePick}`)
       .then((response) => {
           if (response) {
               console.log(response); 
-              list = response;
+              setList(response.data);
+              console.log(response.data);
           } else {
               console.log('API failed: No data received!');
               return null;
@@ -63,11 +65,13 @@ function Schedule() {
                 </tr>
               </thead>
               <tbody>
-                {list && list.map((place, index) => (
-                  <div>
-                    <tr className="" key={`location ${index}`}>{place}</tr>
-                  </div>
-                ))}
+                {list && 
+                  list.map((place, index) => (
+                    <div>
+                      <tr className="" key={`location ${index}`}>{JSON.stringify(place)}</tr>
+                    </div>
+                  ))
+                }
 
               </tbody>
             </table>
