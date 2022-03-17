@@ -496,5 +496,27 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+         [HttpGet("date/{location_id}")]
+        public IActionResult GetOpenAppointmentsDate(int location_id){
+ 
+            string date = "";
+
+             if (!String.IsNullOrEmpty(HttpContext.Request.Query["date"])){
+                date = HttpContext.Request.Query["date"];
+            }
+
+            if(date == ""){
+                return BadRequest();
+            }
+
+            try{                
+                List<string> appointment = am.getOpenAppointmentsForDateAndLocation(date, location_id);
+                return new ObjectResult(appointment);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
     }
 }
