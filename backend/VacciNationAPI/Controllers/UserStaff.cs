@@ -330,7 +330,6 @@ namespace VacciNationAPI.Controllers{
 
         [HttpPost("login")]
         public IActionResult Login([FromBody]Staff staff){
-            Console.WriteLine("you made it to the endpoint");
             try{
                 // check credentials
                 Staff authorizedStaff = us.checkCreds(staff.username, staff.password);
@@ -345,6 +344,30 @@ namespace VacciNationAPI.Controllers{
                 string body = "{staff_id: " + authorizedStaff.staff_id.ToString() + ", email: " + authorizedStaff.email + ", username: " + authorizedStaff.username+  ", last_name: " +  authorizedStaff.last_name + ", first_name: " +  authorizedStaff.first_name + ", token: " +  tok + "}";
 
                 return new ObjectResult(body);
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("logout")]
+        public IActionResult logout([FromHeader] string authorization){
+            try{
+                int id = us.checkToken(authorization);
+                if(id == -1){
+                    return Unauthorized();
+                }
+               
+                // remove token
+                bool result = us.removeToken(authorization);
+                
+                if(result){
+                    return Accepted();
+                }
+                else{
+                    return BadRequest();
+                }
+
             }
             catch(Exception e){
                 return BadRequest();
