@@ -220,7 +220,7 @@ namespace VacciNationAPI.DataLayer
 
         public List<PageContent> getAllPageContent(){
             MySqlConnection conn = new MySqlConnection();
-            List<PageContent> pageContent = null;
+            List<PageContent> pageContent = new List<PageContent>();
             try{ 
                 conn = connection.OpenConnection();
 
