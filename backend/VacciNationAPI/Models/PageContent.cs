@@ -4,10 +4,10 @@ namespace VacciNationAPI.Models
 {
     public class PageContent
     {
-        public int content_id;
-        public string label;
-        public string text_en;
-        public string text_es;
+        public int content_id {get; set;}
+        public string label {get; set;}
+        public string text_en {get; set;}
+        public string text_es {get; set;}
 
         public PageContent(int content_id, string label, string text_en, string text_es)
         {

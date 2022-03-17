@@ -330,7 +330,6 @@ namespace VacciNationAPI.Controllers{
 
         [HttpPost("login")]
         public IActionResult Login([FromBody]Staff staff){
-            Console.WriteLine("you made it to the endpoint");
             try{
                 // check credentials
                 Staff authorizedStaff = us.checkCreds(staff.username, staff.password);
