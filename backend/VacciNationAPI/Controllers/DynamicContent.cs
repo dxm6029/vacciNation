@@ -90,7 +90,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
-        [HttpGet]
+        [HttpGet("label")]
          public IActionResult GetContentByLabel() {
 
             string label = "";
