@@ -179,7 +179,7 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    pageContent = new PageContent(rdr.IsDBNull(0) ? -1: rdr.GetInt32(0), rdr.IsDBNull(1) ? "": rdr.GetString(1), rdr.IsDBNull(3) ? "": rdr.GetString(3), rdr.IsDBNull(4) ? "": rdr.GetString(4));
+                    pageContent = new PageContent(rdr.IsDBNull(0) ? -1: rdr.GetInt32(0), rdr.IsDBNull(1) ? "": rdr.GetString(1), rdr.IsDBNull(2) ? "": rdr.GetString(2), rdr.IsDBNull(3) ? "": rdr.GetString(3));
                 }
                 rdr.Close();
 
@@ -206,7 +206,7 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    pageContent = new PageContent(rdr.IsDBNull(0) ? -1: rdr.GetInt32(0), rdr.IsDBNull(1) ? "": rdr.GetString(1), rdr.IsDBNull(3) ? "": rdr.GetString(3), rdr.IsDBNull(4) ? "": rdr.GetString(4));
+                    pageContent = new PageContent(rdr.IsDBNull(0) ? -1: rdr.GetInt32(0), rdr.IsDBNull(1) ? "": rdr.GetString(1), rdr.IsDBNull(2) ? "": rdr.GetString(2), rdr.IsDBNull(3) ? "": rdr.GetString(3));
                 }
                 rdr.Close();
 
@@ -231,7 +231,7 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    pageContent.Add(new PageContent(rdr.IsDBNull(0) ? -1: rdr.GetInt32(0), rdr.IsDBNull(1) ? "": rdr.GetString(1), rdr.IsDBNull(3) ? "": rdr.GetString(3), rdr.IsDBNull(4) ? "": rdr.GetString(4)));
+                    pageContent.Add(new PageContent(rdr.IsDBNull(0) ? -1: rdr.GetInt32(0), rdr.IsDBNull(1) ? "": rdr.GetString(1), rdr.IsDBNull(2) ? "": rdr.GetString(2), rdr.IsDBNull(3) ? "": rdr.GetString(3)));
                 }
                 rdr.Close();
 
