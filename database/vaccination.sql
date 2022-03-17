@@ -205,7 +205,7 @@ CREATE TABLE nav_link(
 );
 
 CREATE TABLE content(
-	content_id INT NOT NULL,
+	content_id INT NOT NULL AUTO_INCREMENT,
     label VARCHAR(20),
     text_en TEXT,
     text_es TEXT,
