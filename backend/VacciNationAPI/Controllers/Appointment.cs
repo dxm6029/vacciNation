@@ -496,7 +496,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
-         [HttpGet("date/{location_id}")]
+         [HttpGet("date/open/{location_id}")]
         public IActionResult GetOpenAppointmentsDate(int location_id){
  
             string date = "";
