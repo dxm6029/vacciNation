@@ -351,6 +351,30 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        [HttpPost("logout")]
+        public IActionResult logout([FromHeader] string authorization){
+            try{
+                int id = us.checkToken(authorization);
+                if(id == -1){
+                    return Unauthorized();
+                }
+               
+                // remove token
+                bool result = us.removeToken(authorization);
+                
+                if(result){
+                    return Accepted();
+                }
+                else{
+                    return BadRequest();
+                }
+
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
         [HttpPost("role")]
         public IActionResult AssignRole([FromHeader] string authorization){
             string token = authorization;

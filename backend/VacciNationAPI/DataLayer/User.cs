@@ -77,6 +77,33 @@ namespace VacciNationAPI.DataLayer
 
         }
 
+        public bool removeToken(string auth){
+
+            bool result = false;
+            MySqlConnection conn = connection.OpenConnection();
+
+            try{
+                string query = "UPDATE staff SET token=NULL WHERE token=@auth";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@auth", auth);
+
+                int numAffected = cmd.ExecuteNonQuery();
+
+                if(numAffected > 0){
+                    result = true;
+                }
+
+            } catch (Exception e){ } // probably should log something here eventually
+            finally{
+               connection.CloseConnection(conn);
+            }
+
+
+            return result;
+
+        }
+
         public Staff checkCreds(string username, string password){
             
             MySqlConnection conn = connection.OpenConnection();
