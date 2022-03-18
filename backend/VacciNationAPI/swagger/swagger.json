@@ -37,6 +37,10 @@
     {
       "name": "Eligibility",
       "description": "manage eligibility requirements for vaccines"
+    },
+    {
+      "name": "Dynamic Content",
+      "description": "manage dynamic page content"
     }
   ],
   "schemes": [
@@ -800,6 +804,43 @@
         "responses": {
           "200": {
             "description": "probably some kind of token that contains info about user? like name or id or something?"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/UserStaff/logout": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "log out of staff member account",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and authorization",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
           },
           "400": {
             "description": "json here - can adjust response code"
@@ -3165,6 +3206,284 @@
           }
         }
       }
+    },
+    "/DynamicContent": {
+      "post": {
+        "tags": [
+          "Dynamic Content"
+        ],
+        "summary": "add dynamic content information",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "pageContent",
+            "description": "page content to be added",
+            "schema": {
+              "$ref": "#/definitions/PageContent"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "successful response"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Dynamic Content"
+        ],
+        "summary": "get all dynamic content information",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "202": {
+            "description": "list of all page content"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/DynamicContent/{content_id}": {
+      "delete": {
+        "tags": [
+          "Dynamic Content"
+        ],
+        "summary": "remove dynamic content information",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "content_id",
+            "description": "id of content to be removed",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "successful response"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Dynamic Content"
+        ],
+        "summary": "get dynamic content information from certain id",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "content_id",
+            "description": "id of content to get",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "list of all page content with id"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/DynamicContent/label": {
+      "put": {
+        "tags": [
+          "Dynamic Content"
+        ],
+        "summary": "update dynamic content information by label",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "pageContent",
+            "description": "page content to be added - NEED LABEL",
+            "schema": {
+              "$ref": "#/definitions/PageContent"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "successful response"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Dynamic Content"
+        ],
+        "summary": "get dynamic content information from certain label",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "label",
+            "description": "label of content to get",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "list of all page content with label"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/DynamicContent/id": {
+      "put": {
+        "tags": [
+          "Dynamic Content"
+        ],
+        "summary": "update dynamic content information by id",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "pageContent",
+            "description": "page content to be added - NEED ID",
+            "schema": {
+              "$ref": "#/definitions/PageContent"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "successful response"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
     }
   },
   "securityDefinitions": {
@@ -3184,6 +3503,24 @@
     }
   },
   "definitions": {
+    "PageContent": {
+      "type": "object",
+      "properties": {
+        "content_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "label": {
+          "type": "string"
+        },
+        "text_en": {
+          "type": "string"
+        },
+        "text_es": {
+          "type": "string"
+        }
+      }
+    },
     "Eligibility": {
       "type": "object",
       "properties": {
