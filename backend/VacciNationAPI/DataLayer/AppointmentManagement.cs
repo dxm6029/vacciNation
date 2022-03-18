@@ -194,7 +194,6 @@ namespace VacciNationAPI.DataLayer
 
             return status;
         }
-        // HERE DOMINIQUE
         public List<AppointmentList> getAllAppointmentsByType(bool open, string supplier, int categoryId){
             MySqlConnection conn = new MySqlConnection();
             List<AppointmentList> appointments = new List<AppointmentList>();
@@ -271,7 +270,6 @@ namespace VacciNationAPI.DataLayer
             return appointments;
         }
 
-        // HERE DOMINIQUE
         public List<AppointmentList> getAllAppointmentsForCitizen(int citizen_id){
             MySqlConnection conn = new MySqlConnection();
             List<AppointmentList> appointments = new List<AppointmentList>();
@@ -299,7 +297,6 @@ namespace VacciNationAPI.DataLayer
             return appointments;
         }
 
-        // HERE DOMINIQUE??
         public AppointmentList getAppointmentsWithID(int appointment_id){
             MySqlConnection conn = new MySqlConnection();
             AppointmentList appointment = null;
@@ -327,7 +324,6 @@ namespace VacciNationAPI.DataLayer
             return appointment;
         }
 
-        // HERE DOMINIQUE
          public List<AppointmentList> getAllAppointmentsForLocation(bool open, int location_id){
              MySqlConnection conn = new MySqlConnection();
             List<AppointmentList> appointments = new List<AppointmentList>();
@@ -357,7 +353,6 @@ namespace VacciNationAPI.DataLayer
             return appointments;
         }
 
-        // HERE DOMINIQUE
         public List<AppointmentList> getAllAppointmentsForLocationAndType(bool open, int location_id, string supplier, int categoryId){
              MySqlConnection conn = new MySqlConnection();
             List<AppointmentList> appointments = new List<AppointmentList>();
@@ -388,8 +383,6 @@ namespace VacciNationAPI.DataLayer
             
             return appointments;
         }
-
-        // HERE DOMINIQUE
 
         public List<AppointmentList> getAllAppointmentsForDate(string date){
              MySqlConnection conn = new MySqlConnection();
@@ -453,7 +446,6 @@ namespace VacciNationAPI.DataLayer
             return appointments;
         }
 
-        // HERE DOMINIQUE
         public List<AppointmentList> getAllAppointmentsForDateAndLocation(string date, int location_id){
              MySqlConnection conn = new MySqlConnection();
             List<AppointmentList> appointments = new List<AppointmentList>();
@@ -486,7 +478,6 @@ namespace VacciNationAPI.DataLayer
             return appointments;
         }
 
-        // HERE DOMINIQUE
         public List<AppointmentList> getOpenAppointmentsForDateAndLocation(string date, int location_id){
              MySqlConnection conn = new MySqlConnection();
             List<AppointmentList> appointments = new List<AppointmentList>();
