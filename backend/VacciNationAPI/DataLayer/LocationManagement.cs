@@ -122,7 +122,7 @@ namespace VacciNationAPI.DataLayer
         
         public List<Dictionary<string, string>> GetLocationsByCity(string city){
             MySqlConnection conn = new MySqlConnection();
-            List<Dictionary<string, string>> locations = new List<Dictionary<string, string>>();
+            <Dictionary<string, string>> locations = new List<Dictionary<string, string>>();
             try{ 
                 string query = "SELECT l.location_id, l.name, a.street, a.street_line2, a.city, a.state, a.zip "
                                + "FROM location as l "

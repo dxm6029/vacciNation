@@ -423,9 +423,9 @@ namespace VacciNationAPI.DataLayer
             return appointments;
         }
 
-        public List<string> getOpenAppointmentsForDate(string date){
+        public List<AppointmentList> getOpenAppointmentsForDate(string date){
              MySqlConnection conn = new MySqlConnection();
-            List<string> appointments = new List<string>();
+            List<AppointmentList> appointments = new List<AppointmentList>();
             try{ 
 
                 string start = date + " 00:00:00";
@@ -442,8 +442,7 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    appointments.Add("{ appointment_id: " + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) + ", staff_id: " + ( rdr.IsDBNull(1) ? -1 : rdr.GetInt32(1)) + ", staff_first_name: " + (rdr.IsDBNull(2) ?  "" : rdr.GetString(2))+  ", staff_last_name: " +  (rdr.IsDBNull(3) ?  "" : rdr.GetString(3)) + ", citizen_id: " +  (rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4)) + ", citizen_first_name: " + (rdr.IsDBNull(5) ?  "" : rdr.GetString(5))+  ", citizen_last_name: " +  (rdr.IsDBNull(6) ?  "" : rdr.GetString(6)) + ", location_id: " + ( rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7)) + ", location_name: " + (rdr.IsDBNull(8) ?  "" : rdr.GetString(8)) + ", dose_id: " + ( rdr.IsDBNull(9) ? -1 : rdr.GetInt32(9)) + ", supplier: " + (rdr.IsDBNull(10) ?  "" : rdr.GetString(10)) 
-                    + ", category_id: " + (rdr.IsDBNull(11) ? -1: rdr.GetInt32(11)) +  ", description: " + (rdr.IsDBNull(12) ?  "" : rdr.GetString(12)) + ", date: " + (rdr.IsDBNull(13) ?  "" : rdr.GetString(13))  + ", status_id: " + ( rdr.IsDBNull(14) ? -1 : rdr.GetInt32(14)) + ", status_desc: " + (rdr.IsDBNull(15) ?  "" : rdr.GetString(15)) +"},");
+                    appointments.Add(new AppointmentList(rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0), rdr.IsDBNull(1) ? -1 : rdr.GetInt32(1), rdr.IsDBNull(2) ?  "" : rdr.GetString(2), rdr.IsDBNull(3) ?  "" : rdr.GetString(3), rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4),rdr.IsDBNull(5) ?  "" : rdr.GetString(5),rdr.IsDBNull(6) ?  "" : rdr.GetString(6),rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7), rdr.IsDBNull(8) ?  "" : rdr.GetString(8),rdr.IsDBNull(9) ? -1 : rdr.GetInt32(9), rdr.IsDBNull(10) ?  "" : rdr.GetString(10),rdr.IsDBNull(11) ? -1: rdr.GetInt32(11),rdr.IsDBNull(12) ?  "" : rdr.GetString(12), rdr.IsDBNull(13) ?  "" : rdr.GetString(13), rdr.IsDBNull(14) ? -1 : rdr.GetInt32(14), rdr.IsDBNull(15) ?  "" : rdr.GetString(15)));
                 }
                 rdr.Close();
 
