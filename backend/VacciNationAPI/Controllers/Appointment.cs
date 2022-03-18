@@ -224,7 +224,7 @@ namespace VacciNationAPI.Controllers{
             }
 
             try{                
-                List<string> appointments = am.getAllAppointmentsByType(false, vaccineSupplier, vaccineCategory);
+                List<AppointmentList> appointments = am.getAllAppointmentsByType(false, vaccineSupplier, vaccineCategory);
                 return new ObjectResult(appointments);
             }
             catch(Exception e){
@@ -245,7 +245,7 @@ namespace VacciNationAPI.Controllers{
             }
 
             try{                
-                List<string> appointments = am.getAllAppointmentsByType(true, vaccine_supplier, vaccineCategory);
+                List<AppointmentList> appointments = am.getAllAppointmentsByType(true, vaccine_supplier, vaccineCategory);
                 return new ObjectResult(appointments);
             }
             catch(Exception e){
@@ -267,13 +267,14 @@ namespace VacciNationAPI.Controllers{
             }
 
             try{                
-                List<string> appointments = am.getAllAppointmentsForCitizen(id);
+                List<AppointmentList> appointments = am.getAllAppointmentsForCitizen(id);
                 return new ObjectResult(appointments);
             }
             catch(Exception e){
                 return BadRequest();
             }
         }
+
 
         [HttpGet("{id}")]
         public IActionResult GetAppointmentsByID([FromHeader] string authorization, int id){
@@ -289,7 +290,7 @@ namespace VacciNationAPI.Controllers{
             }
 
             try{                
-                string appointment = am.getAppointmentsWithID(id);
+                AppointmentList appointment = am.getAppointmentsWithID(id);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){
@@ -317,7 +318,7 @@ namespace VacciNationAPI.Controllers{
 
 
             try{                
-                List<string> appointment = am.getAllAppointmentsForLocation(false, location_id);
+                List<AppointmentList> appointment = am.getAllAppointmentsForLocation(false, location_id);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){
@@ -339,7 +340,7 @@ namespace VacciNationAPI.Controllers{
 
 
             try{                
-                List<string> appointment = am.getAllAppointmentsForLocation(true, location_id);
+                List<AppointmentList> appointment = am.getAllAppointmentsForLocation(true, location_id);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){
@@ -374,7 +375,7 @@ namespace VacciNationAPI.Controllers{
 
 
             try{                
-                List<string> appointment = am.getAllAppointmentsForLocationAndType(false, location_id, supplier, category_id);
+                List<AppointmentList> appointment = am.getAllAppointmentsForLocationAndType(false, location_id, supplier, category_id);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){
@@ -410,7 +411,7 @@ namespace VacciNationAPI.Controllers{
 
 
             try{                
-                List<string> appointment = am.getAllAppointmentsForLocationAndType(true, location_id, supplier, category_id);
+                List<AppointmentList> appointment = am.getAllAppointmentsForLocationAndType(true, location_id, supplier, category_id);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){
@@ -438,7 +439,7 @@ namespace VacciNationAPI.Controllers{
             }
 
             try{                
-                List<string> appointment = am.getAllAppointmentsForDate(date);
+                List<AppointmentList> appointment = am.getAllAppointmentsForDate(date);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){
@@ -488,7 +489,7 @@ namespace VacciNationAPI.Controllers{
             }
 
             try{                
-                List<string> appointment = am.getAllAppointmentsForDateAndLocation(date, location_id);
+                List<AppointmentList> appointment = am.getAllAppointmentsForDateAndLocation(date, location_id);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){
@@ -510,7 +511,7 @@ namespace VacciNationAPI.Controllers{
             }
 
             try{                
-                List<string> appointment = am.getOpenAppointmentsForDateAndLocation(date, location_id);
+                List<AppointmentList> appointment = am.getOpenAppointmentsForDateAndLocation(date, location_id);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){
