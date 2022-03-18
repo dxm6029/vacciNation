@@ -460,7 +460,7 @@ namespace VacciNationAPI.Controllers{
             }
 
             try{                
-                List<string> appointment = am.getOpenAppointmentsForDate(date);
+                List<AppointmentList> appointment = am.getOpenAppointmentsForDate(date);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){
