@@ -275,6 +275,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+
         [HttpGet("{id}")]
         public IActionResult GetAppointmentsByID([FromHeader] string authorization, int id){
             string token = authorization;
@@ -289,7 +290,7 @@ namespace VacciNationAPI.Controllers{
             }
 
             try{                
-                string appointment = am.getAppointmentsWithID(id);
+                AppointmentList appointment = am.getAppointmentsWithID(id);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){
