@@ -67,9 +67,11 @@ function Schedule() {
               <tbody>
                 {list && 
                   list.map((place, index) => (
-                    <div>
-                      <tr className="" key={`location ${index}`}>{JSON.stringify(place)}</tr>
-                    </div>
+                    <tr className="" key={`location ${index}`}>
+                      <td>
+                        {place.location_name}
+                      </td>
+                    </tr>
                   ))
                 }
 
