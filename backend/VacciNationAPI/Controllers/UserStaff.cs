@@ -135,7 +135,7 @@ namespace VacciNationAPI.Controllers{
             }
 
             try{                
-                List<string> staffMembers = us.getAllStaff();
+                List<StaffPrint> staffMembers = us.getAllStaff();
                 return new ObjectResult(staffMembers);
             }
             catch(Exception e){
@@ -482,7 +482,7 @@ namespace VacciNationAPI.Controllers{
             }
 
             try{                
-                List<string> staffMembers = us.getAllStaffWithRole(id);
+                List<StaffPrint> staffMembers = us.getAllStaffWithRole(id);
                 return new ObjectResult(staffMembers);
             }
             catch(Exception e){

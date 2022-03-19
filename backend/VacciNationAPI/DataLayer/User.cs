@@ -556,9 +556,10 @@ namespace VacciNationAPI.DataLayer
             return citizen;
         }
 
-        public List<string> getAllStaff(){
+        // here dominique
+        public List<StaffPrint> getAllStaff(){
             MySqlConnection conn = new MySqlConnection();
-            List<string> staff = new List<string>();
+            List<StaffPrint> staff = new List<StaffPrint>();
             try{ 
                 conn = connection.OpenConnection();
 
@@ -569,7 +570,7 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    staff.Add("{ staff_id: " + rdr.GetInt32(0).ToString() + ", email: " + (rdr.IsDBNull(1) ?  "" : rdr.GetString(1)) + ", username: " + (rdr.IsDBNull(2) ?  "" : rdr.GetString(2))+  ", last_name: " +  (rdr.IsDBNull(3) ?  "" : rdr.GetString(3)) + ", first_name: " +  (rdr.IsDBNull(4) ?  "" : rdr.GetString(4)) + ", role: " +  (rdr.IsDBNull(5) ?  "" : rdr.GetString(5)) + "}");
+                    staff.Add(new StaffPrint(rdr.GetInt32(0), rdr.IsDBNull(1) ?  "" : rdr.GetString(1), rdr.IsDBNull(2) ?  "" : rdr.GetString(2), rdr.IsDBNull(3) ?  "" : rdr.GetString(3), rdr.IsDBNull(4) ?  "" : rdr.GetString(4), rdr.IsDBNull(5) ?  "" : rdr.GetString(5)));
                 }
                 rdr.Close();
 
@@ -733,9 +734,10 @@ namespace VacciNationAPI.DataLayer
             return response;
         }
 
-         public List<string> getAllStaffWithRole(int role_id){
+ // here dominique
+         public List<StaffPrint> getAllStaffWithRole(int role_id){
             MySqlConnection conn = new MySqlConnection();
-            List<string> staff = new List<string>();
+            List<StaffPrint> staff = new List<StaffPrint>();
             try{ 
                 conn = connection.OpenConnection();
 
@@ -747,7 +749,7 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    staff.Add("{ staff_id: " + rdr.GetInt32(0).ToString() + ", email: " + (rdr.IsDBNull(1) ?  "" : rdr.GetString(1)) + ", username: " + (rdr.IsDBNull(2) ?  "" : rdr.GetString(2))+  ", last_name: " +  (rdr.IsDBNull(3) ?  "" : rdr.GetString(3)) + ", first_name: " +  (rdr.IsDBNull(4) ?  "" : rdr.GetString(4)) + ", role: " +  (rdr.IsDBNull(5) ?  "" : rdr.GetString(5)) + "}");
+                    staff.Add(new StaffPrint(rdr.GetInt32(0), rdr.IsDBNull(1) ?  "" : rdr.GetString(1), rdr.IsDBNull(2) ?  "" : rdr.GetString(2), rdr.IsDBNull(3) ?  "" : rdr.GetString(3), rdr.IsDBNull(4) ?  "" : rdr.GetString(4), rdr.IsDBNull(5) ?  "" : rdr.GetString(5)));
                 }
                 rdr.Close();
 

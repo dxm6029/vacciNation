@@ -13,52 +13,40 @@ namespace VacciNationAPI.DataLayer
         VacciNation.Connect connection = new VacciNation.Connect();
         
         // ~~~~~~~~~~~~~~~~~ vaccine insights ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        public string vaccineInsightsResponseBuilder(string date){
-            string builder = "{";
+        public ReportVaccineInsights vaccineInsightsResponseBuilder(string date){
             try{ 
-                builder += " date: " + date + ",";
                 int totalAdministered = totalVaccinesAdministered(null, -1);
-                builder += " total_administered: " + totalAdministered + ",";
                 int totalAdministeredByDay = totalVaccinesAdministered(date, -1);
-                //DOMINIQUE - make this better
-                builder += " total_administered_on_date: " + totalAdministeredByDay + ",";
                 int totalUpcoming = totalVaccinesUpcoming();
-                builder += " total_upcoming: " + totalUpcoming + ",";
+                List<CategoryInsights> total_administered_by_type = new List<CategoryInsights>();
+                List<CategoryInsights> total_administered_by_type_date = new List<CategoryInsights>();
                 // get all categories and suppliers and loop through
                 List<int> categoryIDs = getAllCategoryIds();
                 List<string> suppliers = getAllSuppliers();
-                builder += " total_administered_by_type: [";
                 foreach(string supplier in suppliers){
-                    builder += "{ " + supplier + ": ";
                     foreach(int category in categoryIDs){
                         int totalByType = totalVaccinesAdministeredByType(supplier, category, null, -1);
-                        builder +=  "{ " + category + ": " + totalByType + "},";
+                        total_administered_by_type.Add(new CategoryInsights(category, totalByType, supplier));
                     }
-                    builder += "},";
                 }
-                builder += "],";
 
-                builder += " total_administered_by_type_date: [";
                 foreach(string supplier in suppliers){
-                    builder += "{ " + supplier + ": ";
                     foreach(int category in categoryIDs){
                         int totalByType = totalVaccinesAdministeredByType(supplier, category, date, -1);
-                        builder +=  "{ " + category + ": " + totalByType + "},";
+                        total_administered_by_type_date.Add(new CategoryInsights(category, totalByType, supplier));
                         // total_administered_pfizer_1
                     }
-                    builder += "},";
                 }
-                builder += "],";
+
                 int totalMissed = totalVaccinesMissed(null);
-                builder += " total_missed: " + totalMissed + ",";
                 int totalMissedOnDate = totalVaccinesMissed(date);
-                builder += " total_missed_on_date: " + totalMissedOnDate;
+                ReportVaccineInsights reportVaccineInsights = new ReportVaccineInsights(date, totalAdministered, totalAdministeredByDay, totalUpcoming, total_administered_by_type, total_administered_by_type_date, totalMissed, totalMissedOnDate);
+                return reportVaccineInsights;
 
             }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace); }
             finally{
             }
-            builder += "}";
-            return builder;
+            return null;
         }
 
         public List<string>  getAllSuppliers(){
@@ -273,47 +261,39 @@ namespace VacciNationAPI.DataLayer
         }
 
         // ~~~~~~~~~~~~~~~~~ staff insights ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        public string staffInsightsResponseBuilder(string date, int staff_id){
-            string builder = "{";
+        public ReportStaffInsights staffInsightsResponseBuilder(string date, int staff_id){
             try{ 
-                builder += " date: " + date + ", staff_id: " + staff_id;
                 int totalAdministered = totalVaccinesAdministered(null, staff_id);
-                builder += " total_administered: " + totalAdministered + ",";
                 int totalAdministeredByDay = totalVaccinesAdministered(date, staff_id);
-                builder += " total_administered_on_date: " + totalAdministeredByDay + ",";
+
+                List<CategoryInsights> total_administered_by_type = new List<CategoryInsights>();
+                List<CategoryInsights> total_administered_by_type_date = new List<CategoryInsights>();
 
                 // get all categories and suppliers and loop through
                 List<int> categoryIDs = getAllCategoryIds();
                 List<string> suppliers = getAllSuppliers();
-                builder += " total_administered_by_type: [";
                 foreach(string supplier in suppliers){
-                    builder += "{ " + supplier + ": ";
                     foreach(int category in categoryIDs){
                         int totalByType = totalVaccinesAdministeredByType(supplier, category, null, staff_id);
-                        builder +=  "{ " + category + ": " + totalByType + "},";
+                        total_administered_by_type.Add(new CategoryInsights(category, totalByType, supplier));
                     }
-                    builder += "},";
                 }
-                builder += "],";
 
-                builder += " total_administered_by_type_date: [";
                 foreach(string supplier in suppliers){
-                    builder += "{ " + supplier + ": ";
                     foreach(int category in categoryIDs){
                         int totalByType = totalVaccinesAdministeredByType(supplier, category, date, staff_id);
-                        builder +=  "{ " + category + ": " + totalByType + "},";
+                        total_administered_by_type_date.Add(new CategoryInsights(category, totalByType, supplier));
                         // total_administered_pfizer_1
                     }
-                    builder += "},";
                 }
-                builder += "],";
+                ReportStaffInsights reportStaffInsights = new ReportStaffInsights(date, staff_id, totalAdministered, totalAdministeredByDay, null, null);
+                return reportStaffInsights;
 
             }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace); }
             finally{
             }
-            builder += "}";
 
-            return builder;
+            return null;
         }   
 
         public List<string> getAllReactions(){
