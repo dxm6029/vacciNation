@@ -36,8 +36,11 @@ function Schedule() {
       });
   };
 
-  function selectLocation(id) {
-    return axios.get(`http://localhost:5002/Appointment/date/open/${id}?date=${datePick}`)
+  function selectLocation(id, apptid) {
+    setLocationId(id);
+    setAppt(apptid);
+    setCanSubmit(true);
+   /* return axios.get(`http://localhost:5002/Appointment/date/open/${id}?date=${datePick}`)
       .then((response) => {
           if (response) {
               console.log(response); 
@@ -52,7 +55,7 @@ function Schedule() {
           console.log(err);
           console.log(err.toString());
           return null;
-      });
+      });*/
   }
 
   function nextPage() {
@@ -62,14 +65,12 @@ function Schedule() {
         locationId: locationId,
         appt: appt
       });
-
     }
     else {
       // pop up an alert that says no
       console.log("Log in failed");
       alert("Please fill out all fields and select an appointment.");
     }
-
   }
 
   return (
@@ -99,6 +100,7 @@ function Schedule() {
               <thead>
                 <tr>
                   <th>Location</th>
+                  <th>Date and Time</th>
                 </tr>
               </thead>
               <tbody>
@@ -107,11 +109,13 @@ function Schedule() {
                     <tr 
                       className="" 
                       key={`location ${index}`} 
-                      onClick={() => selectLocation(place.location_id)}
+                      onClick={() => selectLocation(place.location_id, place.appointment_id)}
                     >
                       <td>
-                        {place.location_name}
+                        {place.location_name} 
                       </td>
+
+                      <td>{place.date} </td>
                     </tr>
                   ))
                 }
