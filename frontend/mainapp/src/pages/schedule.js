@@ -40,22 +40,6 @@ function Schedule() {
     setLocationId(id);
     setAppt(apptid);
     setCanSubmit(true);
-   /* return axios.get(`http://localhost:5002/Appointment/date/open/${id}?date=${datePick}`)
-      .then((response) => {
-          if (response) {
-              console.log(response); 
-              setLocationId(response.data.location_id);
-              setCanSubmit(true);
-          } else {
-              console.log('API failed: No data received!');
-              return null;
-          }
-      }).catch((err) => {
-          console.log('*** API Call Failed ***');
-          console.log(err);
-          console.log(err.toString());
-          return null;
-      });*/
   }
 
   function nextPage() {

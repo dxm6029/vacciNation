@@ -10,10 +10,9 @@ function PersonalInfo(props) {
   const [email, setEmail] = useState(null);
   const [canSubmit, setCanSubmit] = useState(false);
   const [citizenId, setCitizenId] = useState(null);
+  const [vaxId, setVaxId] = useState(null);
 
   const [searchParams] = useSearchParams();
-  console.log("SEARCH PARAMS");
-  console.log(searchParams);
 
   // Create a user citizen
   const CREATE = (event) => {
@@ -26,6 +25,8 @@ function PersonalInfo(props) {
     let lastname = event.target.lastName.value;
     setLName(event.target.lastName.value);
     let dob = event.target.datePick.value;
+    setVaxId(event.target.vax.value);
+
 
     return axios.post(`http://localhost:5002/UserCitizen`, {
       "email": emailAddress,
@@ -62,9 +63,9 @@ function PersonalInfo(props) {
 
   function claimAppt() {
     return axios.put(`http://localhost:5002/Appointment/Signup`, {
-      "timeslot_id": '',
+      "timeslot_id": searchParams.get('appt'),
       "citizen_id": citizenId,
-      "location_id": ''
+      "vaccine_type": vaxId
     })
       .then((response) => {
           if (response) {
@@ -141,6 +142,12 @@ function PersonalInfo(props) {
               <label htmlFor="phone"> Phone Number </label>
               <input type="text" id="phone" name="phone" />
 
+              <label htmlFor="vax">Which vaccine are you scheduling for?:</label>
+              <select name="vax" id="vax">
+                <option value="1">First</option>
+                <option value="2">Second</option>
+                <option value="3">Third</option>
+              </select>
 
               <input type="submit" value="Submit"/>
             </form>
