@@ -41,7 +41,7 @@ class UBRoutes extends React.Component {
                 <Route path="/faq" element={<FAQ questions={this.props.questions}/>} />
                 <Route path="/prescreening" element={<Prescreening questions={this.props.prescreeningQs}/>}/>
                 <Route path="/ineligible" element={<Ineligible />} />
-                <Route path="/personalInfo" element={<PersonalInfo props={this.props}/>} />
+                <Route path="/personalInfo" element={<PersonalInfo/>} />
                 <Route path="/report" element={<Report />} />
                 <Route path="/select" element={<SelectVaccine />}/>
 

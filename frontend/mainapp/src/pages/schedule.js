@@ -61,9 +61,10 @@ function Schedule() {
   function nextPage() {
     if (canSubmit) {
       console.log("Log in succeed");
-      navigate('/personalInfo', {
-        locationId: locationId,
-        appt: appt
+      console.log(locationId);
+      navigate({
+        pathname: '/personalInfo',
+        search: `?locationId=${locationId}&appt=${appt}`
       });
     }
     else {

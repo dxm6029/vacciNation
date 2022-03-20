@@ -1,15 +1,19 @@
 import './schedule.css';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import NavBar from './navBar';
 import axios from 'axios';
 import { useState } from 'react';
 
-function PersonalInfo({locationId, appt}) {
+function PersonalInfo(props) {
   const [fname, setFName] = useState(null);
   const [lname, setLName] = useState(null);
   const [email, setEmail] = useState(null);
   const [canSubmit, setCanSubmit] = useState(false);
   const [citizenId, setCitizenId] = useState(null);
+
+  const [searchParams] = useSearchParams();
+  console.log("SEARCH PARAMS");
+  console.log(searchParams);
 
   // Create a user citizen
   const CREATE = (event) => {
@@ -57,11 +61,10 @@ function PersonalInfo({locationId, appt}) {
   }
 
   function claimAppt() {
-    console.log(locationId);
     return axios.put(`http://localhost:5002/Appointment/Signup`, {
-      "timeslot_id": appt,
+      "timeslot_id": '',
       "citizen_id": citizenId,
-      "location_id": locationId
+      "location_id": ''
     })
       .then((response) => {
           if (response) {
