@@ -30,7 +30,7 @@ namespace VacciNationAPI.Controllers{
                 date = HttpContext.Request.Query["date"];
             }
 
-            string result = rm.staffInsightsResponseBuilder(date, staff_id);
+            ReportStaffInsights result = rm.staffInsightsResponseBuilder(date, staff_id);
             if(result != null){
                 return new ObjectResult(result);
             } else {
@@ -53,7 +53,7 @@ namespace VacciNationAPI.Controllers{
                 date = HttpContext.Request.Query["date"];
             }
 
-            string result = rm.vaccineInsightsResponseBuilder(date);
+            ReportVaccineInsights result = rm.vaccineInsightsResponseBuilder(date);
             if(result != null){
                 return new ObjectResult(result);
             } else {
