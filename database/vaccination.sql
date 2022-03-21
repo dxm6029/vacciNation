@@ -115,6 +115,7 @@ CREATE TABLE dose(
     supplier VARCHAR(50) NOT NULL,
     vaccine_id INT NOT NULL,
     location_id INT NOT NULL,
+    batch VARCHAR(100),
     PRIMARY KEY (dose_id),
     CONSTRAINT fk_dose_vaccine FOREIGN KEY (vaccine_id) REFERENCES vaccine (vaccine_id) ON UPDATE CASCADE,
     CONSTRAINT fk_dose_location FOREIGN KEY (location_id) REFERENCES location (location_id) ON UPDATE CASCADE
