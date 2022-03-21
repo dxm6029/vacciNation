@@ -556,7 +556,6 @@ namespace VacciNationAPI.DataLayer
             return citizen;
         }
 
-        // here dominique
         public List<StaffPrint> getAllStaff(){
             MySqlConnection conn = new MySqlConnection();
             List<StaffPrint> staff = new List<StaffPrint>();
@@ -734,7 +733,6 @@ namespace VacciNationAPI.DataLayer
             return response;
         }
 
- // here dominique
          public List<StaffPrint> getAllStaffWithRole(int role_id){
             MySqlConnection conn = new MySqlConnection();
             List<StaffPrint> staff = new List<StaffPrint>();
