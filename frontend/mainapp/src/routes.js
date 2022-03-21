@@ -10,6 +10,7 @@ import Ineligible from './pages/ineligible';
 import PersonalInfo from './pages/personalInfo';
 import Report from './pages/report';
 import SelectVaccine from './pages/selectVaccine';
+import Success from './pages/success';
 
 import LogIn from './staffPages/login';
 import ForgotPassword from './staffPages/forgotPassword';
@@ -44,6 +45,7 @@ class UBRoutes extends React.Component {
                 <Route path="/personalInfo" element={<PersonalInfo/>} />
                 <Route path="/report" element={<Report />} />
                 <Route path="/select" element={<SelectVaccine />}/>
+                <Route path="/success" element={<Success />}/>
 
 
                 <Route path="/login" element={<LogIn />}/>

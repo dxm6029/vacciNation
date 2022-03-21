@@ -3,8 +3,9 @@ import { Link, useParams, useSearchParams } from 'react-router-dom';
 import NavBar from './navBar';
 import axios from 'axios';
 import { useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
-function PersonalInfo(props) {
+function PersonalInfo() {
   const [fname, setFName] = useState(null);
   const [lname, setLName] = useState(null);
   const [email, setEmail] = useState(null);
@@ -13,6 +14,8 @@ function PersonalInfo(props) {
   const [vaxId, setVaxId] = useState(null);
 
   const [searchParams] = useSearchParams();
+
+  const navigate = useNavigate();
 
   // Create a user citizen
   const CREATE = (event) => {
@@ -53,7 +56,14 @@ function PersonalInfo(props) {
 
   function nextPage() {
     if (canSubmit && getUser() != null) {
-      claimAppt();
+      if (claimAppt()) {
+        navigate({
+          pathname: '/success'
+        });
+      }
+      else {
+        alert("There's been an error, please try again.");
+      }
 
     }
     else {
@@ -62,10 +72,9 @@ function PersonalInfo(props) {
   }
 
   function claimAppt() {
-    return axios.put(`http://localhost:5002/Appointment/Signup`, {
-      "timeslot_id": searchParams.get('appt'),
-      "citizen_id": citizenId,
-      "vaccine_type": vaxId
+    return axios.put(`http://localhost:5002/Appointment/Signup?vaccine_type=${vaxId}`, {
+      "timeslot_id": parseInt(searchParams.get('appt')),
+      "citizen_id": parseInt(citizenId)
     })
       .then((response) => {
           if (response) {
