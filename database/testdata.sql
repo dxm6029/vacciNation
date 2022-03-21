@@ -133,7 +133,7 @@ INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (8, "Pfizer
 INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (9, "Pfizer", 3, 1);
 INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (10, "Pfizer", 3, 1);
 INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (11, "Pfizer", 3, 1);
-INSERT INTO dose (dose_id, supplier, vaccine_id, location_id) VALUES (12, "Pfizer", 3, 1);
+INSERT INTO dose (dose_id, supplier, vaccine_id, location_id, batch) VALUES (12, "Pfizer", 3, 1, "27");
 
 INSERT INTO timeslot_status (status_id, description) VALUES (1, "AVAILABLE");
 INSERT INTO timeslot_status (status_id, description) VALUES (2, "RESERVED");
