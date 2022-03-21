@@ -286,7 +286,7 @@ namespace VacciNationAPI.DataLayer
                         // total_administered_pfizer_1
                     }
                 }
-                ReportStaffInsights reportStaffInsights = new ReportStaffInsights(date, staff_id, totalAdministered, totalAdministeredByDay, null, null);
+                ReportStaffInsights reportStaffInsights = new ReportStaffInsights(date, staff_id, totalAdministered, totalAdministeredByDay, total_administered_by_type, total_administered_by_type_date);
                 return reportStaffInsights;
 
             }catch (Exception e){ Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace); }
