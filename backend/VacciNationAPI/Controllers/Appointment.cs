@@ -108,6 +108,29 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        [HttpPut("VaccineAdministered/{batch}")] // staff assigned to appointment (permissions)
+        public IActionResult PutVaccineAdministered([FromBody] Timeslot timeslot,  [FromHeader] string authorization, string batch){
+             try{
+                string token = authorization;
+                int uid = us.checkToken(token);
+                if (uid == -1){
+                    return Unauthorized();
+                }
+
+                // should include citizen id, timeslot id, and vaccine type
+                bool result = am.updateTimeslotStatusWithBatch(timeslot, batch);
+
+                if(result){
+                    return Accepted();
+                }else {
+                    return BadRequest();
+                }
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
         [HttpPut("AddReactions")] // add reaction to timeslot, only authorized users
         public IActionResult PutTimeslotReactions([FromBody] Timeslot timeslot,  [FromHeader] string authorization){
              try{
