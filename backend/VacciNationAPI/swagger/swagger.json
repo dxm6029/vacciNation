@@ -1964,7 +1964,7 @@
         "tags": [
           "Appointments & Timeslots"
         ],
-        "summary": "updates an appointment with status",
+        "summary": "updates an appointment status and batch number",
         "produces": [
           "application/json"
         ],
