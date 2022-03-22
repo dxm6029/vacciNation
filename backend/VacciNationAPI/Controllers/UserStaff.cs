@@ -340,10 +340,9 @@ namespace VacciNationAPI.Controllers{
 
                 // add token
                 string tok = us.addToken(authorizedStaff.staff_id);
-                
-                string body = "{staff_id: " + authorizedStaff.staff_id.ToString() + ", email: " + authorizedStaff.email + ", username: " + authorizedStaff.username+  ", last_name: " +  authorizedStaff.last_name + ", first_name: " +  authorizedStaff.first_name + ", token: " +  tok + "}";
+                StaffLogin staffLogin = new StaffLogin(authorizedStaff.staff_id, authorizedStaff.email, authorizedStaff.username, authorizedStaff.last_name, authorizedStaff.first_name,tok);
 
-                return new ObjectResult(body);
+                return new ObjectResult(staffLogin);
             }
             catch(Exception e){
                 return BadRequest();
