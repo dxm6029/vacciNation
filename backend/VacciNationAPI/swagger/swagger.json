@@ -3663,6 +3663,9 @@
         "quantity": {
           "type": "integer",
           "format": "int64"
+        },
+        "batch": {
+          "type": "string"
         }
       }
     },
