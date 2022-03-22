@@ -1959,6 +1959,56 @@
         }
       }
     },
+    "/Appointment/VaccineAdministered/{batch}": {
+      "put": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "updates an appointment status and batch number",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Timeslot",
+            "description": "status to update timeslot to (ONLY timeslot_id, auto changes status to complete)",
+            "schema": {
+              "$ref": "#/definitions/Timeslot"
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "batch",
+            "description": "batch number of administered vaccine",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
     "/vaccine/all": {
       "get": {
         "tags": [

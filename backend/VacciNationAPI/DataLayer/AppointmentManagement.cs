@@ -145,6 +145,43 @@ namespace VacciNationAPI.DataLayer
             return result;
         }
 
+        public bool updateTimeslotStatusWithBatch(Timeslot timeslot, string batch){
+            bool result = false;
+            MySqlConnection conn = connection.OpenConnection();
+            try{
+               
+                string query="Update timeslot set status_id=3 WHERE timeslot_id = @timeslot_id;";
+                MySqlCommand cd = new MySqlCommand(query, conn);
+                cd.Parameters.AddWithValue("@timeslot_id", timeslot.timeslot_id);
+
+                int rows = cd.ExecuteNonQuery();
+
+                AppointmentList appointment = getAppointmentsWithID(timeslot.timeslot_id);
+
+                query="Update dose set batch=@batch WHERE dose_id = @dose_id;";
+                cd = new MySqlCommand(query, conn);
+                cd.Parameters.AddWithValue("@batch", batch);
+                cd.Parameters.AddWithValue("@dose_id", appointment.dose_id);
+
+                int rows2 = cd.ExecuteNonQuery();
+
+
+                if(rows > 0 && rows2 > 0){
+                    result = true;
+                }
+
+            } catch (Exception e){ 
+                Console.WriteLine(e.Message); 
+                Console.WriteLine(e.StackTrace);
+            } 
+            finally{
+               connection.CloseConnection(conn);
+            }
+
+            return result;
+        }
+
+
         public bool updateTimeslotReactions(Timeslot timeslot){
             bool result = false;
             MySqlConnection conn = connection.OpenConnection();
