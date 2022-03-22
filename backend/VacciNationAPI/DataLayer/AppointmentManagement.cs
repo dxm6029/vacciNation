@@ -150,14 +150,23 @@ namespace VacciNationAPI.DataLayer
             MySqlConnection conn = connection.OpenConnection();
             try{
                
-                string query="Update timeslot set status_id=3 AND batch=@batch WHERE timeslot_id = @timeslot_id;";
+                string query="Update dose set status_id=3 WHERE timeslot_id = @timeslot_id;";
                 MySqlCommand cd = new MySqlCommand(query, conn);
-                cd.Parameters.AddWithValue("@batch", batch);
                 cd.Parameters.AddWithValue("@timeslot_id", timeslot.timeslot_id);
 
                 int rows = cd.ExecuteNonQuery();
 
-                if(rows > 0){
+                AppointmentList appointment = getAppointmentsWithID(id);
+
+                query="Update dose set status_id=3 AND batch=@batch WHERE dose_id = @dose_id;";
+                cd = new MySqlCommand(query, conn);
+                cd.Parameters.AddWithValue("@batch", batch);
+                cd.Parameters.AddWithValue("@dose_id", appointment.dose_id);
+
+                int rows2 = cd.ExecuteNonQuery();
+
+
+                if(rows > 0 && rows2 > 0){
                     result = true;
                 }
 
