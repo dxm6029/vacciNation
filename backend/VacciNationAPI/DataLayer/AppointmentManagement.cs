@@ -156,7 +156,7 @@ namespace VacciNationAPI.DataLayer
 
                 int rows = cd.ExecuteNonQuery();
 
-                AppointmentList appointment = getAppointmentsWithID(id);
+                AppointmentList appointment = getAppointmentsWithID(timeslot.timeslot_id);
 
                 query="Update dose set status_id=3 AND batch=@batch WHERE dose_id = @dose_id;";
                 cd = new MySqlCommand(query, conn);
