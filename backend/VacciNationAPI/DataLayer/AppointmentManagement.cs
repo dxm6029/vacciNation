@@ -158,7 +158,7 @@ namespace VacciNationAPI.DataLayer
 
                 AppointmentList appointment = getAppointmentsWithID(timeslot.timeslot_id);
 
-                query="Update dose set status_id=3 AND batch=@batch WHERE dose_id = @dose_id;";
+                query="Update dose set batch=@batch WHERE dose_id = @dose_id;";
                 cd = new MySqlCommand(query, conn);
                 cd.Parameters.AddWithValue("@batch", batch);
                 cd.Parameters.AddWithValue("@dose_id", appointment.dose_id);
