@@ -150,7 +150,7 @@ namespace VacciNationAPI.DataLayer
             MySqlConnection conn = connection.OpenConnection();
             try{
                
-                string query="Update dose set status_id=3 WHERE timeslot_id = @timeslot_id;";
+                string query="Update timeslot set status_id=3 WHERE timeslot_id = @timeslot_id;";
                 MySqlCommand cd = new MySqlCommand(query, conn);
                 cd.Parameters.AddWithValue("@timeslot_id", timeslot.timeslot_id);
 
