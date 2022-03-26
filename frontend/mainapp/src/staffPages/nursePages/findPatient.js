@@ -2,11 +2,15 @@ import './patient.css';
 import NavBar from './navBar';
 import axios from 'axios';
 import { useState } from 'react';
+import Cookies from 'universal-cookie';
 
 function FindPatient() {
+    
+    const cookies = new Cookies();
     // Find a patient
     const [citizenid, setCitizenid] = useState(null);
 
+    
     getAll();
 
     function getAll( ) {
@@ -29,7 +33,6 @@ function FindPatient() {
 
     const FIND = (event) => {
       event.preventDefault();
-      console.log(event.target);
       let firstName = event.target.fname.value;
       let lastName = event.target.lname.value;
       let emailAddress = event.target.email.value;
@@ -37,7 +40,8 @@ function FindPatient() {
         .get(`http://localhost:5002/UserCitizen?first_name=${firstName}&last_name=${lastName}&email=${emailAddress}`)
         .then((response) => {
             if (response) {
-                citizenid = response.citizen_id;
+                setCitizenid(response.data.citizen_id);
+                getAppt(response.data.citizen_id);
             } else {
                 console.log('API failed: No data received!');
                 return null;
@@ -48,22 +52,19 @@ function FindPatient() {
             console.log(err.toString())
             return null;
         });
-
-        getAppt();
     }
 
-    function getAppt() {
+    function getAppt(citid) {
         return axios
-        .get(`http://localhost:5002/Appointment/Citizen`), {
-            params: {
-                citizen_id: citizenid,
-            },
-            headers: { 'Content-Type': 'application/json' }
-            // Will have the authorization token soon
-        }
+        .get(`http://localhost:5002/Appointment/Citizen/${citid}`, {
+            headers: { 
+                'Content-Type': 'application/json',
+                'authorization': cookies.get('token')
+            }
+        })
         .then((response) => {
             if (response) {
-                citizenid = response.citizen_id;
+                console.log(response);
             } else {
                 console.log('API failed: No data received!');
                 return null;
