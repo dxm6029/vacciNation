@@ -141,7 +141,7 @@ namespace VacciNationAPI.Controllers
                     return StatusCode(403);
                 }
 
-                bool result = locationManager.UpdateLocation(location);
+                bool result = locationManager.UpdateLocation(location, uid);
 
                 if (result)
                 {

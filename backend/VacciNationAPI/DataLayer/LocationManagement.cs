@@ -270,10 +270,11 @@ namespace VacciNationAPI.DataLayer
 
         }
         
-        public bool UpdateLocation(Location location)
+        public bool UpdateLocation(Location location, int uid)
         {
             bool result = false;
             MySqlConnection conn = connection.OpenConnection();
+            MySqlTransaction myTrans =  conn.BeginTransaction();
             string query;
             int rows;
             
@@ -282,6 +283,11 @@ namespace VacciNationAPI.DataLayer
                 //if name is set, update name
                 if (!string.IsNullOrEmpty(location.name))
                 {
+                    if (!AuditService.Save("location", "name", "location_id", location.location_id, location.name, uid, conn))
+                    {
+                        myTrans.Rollback();
+                        return false;
+                    }
                     query = "UPDATE location SET name=@name WHERE location_id=@location_id;";
                     MySqlCommand locationUpdate = new MySqlCommand(query, conn);
                     locationUpdate.Parameters.AddWithValue("@name", location.name);
@@ -292,9 +298,27 @@ namespace VacciNationAPI.DataLayer
                     if(rows > 0){
                         result = true;
                     }
+                    else
+                    {
+                        myTrans.Rollback();
+                        return false;
+                    }
                 }
                 
                 //update address if set
+                if (location.address_id < 1)
+                {
+                    query = "SELECT address_id FROM location WHERE location_id=@location_id";
+                    MySqlCommand getAddressId = new MySqlCommand(query, conn);
+                    getAddressId.Parameters.AddWithValue("@location_id", location.location_id);
+
+                    MySqlDataReader rdr = getAddressId.ExecuteReader();
+
+                    rdr.Read();
+                    location.address_id = (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0));
+
+                    rdr.Close();
+                }
                 
                 //build update string with whatever is set
                 query="Update address set  ";
@@ -327,45 +351,72 @@ namespace VacciNationAPI.DataLayer
                 else
                 {
                     //none of the values are set, so nothing should happen
+                    myTrans.Commit();
                     return result;
                 }
 
-                query += " WHERE address_id = (SELECT address_id FROM location WHERE location_id=@location_id);";
+                query += " WHERE address_id=@address_id;";
 
                 MySqlCommand cd = new MySqlCommand(query, conn);
                 
                 if (!String.IsNullOrEmpty(location.street))
                 {
                     cd.Parameters.AddWithValue("@street", location.street);
+                    if (!AuditService.Save("address", "street", "address_id", location.address_id, location.street, uid, conn))
+                    {
+                        myTrans.Rollback();
+                        return false;
+                    }
                 }
 
                 if (!String.IsNullOrEmpty(location.street_line2)) {
-                    cd.Parameters.AddWithValue("@street", location.street);
+                    cd.Parameters.AddWithValue("@street_line2", location.street_line2);
+                    if (!AuditService.Save("address", "street_line2", "address_id", location.address_id, location.street_line2, uid, conn))
+                    {
+                        myTrans.Rollback();
+                        return false;
+                    }
                 }
                 
                 if (!String.IsNullOrEmpty(location.city)) {
-                    cd.Parameters.AddWithValue("@street", location.street);
+                    cd.Parameters.AddWithValue("@city", location.street);
+                    if (!AuditService.Save("address", "city", "address_id", location.address_id, location.city, uid, conn))
+                    {
+                        myTrans.Rollback();
+                        return false;
+                    }
                 }
                 
                 if (!String.IsNullOrEmpty(location.state)) {
-                    cd.Parameters.AddWithValue("@street", location.street);
+                    cd.Parameters.AddWithValue("@state", location.state);
+                    if (!AuditService.Save("address", "state", "address_id", location.address_id, location.state, uid, conn))
+                    {
+                        myTrans.Rollback();
+                        return false;
+                    }
                 }
                 
                 if (!String.IsNullOrEmpty(location.zip)) {
-                    cd.Parameters.AddWithValue("@street", location.street);
+                    cd.Parameters.AddWithValue("@zip", location.zip);
+                    if (!AuditService.Save("address", "zip", "address_id", location.address_id, location.zip, uid, conn))
+                    {
+                        myTrans.Rollback();
+                        return false;
+                    }
                 }
                 
-                cd.Parameters.AddWithValue("@location_id", location.location_id);
+                cd.Parameters.AddWithValue("@address_id", location.address_id);
 
                 rows = cd.ExecuteNonQuery();
 
                 if(rows > 0) {
                     result = true;
                 }
-                
+                myTrans.Commit();
             } catch (Exception e){ 
                 Console.WriteLine(e.Message); 
                 Console.WriteLine(e.StackTrace);
+                myTrans.Rollback();
                 return false;
             } // probably should log something here eventually
             finally{
