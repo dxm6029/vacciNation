@@ -30,7 +30,7 @@ namespace VacciNationAPI.Controllers{
                 date = HttpContext.Request.Query["date"];
             }
 
-            string result = rm.staffInsightsResponseBuilder(date, staff_id);
+            StaffReport result = rm.staffInsightsResponseBuilder(date, staff_id);
             if(result != null){
                 return new ObjectResult(result);
             } else {
@@ -39,8 +39,8 @@ namespace VacciNationAPI.Controllers{
         }
 
         // currently set so any staff member can view insights
-        [HttpGet("vaccine")]
-        public IActionResult GetVaccineInsights([FromHeader] string authorization) {
+        [HttpGet("location/{location_id}")]
+        public IActionResult GetVaccineInsights([FromHeader] string authorization, int location_id) {
             string token = authorization;
             int uid = us.checkToken(token);
             if (uid == -1){
@@ -53,7 +53,7 @@ namespace VacciNationAPI.Controllers{
                 date = HttpContext.Request.Query["date"];
             }
 
-            string result = rm.vaccineInsightsResponseBuilder(date);
+            LocationReport result = rm.locationInsightsResponseBuilder(date, location_id);
             if(result != null){
                 return new ObjectResult(result);
             } else {
@@ -70,7 +70,34 @@ namespace VacciNationAPI.Controllers{
                 return Unauthorized();
             }
 
-            List<string> result = rm.getAllReactions();
+            List<ReactionReport> result = rm.getAllReactions();
+            if(result != null){
+                return new ObjectResult(result);
+            } else {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("batch/{batch}")]
+        public IActionResult GetBatchInsights([FromHeader] string authorization, string batch) {
+            string token = authorization;
+            int uid = us.checkToken(token);
+            if (uid == -1){
+                return Unauthorized();
+            }
+
+             // get date from query params
+            string date = "";
+            if (!String.IsNullOrEmpty(HttpContext.Request.Query["date"])){
+                date = HttpContext.Request.Query["date"];
+            }
+
+            int location_id = -1;
+            if (!String.IsNullOrEmpty(HttpContext.Request.Query["location_id"])){
+                location_id = Int32.Parse(HttpContext.Request.Query["location_id"]);
+            }
+
+            List<BatchReport> result = rm.getBatchReport(batch, date, location_id);
             if(result != null){
                 return new ObjectResult(result);
             } else {
