@@ -92,37 +92,62 @@ namespace VacciNationAPI.DataLayer
 
         }
 
-        public bool updateTimeslotStaff(Timeslot timeslot){
+        public bool updateTimeslotStaff(Timeslot timeslot, int uid){
             bool result = false;
             MySqlConnection conn = connection.OpenConnection();
-            try{
-               
-                string query="Update timeslot set staff_id=@staff_id WHERE timeslot_id = @timeslot_id;";
+            MySqlTransaction myTrans =  conn.BeginTransaction();
+            try
+            {
+                if (!AuditService.Save("timeslot", "staff_id", "timeslot_id", timeslot.timeslot_id, "" + timeslot.staff_id, uid, conn))
+                {
+                    myTrans.Rollback();
+                    return false;
+                }
+
+                string query = "Update timeslot set staff_id=@staff_id WHERE timeslot_id = @timeslot_id;";
                 MySqlCommand cd = new MySqlCommand(query, conn);
                 cd.Parameters.AddWithValue("@staff_id", timeslot.staff_id);
                 cd.Parameters.AddWithValue("@timeslot_id", timeslot.timeslot_id);
 
                 int rows = cd.ExecuteNonQuery();
 
-                if(rows > 0){
+                if (rows > 0)
+                {
                     result = true;
+                    myTrans.Commit();
+                }
+                else
+                {
+                    myTrans.Rollback();
                 }
 
-            } catch (Exception e){ 
-                Console.WriteLine(e.Message); 
-                Console.WriteLine(e.StackTrace);} // probably should log something here eventually
-            finally{
-               connection.CloseConnection(conn);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace); // probably should log something here eventually
+                myTrans.Rollback();
+            }
+            finally
+            {
+                connection.CloseConnection(conn);
             }
 
             return result;
         }
 
-        public bool updateTimeslotStatus(Timeslot timeslot){
+        public bool updateTimeslotStatus(Timeslot timeslot, int uid){
             bool result = false;
             MySqlConnection conn = connection.OpenConnection();
+            MySqlTransaction myTrans =  conn.BeginTransaction();
             try{
                
+                if (!AuditService.Save("timeslot", "status", "timeslot_id", timeslot.timeslot_id, "" + timeslot.status, uid, conn))
+                {
+                    myTrans.Rollback();
+                    return false;
+                }
+                
                 string query="Update timeslot set status_id=@status WHERE timeslot_id = @timeslot_id;";
                 MySqlCommand cd = new MySqlCommand(query, conn);
                 cd.Parameters.AddWithValue("@status", timeslot.status);
@@ -132,11 +157,17 @@ namespace VacciNationAPI.DataLayer
 
                 if(rows > 0){
                     result = true;
+                    myTrans.Commit();
+                }
+                else
+                {
+                    myTrans.Rollback();
                 }
 
             } catch (Exception e){ 
                 Console.WriteLine(e.Message); 
                 Console.WriteLine(e.StackTrace);
+                myTrans.Rollback();
             } 
             finally{
                connection.CloseConnection(conn);
@@ -145,11 +176,17 @@ namespace VacciNationAPI.DataLayer
             return result;
         }
 
-        public bool updateTimeslotReactions(Timeslot timeslot){
+        public bool updateTimeslotReactions(Timeslot timeslot, int uid){
             bool result = false;
             MySqlConnection conn = connection.OpenConnection();
+            MySqlTransaction myTrans =  conn.BeginTransaction();
             try{
-               
+                if (!AuditService.Save("timeslot", "reactions", "timeslot_id", timeslot.timeslot_id, timeslot.reactions, uid, conn))
+                {
+                    myTrans.Rollback();
+                    return false;
+                }
+                
                 string query="Update timeslot set reactions=@reactions WHERE timeslot_id = @timeslot_id;";
                 MySqlCommand cd = new MySqlCommand(query, conn);
                 cd.Parameters.AddWithValue("@reactions", timeslot.reactions);
@@ -159,11 +196,17 @@ namespace VacciNationAPI.DataLayer
 
                 if(rows > 0){
                     result = true;
+                    myTrans.Commit();
+                }
+                else
+                {
+                    myTrans.Rollback();
                 }
 
             } catch (Exception e){ 
                 Console.WriteLine(e.Message); 
                 Console.WriteLine(e.StackTrace);
+                myTrans.Rollback();
             } 
             finally{
                connection.CloseConnection(conn);
@@ -172,11 +215,17 @@ namespace VacciNationAPI.DataLayer
             return result;
         }
 
-        public bool removeTimeslot(int timeslot_id){
+        public bool removeTimeslot(int timeslot_id, int uid){
              bool status = false;
             MySqlConnection conn = new MySqlConnection();
+            MySqlTransaction myTrans =  conn.BeginTransaction();
             try{ 
                 conn = connection.OpenConnection();
+                if (!AuditService.Save("timeslot", "DELETE", "timeslot_id", timeslot_id, "" + -1, uid, conn))
+                {
+                    myTrans.Rollback();
+                    return false;
+                }
 
                 string query = "DELETE FROM timeslot WHERE timeslot_id = @timeslot";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
@@ -186,8 +235,13 @@ namespace VacciNationAPI.DataLayer
                 
                 if(rows > 0){
                     status = true;
+                    myTrans.Commit();
                 }
-            } catch (Exception e){}
+                else
+                {
+                    myTrans.Rollback();
+                }
+            } catch (Exception e){myTrans.Rollback();}
             finally {
                 connection.CloseConnection(conn);
             }
