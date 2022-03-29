@@ -249,13 +249,13 @@ namespace VacciNationAPI.DataLayer
             return status;
         }
 
-        public List<string> getAllAppointmentsByType(bool open, string supplier, int categoryId){
+        public List<Dictionary<string, string>> getAllAppointmentsByType(bool open, string supplier, int categoryId){
             MySqlConnection conn = new MySqlConnection();
-            List<string> appointments = new List<string>();
+            List<Dictionary<string, string>> appointments = new List<Dictionary<string, string>>();
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT timeslot_id, timeslot.staff_id, staff.first_name, staff.last_name, timeslot.citizen_id, citizen.first_name, citizen.last_name, timeslot.location_id, location.name, timeslot.dose_id, dose.supplier, vaccine_category.category_id, vaccine_category.name, timeslot.date, timeslot.status_id, timeslot_status.description FROM timeslot JOIN staff USING(staff_id) JOIN dose USING(dose_id) JOIN timeslot_status USING(status_id) JOIN vaccine USING(vaccine_id) JOIN location USING(location_id) LEFT JOIN citizen USING(citizen_id) JOIN vaccine_category ON vaccine_category.category_id=vaccine.category WHERE dose.supplier=@supplier AND vaccine.category=@category";
+                string query = "SELECT timeslot_id, timeslot.staff_id, staff.first_name, staff.last_name, timeslot.citizen_id, citizen.first_name, citizen.last_name, timeslot.location_id, location.name, timeslot.dose_id, dose.supplier, vaccine_category.category_id, vaccine_category.name, timeslot.date, timeslot.status_id, timeslot_status.description FROM timeslot JOIN staff USING(staff_id) JOIN dose USING(dose_id) JOIN timeslot_status USING(status_id) JOIN vaccine USING(vaccine_id) JOIN location ON location.location_id = timeslot.location_id LEFT JOIN citizen USING(citizen_id) JOIN vaccine_category ON vaccine_category.category_id=vaccine.category WHERE dose.supplier=@supplier AND vaccine.category=@category";
                 if(open){
                     query += " AND status_id=1";
                 }
@@ -266,9 +266,27 @@ namespace VacciNationAPI.DataLayer
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
-                {   
-                    appointments.Add("{ appointment_id: " + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)) + ", staff_id: " + ( rdr.IsDBNull(1) ? -1 : rdr.GetInt32(1)) + ", staff_first_name: " + (rdr.IsDBNull(2) ?  "" : rdr.GetString(2))+  ", staff_last_name: " +  (rdr.IsDBNull(3) ?  "" : rdr.GetString(3)) + ", citizen_id: " +  (rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4)) + ", citizen_first_name: " + (rdr.IsDBNull(5) ?  "" : rdr.GetString(5))+  ", citizen_last_name: " +  (rdr.IsDBNull(6) ?  "" : rdr.GetString(6)) + ", location_id: " + ( rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7)) + ", location_name: " + (rdr.IsDBNull(8) ?  "" : rdr.GetString(8)) + ", dose_id: " + ( rdr.IsDBNull(9) ? -1 : rdr.GetInt32(9)) + ", supplier: " + (rdr.IsDBNull(10) ?  "" : rdr.GetString(10)) 
-                    + ", category_id: " + (rdr.IsDBNull(11) ? -1: rdr.GetInt32(11)) +  ", description: " + (rdr.IsDBNull(12) ?  "" : rdr.GetString(12)) + ", date: " + (rdr.IsDBNull(13) ?  "" : rdr.GetString(13))  + ", status_id: " + ( rdr.IsDBNull(14) ? -1 : rdr.GetInt32(14)) + ", status_desc: " + (rdr.IsDBNull(15) ?  "" : rdr.GetString(15)) +"},");
+                {
+                    Dictionary<string, string> appointment = new Dictionary<string, string>();
+                    
+                    appointment.Add("appointment_id", "" + (rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0)));
+                    appointment.Add("staff_id", "" + ( rdr.IsDBNull(1) ? -1 : rdr.GetInt32(1)));
+                    appointment.Add("staff_first_name", (rdr.IsDBNull(2) ?  "" : rdr.GetString(2)));
+                    appointment.Add("staff_last_name", (rdr.IsDBNull(3) ?  "" : rdr.GetString(3)));
+                    appointment.Add("citizen_id", "" + (rdr.IsDBNull(4) ? -1 : rdr.GetInt32(4)));
+                    appointment.Add("citizen_first_name", (rdr.IsDBNull(5) ?  "" : rdr.GetString(5)));
+                    appointment.Add("citizen_last_name", (rdr.IsDBNull(6) ?  "" : rdr.GetString(6)));
+                    appointment.Add("location_id", "" + ( rdr.IsDBNull(7) ? -1 : rdr.GetInt32(7)));
+                    appointment.Add("location_name", (rdr.IsDBNull(8) ?  "" : rdr.GetString(8)));
+                    appointment.Add("dose_id", "" + ( rdr.IsDBNull(9) ? -1 : rdr.GetInt32(9)));
+                    appointment.Add("supplier", (rdr.IsDBNull(10) ?  "" : rdr.GetString(10)));
+                    appointment.Add("category_id", "" + (rdr.IsDBNull(11) ? -1: rdr.GetInt32(11)));
+                    appointment.Add("description", (rdr.IsDBNull(12) ?  "" : rdr.GetString(12)));
+                    appointment.Add("date", (rdr.IsDBNull(13) ?  "" : rdr.GetString(13)));
+                    appointment.Add("status_id", "" + ( rdr.IsDBNull(14) ? -1 : rdr.GetInt32(14)));
+                    appointment.Add("status_desc", (rdr.IsDBNull(15) ?  "" : rdr.GetString(15)));
+                    
+                    appointments.Add(appointment);
                 }
                 rdr.Close();
 

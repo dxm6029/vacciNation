@@ -328,7 +328,7 @@ namespace VacciNationAPI.Controllers{
                     return BadRequest();
                 }
 
-                List<string> appointments = am.getAllAppointmentsByType(false, vaccineSupplier, vaccineCategory);
+                List<Dictionary<string, string>> appointments = am.getAllAppointmentsByType(false, vaccineSupplier, vaccineCategory);
                 return new ObjectResult(appointments);
             }
             catch(Exception e){
@@ -358,8 +358,7 @@ namespace VacciNationAPI.Controllers{
                     return BadRequest();
                 }
 
-                          
-                List<string> appointments = am.getAllAppointmentsByType(true, vaccine_supplier, vaccineCategory);
+                List<Dictionary<string, string>> appointments = am.getAllAppointmentsByType(true, vaccine_supplier, vaccineCategory);
                 return new ObjectResult(appointments);
             }
             catch(Exception e){
