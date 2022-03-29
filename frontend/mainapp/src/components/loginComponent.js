@@ -31,13 +31,16 @@ const LOGIN = (event) => {
               console.log(response);
               cookies.set('token', response.data.token, { path: '/' });
               console.log(cookies.get('token')); 
+              alert("You're successfully signed in!");
           } else {
               console.log('API failed: No data received!');
+              alert("There has been an error logging in, please try again.");
               return null;
           }
       }).catch((err) => {
           console.log(' API Call Failed ')
           console.log(err)
+          alert("There has been an error logging in, please try again.");
           console.log(err.toString())
           return null;
       });

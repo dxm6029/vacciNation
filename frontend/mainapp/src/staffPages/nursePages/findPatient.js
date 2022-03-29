@@ -5,31 +5,31 @@ import { useState } from 'react';
 import Cookies from 'universal-cookie';
 
 function FindPatient() {
-    
     const cookies = new Cookies();
     // Find a patient
     const [citizenid, setCitizenid] = useState(null);
+    const [appt, setAppt] = useState(null);
+    const [apptDetails, setApptDetails] = useState(null);
 
-    
-    getAll();
+    // getAll();
 
-    function getAll( ) {
-        return axios
-        .get(`http://localhost:5002/UserCitizen/all`)
-        .then((response) => {
-            if (response) {
-                console.log(response); 
-            } else {
-                console.log('API failed: No data received!');
-                return null;
-            }
-        }).catch((err) => {
-            console.log('*** API Call Failed ***')
-            console.log(err)
-            console.log(err.toString())
-            return null;
-        });
-    }
+    // function getAll( ) {
+    //     return axios
+    //     .get(`http://localhost:5002/UserCitizen/all`)
+    //     .then((response) => {
+    //         if (response) {
+    //             console.log(response); 
+    //         } else {
+    //             console.log('API failed: No data received!');
+    //             return null;
+    //         }
+    //     }).catch((err) => {
+    //         console.log('*** API Call Failed ***')
+    //         console.log(err)
+    //         console.log(err.toString())
+    //         return null;
+    //     });
+    // }
 
     const FIND = (event) => {
       event.preventDefault();
@@ -64,6 +64,32 @@ function FindPatient() {
         })
         .then((response) => {
             if (response) {
+                setAppt(response.data);
+                console.log(response.data[0].appointment_id);
+
+                getApptDetails(response.data[0].appointment_id);
+            } else {
+                console.log('API failed: No data received!');
+                return null;
+            }
+        }).catch((err) => {
+            console.log('*** API Call Failed ***')
+            console.log(err)
+            console.log(err.toString())
+            return null;
+        });
+    }
+
+    function getApptDetails(id){ 
+        return axios
+        .get(`http://localhost:5002/Appointment/${id}`, {
+            headers: { 
+                'Content-Type': 'application/json',
+                'authorization': cookies.get('token')
+            }
+        })
+        .then((response) => {
+            if (response) {
                 console.log(response);
             } else {
                 console.log('API failed: No data received!');
@@ -75,6 +101,15 @@ function FindPatient() {
             console.log(err.toString())
             return null;
         });
+    }
+
+    function NEWVAX(event) {
+        event.preventDefault();
+        let firstName = event.target.fname.value;
+        let lastName = event.target.lname.value;
+        let emailAddress = event.target.email.value;
+
+        return "";
     }
 
   return (
@@ -95,6 +130,21 @@ function FindPatient() {
         
             <input type="submit" value="Search"/>
         </form>
+
+        {appt && 
+            appt.map((apptinfo, index) => (
+                <div key={index}>
+                    Appointment ID: {apptinfo.appointment_id}
+
+                    <form className="patientForm" onSubmit={e => {NEWVAX(e)}}>
+                        <label htmlFor="batch">Batch</label>
+                        <input type="text" id="batch" name="batch" placeholder="Batch Number"/>
+
+                        <input type="submit" value="Submit"/>
+                    </form>
+                </div>
+            ))
+        }
     </>
   );
 }
