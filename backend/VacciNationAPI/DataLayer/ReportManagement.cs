@@ -35,14 +35,14 @@ namespace VacciNationAPI.DataLayer
                 Dictionary<int, string> categoryIDs = getAllCategoryIds();
                 Dictionary<string, int> total_per_sequence = new Dictionary<string, int>();
                 foreach(int category in categoryIDs.Keys){
-                    int num = totalVaccinesAdministeredByCategory(category, date, location_id);
+                    int num = totalVaccinesAdministeredByCategory(category, date, location_id, todayStr);
                     total_per_sequence.Add(categoryIDs[category], num);
                 }
 
                 List<string> suppliers = getAllSuppliers();
                 Dictionary<string, int> total_per_supplier = new Dictionary<string, int>();
                 foreach(string supplier in suppliers){
-                    int num = totalVaccinesAdministeredBySupplier(supplier, date, location_id);
+                    int num = totalVaccinesAdministeredBySupplier(supplier, date, location_id, todayStr);
                     total_per_supplier.Add(supplier, num);
                 }
 
@@ -163,10 +163,12 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
               
-                string query = "SELECT COUNT(timeslot_id) FROM timeslot WHERE status_id=3";
+                //string query = "SELECT COUNT(timeslot_id) FROM timeslot WHERE status_id=3";
+                string query = "SELECT timeslot_id FROM timeslot WHERE status_id=3";
+
                 // CHECK IF DATE / STATUS NULL AND APPENT APPROPRIATELY
                 if(date != null){
-                    query += " AND date > @start AND timeslot.date < @end";
+                    query += " AND timeslot.date > @start AND timeslot.date < @end";
                     start += " 00:00:00";
                     end += " 23:59:59";
                 }
@@ -188,7 +190,9 @@ namespace VacciNationAPI.DataLayer
                 while (rdr.Read())
                 {   
                     // should not hit 0, but for consistency
-                    total = rdr.IsDBNull(0) ? 0: rdr.GetInt32(0);
+                    //total = rdr.IsDBNull(0) ? 0: rdr.GetInt32(0);
+                    total++;
+                    Console.WriteLine(rdr.IsDBNull(0) ? 0: rdr.GetInt32(0));
                 }
                 rdr.Close();
 
@@ -276,8 +280,8 @@ namespace VacciNationAPI.DataLayer
             return total;
         }
 
-
-         public int totalVaccinesAdministeredByCategory(int category, string date, int location_id){
+        // checks ON a specific day
+         public int totalVaccinesAdministeredByCategory(int category, string date, int location_id, string today){
             int total = 0;
             string start = "";
             string end = "";
@@ -290,7 +294,7 @@ namespace VacciNationAPI.DataLayer
                 if(date != null){
                     query += " AND date > @start AND timeslot.date < @end";
                     start = date + " 00:00:00";
-                    end = date + " 23:59:59";
+                    end = today + " 23:59:59";
                 }
                 if(location_id != -1){
                     query += " AND location_id = @location_id";
@@ -323,7 +327,7 @@ namespace VacciNationAPI.DataLayer
             return total;
         }
 
-        public int totalVaccinesAdministeredBySupplier(string supplier, string date, int location_id){
+        public int totalVaccinesAdministeredBySupplier(string supplier, string date, int location_id, string today){
             int total = 0;
             string start = "";
             string end = "";
@@ -336,7 +340,7 @@ namespace VacciNationAPI.DataLayer
                 if(date != null){
                     query += " AND date > @start AND timeslot.date < @end";
                     start = date + " 00:00:00";
-                    end = date + " 23:59:59";
+                    end = today + " 23:59:59";
                 }
                 if(location_id != -1){
                     query += " AND location_id = @location_id";
@@ -526,7 +530,7 @@ namespace VacciNationAPI.DataLayer
               
                 string query = "SELECT reactions FROM timeslot WHERE location_id=@location_id";
                 if(date != null){
-                    query += " AND date > @start AND timeslot.date < @end";
+                    query += " AND timeslot.date > @start AND timeslot.date < @end";
                     start += " 00:00:00";
                     end += " 23:59:59";
                 }
@@ -567,7 +571,9 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    appointments.Add(new ReactionReport(rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0), rdr.IsDBNull(1) ?  "" : rdr.GetString(1), rdr.IsDBNull(2) ?  "" : rdr.GetString(2), rdr.IsDBNull(3) ?  "" : rdr.GetString(3), rdr.IsDBNull(4) ?  "" : rdr.GetString(4), rdr.IsDBNull(5) ?  "" : rdr.GetString(5), rdr.IsDBNull(6) ?  "" : rdr.GetString(6), rdr.IsDBNull(7) ?  "" : rdr.GetString(7), rdr.IsDBNull(8) ?  "" : rdr.GetString(8), rdr.IsDBNull(9) ?  "" : rdr.GetString(9)));
+                    if(!rdr.IsDBNull(9) || rdr.GetString(9) != ""){
+                        appointments.Add(new ReactionReport(rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0), rdr.IsDBNull(1) ?  "" : rdr.GetString(1), rdr.IsDBNull(2) ?  "" : rdr.GetString(2), rdr.IsDBNull(3) ?  "" : rdr.GetString(3), rdr.IsDBNull(4) ?  "" : rdr.GetString(4), rdr.IsDBNull(5) ?  "" : rdr.GetString(5), rdr.IsDBNull(6) ?  "" : rdr.GetString(6), rdr.IsDBNull(7) ?  "" : rdr.GetString(7), rdr.IsDBNull(8) ?  "" : rdr.GetString(8), rdr.IsDBNull(9) ?  "" : rdr.GetString(9)));
+                    }
                 }
                 rdr.Close();
 

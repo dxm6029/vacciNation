@@ -38,6 +38,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+// being problematic
         // currently set so any staff member can view insights
         [HttpGet("location/{location_id}")]
         public IActionResult GetVaccineInsights([FromHeader] string authorization, int location_id) {
@@ -61,6 +62,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+// getting nulls for staff info?
         // currently set so any staff member can view insights
         [HttpGet("reactions")]
         public IActionResult GetReactionInsights([FromHeader] string authorization) {
