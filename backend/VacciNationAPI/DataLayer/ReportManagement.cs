@@ -559,7 +559,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT timeslot_id, timeslot.date, citizen.first_name, citizen.last_name, dose.supplier, vaccine_category.name, staff.first_name, staff.last_name, batch, timeslot.reactions FROM timeslot JOIN staff USING(staff_id) JOIN dose USING(dose_id) JOIN timeslot_status USING(status_id) JOIN vaccine USING(vaccine_id) JOIN location USING(location_id) LEFT JOIN citizen USING(citizen_id) JOIN vaccine_category ON vaccine_category.category_id=vaccine.category";
+                string query = "SELECT timeslot_id, timeslot.date, citizen.first_name, citizen.last_name, dose.supplier, vaccine_category.name, staff.first_name, staff.last_name, batch, timeslot.reactions FROM timeslot JOIN staff USING(staff_id) JOIN dose USING(dose_id) JOIN timeslot_status USING(status_id) JOIN vaccine USING(vaccine_id) JOIN location ON timeslot.location_id=location.location_id LEFT JOIN citizen USING(citizen_id) JOIN vaccine_category ON vaccine_category.category_id=vaccine.category";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
@@ -584,13 +584,17 @@ namespace VacciNationAPI.DataLayer
             List<BatchReport> appointments = new List<BatchReport>();
             try{ 
                 conn = connection.OpenConnection();
+                string start = date;
+                string end = date;
 
                 // where status = complete (3) and batch num = batch
                 // optional where date = date and location = location
 
                 string query = "SELECT timeslot_id, citizen.first_name, citizen.last_name, dose.supplier, vaccine_category.name, timeslot.date, location.name FROM timeslot JOIN dose USING(dose_id) JOIN vaccine USING(vaccine_id) JOIN location ON timeslot.location_id=location.location_id LEFT JOIN citizen USING(citizen_id) JOIN vaccine_category ON vaccine_category.category_id=vaccine.category WHERE batch=@batch AND timeslot.status_id=3";
                 if(date != null && date != ""){
-                    query += " AND timeslot.date = @date";
+                    query += " AND date > @start AND timeslot.date < @end";
+                    start += " 00:00:00";
+                    end += " 23:59:59";
                 }
                 if(location > 0){
                     query += " AND location.location_id = @location";
@@ -600,7 +604,9 @@ namespace VacciNationAPI.DataLayer
                 
                 //bind params
                 if(date != null && date != ""){
-                    cmd.Parameters.AddWithValue("@date", date);
+                    cmd.Parameters.AddWithValue("@start", start);
+                    cmd.Parameters.AddWithValue("@end", end);
+
                 }
                 if(location > 0){
                     cmd.Parameters.AddWithValue("@location", location);
