@@ -15,6 +15,7 @@ namespace VacciNationAPI.Controllers{
         ReportManagement rm = new ReportManagement();
 
 
+// works
         // currently set so any staff member can view insights
         [HttpGet("staff/{staff_id}")]
         public IActionResult GetStaffInsights([FromHeader] string authorization, int staff_id) {
@@ -39,6 +40,8 @@ namespace VacciNationAPI.Controllers{
         }
 
 // being problematic
+// only getting info on certain date - test
+// num adverse reactions not working - test
         // currently set so any staff member can view insights
         [HttpGet("location/{location_id}")]
         public IActionResult GetVaccineInsights([FromHeader] string authorization, int location_id) {
@@ -62,7 +65,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
-// getting nulls for staff info?
+// getting nulls for staff info - last name?
         // currently set so any staff member can view insights
         [HttpGet("reactions")]
         public IActionResult GetReactionInsights([FromHeader] string authorization) {
@@ -80,6 +83,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+// works
         [HttpGet("batch/{batch}")]
         public IActionResult GetBatchInsights([FromHeader] string authorization, string batch) {
             string token = authorization;

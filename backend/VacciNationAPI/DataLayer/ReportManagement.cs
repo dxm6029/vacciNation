@@ -164,7 +164,7 @@ namespace VacciNationAPI.DataLayer
                 conn = connection.OpenConnection();
               
                 //string query = "SELECT COUNT(timeslot_id) FROM timeslot WHERE status_id=3";
-                string query = "SELECT timeslot_id FROM timeslot WHERE status_id=3";
+                string query = "SELECT COUNT(timeslot_id) FROM timeslot WHERE status_id=3";
 
                 // CHECK IF DATE / STATUS NULL AND APPENT APPROPRIATELY
                 if(date != null){
@@ -190,8 +190,8 @@ namespace VacciNationAPI.DataLayer
                 while (rdr.Read())
                 {   
                     // should not hit 0, but for consistency
-                    //total = rdr.IsDBNull(0) ? 0: rdr.GetInt32(0);
-                    total++;
+                    total = rdr.IsDBNull(0) ? 0: rdr.GetInt32(0);
+                    //total++;
                     Console.WriteLine(rdr.IsDBNull(0) ? 0: rdr.GetInt32(0));
                 }
                 rdr.Close();
@@ -547,7 +547,9 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    total++;
+                    if(!rdr.IsDBNull(0) && rdr.GetString(0) != ""){
+                        total++;
+                    }
                 }
                 rdr.Close();
 
@@ -565,16 +567,20 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT timeslot_id, timeslot.date, citizen.first_name, citizen.last_name, dose.supplier, vaccine_category.name, staff.first_name, staff.last_name, batch, timeslot.reactions FROM timeslot JOIN staff USING(staff_id) JOIN dose USING(dose_id) JOIN timeslot_status USING(status_id) JOIN vaccine USING(vaccine_id) JOIN location ON timeslot.location_id=location.location_id LEFT JOIN citizen USING(citizen_id) JOIN vaccine_category ON vaccine_category.category_id=vaccine.category";
+                string query = "SELECT timeslot_id, timeslot.date, citizen.first_name, citizen.last_name, dose.supplier, vaccine_category.name, staff.staff_id, batch, timeslot.reactions FROM timeslot JOIN staff USING(staff_id) JOIN dose USING(dose_id) JOIN timeslot_status USING(status_id) JOIN vaccine USING(vaccine_id) JOIN location ON timeslot.location_id=location.location_id LEFT JOIN citizen USING(citizen_id) JOIN vaccine_category ON vaccine_category.category_id=vaccine.category";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                User u = new User();
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
                 {   
                     if(!rdr.IsDBNull(9) && rdr.GetString(9) != ""){
-                        appointments.Add(new ReactionReport(rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0), rdr.IsDBNull(1) ?  "" : rdr.GetString(1), rdr.IsDBNull(2) ?  "" : rdr.GetString(2), rdr.IsDBNull(3) ?  "" : rdr.GetString(3), rdr.IsDBNull(4) ?  "" : rdr.GetString(4), rdr.IsDBNull(5) ?  "" : rdr.GetString(5), rdr.IsDBNull(6) ?  "" : rdr.GetString(6), rdr.IsDBNull(7) ?  "" : rdr.GetString(7), rdr.IsDBNull(8) ?  "" : rdr.GetString(8), rdr.IsDBNull(9) ?  "" : rdr.GetString(9)));
+                        int staff_id = rdr.IsDBNull(6) ?  -1 : rdr.GetInt32(6);
+                        Staff staff = u.getUserWithID(staff_id);
+                        appointments.Add(new ReactionReport(rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0), rdr.IsDBNull(1) ? "" : rdr.GetString(1),rdr.IsDBNull(2) ? "" : rdr.GetString(2), rdr.IsDBNull(3) ? "" : rdr.GetString(3), rdr.IsDBNull(4) ? "" : rdr.GetString(4), rdr.IsDBNull(5) ? "" : rdr.GetString(5), staff.first_name, staff.last_name, rdr.IsDBNull(7) ? "" : rdr.GetString(7), rdr.IsDBNull(8) ? "" : rdr.GetString(8) ));
                     }
                 }
                 rdr.Close();
