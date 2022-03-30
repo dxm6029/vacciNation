@@ -297,7 +297,7 @@ namespace VacciNationAPI.DataLayer
                     end = today + " 23:59:59";
                 }
                 if(location_id != -1){
-                    query += " AND location_id = @location_id";
+                    query += " AND timeslot.location_id = @location_id";
                 }
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@category", category);
@@ -343,7 +343,7 @@ namespace VacciNationAPI.DataLayer
                     end = today + " 23:59:59";
                 }
                 if(location_id != -1){
-                    query += " AND location_id = @location_id";
+                    query += " AND timeslot.location_id = @location_id";
                 }
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@supplier", supplier);
@@ -508,7 +508,9 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    total++;
+                    if(!rdr.IsDBNull(0) && rdr.GetString(0) != ""){
+                        total++;
+                    }
                 }
                 rdr.Close();
 
@@ -571,7 +573,7 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    if(!rdr.IsDBNull(9) || rdr.GetString(9) != ""){
+                    if(!rdr.IsDBNull(9) && rdr.GetString(9) != ""){
                         appointments.Add(new ReactionReport(rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0), rdr.IsDBNull(1) ?  "" : rdr.GetString(1), rdr.IsDBNull(2) ?  "" : rdr.GetString(2), rdr.IsDBNull(3) ?  "" : rdr.GetString(3), rdr.IsDBNull(4) ?  "" : rdr.GetString(4), rdr.IsDBNull(5) ?  "" : rdr.GetString(5), rdr.IsDBNull(6) ?  "" : rdr.GetString(6), rdr.IsDBNull(7) ?  "" : rdr.GetString(7), rdr.IsDBNull(8) ?  "" : rdr.GetString(8), rdr.IsDBNull(9) ?  "" : rdr.GetString(9)));
                     }
                 }
