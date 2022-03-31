@@ -21,7 +21,8 @@ namespace VacciNationAPI.Models
             this.citizen_last_name = citizen_last_name;
             this.supplier = supplier;
             this.vaccine_category = vaccine_category;
-            this.staff_first_name = staff_last_name;
+            this.staff_first_name = staff_first_name;
+            this.staff_last_name = staff_last_name;
             this.batch = batch;
             this.reaction = reaction;
         }
