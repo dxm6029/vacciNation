@@ -577,7 +577,7 @@ namespace VacciNationAPI.DataLayer
 
                 while (rdr.Read())
                 {   
-                    if(!rdr.IsDBNull(9) && rdr.GetString(9) != ""){
+                    if(!rdr.IsDBNull(8) && rdr.GetString(8) != ""){
                         int staff_id = rdr.IsDBNull(6) ?  -1 : rdr.GetInt32(6);
                         Staff staff = u.getUserWithID(staff_id);
                         appointments.Add(new ReactionReport(rdr.IsDBNull(0) ? -1 : rdr.GetInt32(0), rdr.IsDBNull(1) ? "" : rdr.GetString(1),rdr.IsDBNull(2) ? "" : rdr.GetString(2), rdr.IsDBNull(3) ? "" : rdr.GetString(3), rdr.IsDBNull(4) ? "" : rdr.GetString(4), rdr.IsDBNull(5) ? "" : rdr.GetString(5), staff.first_name, staff.last_name, rdr.IsDBNull(7) ? "" : rdr.GetString(7), rdr.IsDBNull(8) ? "" : rdr.GetString(8) ));
