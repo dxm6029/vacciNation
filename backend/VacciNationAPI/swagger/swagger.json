@@ -24,7 +24,7 @@
     },
     {
       "name": "Report",
-      "description": "Getting important vaccination, staff, and reaction information for reporting porposes"
+      "description": "Getting important vaccination, staff, and reaction information for reporting purposes"
     },
     {
       "name": "Reminders",
@@ -1812,6 +1812,13 @@
               "$ref": "#/definitions/Timeslot"
             },
             "required": true
+          },
+          {
+            "in": "query",
+            "name": "vaccine_type",
+            "description": "the type of vaccine being 'taken'",
+            "type": "integer",
+            "required": true
           }
         ],
         "responses": {
@@ -1979,7 +1986,7 @@
           {
             "in": "body",
             "name": "Timeslot",
-            "description": "status to update timeslot to (ONLY timeslot_id, auto changes status to complete)",
+            "description": "ONLY timeslot_id, auto changes status to complete and both citizen and staff are tied to appointment",
             "schema": {
               "$ref": "#/definitions/Timeslot"
             },
@@ -2802,7 +2809,7 @@
         "tags": [
           "Report"
         ],
-        "summary": "get all reporting insights for a specific staff member",
+        "summary": "get all reporting insights for a specific staff member including name, locations, total patients prrocessed, count of adverse reactions",
         "consumes": [
           "application/json"
         ],
@@ -2827,14 +2834,14 @@
           {
             "in": "query",
             "name": "date",
-            "description": "filters staff_id insight results by this date",
+            "description": "filters staff_id insight results by this date (from this date -> present day)",
             "type": "integer",
             "required": true
           }
         ],
         "responses": {
           "202": {
-            "description": "returns information about total vaccinations given by staff member filtered by date, type, type and date"
+            "description": "returns information about total vaccinations given by staff member filtered by staff id and date"
           },
           "400": {
             "description": "json here - can adjust response code"
@@ -2848,12 +2855,12 @@
         }
       }
     },
-    "/Report/vaccine": {
+    "/Report/location/{location_id}": {
       "get": {
         "tags": [
           "Report"
         ],
-        "summary": "get all reporting insights for vaccines",
+        "summary": "get all reporting insights for a location - includes total patients processed, total for each vaccine manufacturer, total for each sequence, total adverse reactions",
         "consumes": [
           "application/json"
         ],
@@ -2869,16 +2876,21 @@
             "required": true
           },
           {
+            "in": "path",
+            "name": "location_id",
+            "description": "the location the staff member is getting insights for"
+          },
+          {
             "in": "query",
             "name": "date",
-            "description": "filters vaccine insight results by this date",
+            "description": "filters vaccine insight results by this date (from this date -> present day)",
             "type": "integer",
             "required": true
           }
         ],
         "responses": {
           "202": {
-            "description": "returns information about total vaccinations filtered by date, type, type and date, status"
+            "description": "returns information about locations filtered by date and location id"
           },
           "400": {
             "description": "json here - can adjust response code"
@@ -2897,7 +2909,7 @@
         "tags": [
           "Report"
         ],
-        "summary": "get all reporting insights for reactions",
+        "summary": "get all reporting insights for reactions - including date, patient name, staff name, vaccine manufacturer, brand, batch number, and reaction notes",
         "consumes": [
           "application/json"
         ],
@@ -2916,6 +2928,64 @@
         "responses": {
           "202": {
             "description": "returns information about all reactions"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Report/batch/{batch}": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "get all reporting insights for a certain batch number on a certain day at a certain location - list all patients by date and location who recieved shots from a particular batch of vaccine",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "batch",
+            "type": "string",
+            "required": true,
+            "description": "the batch number of the vaccine you are looking to search on"
+          },
+          {
+            "in": "query",
+            "name": "date",
+            "description": "the date to filter on (EXACT date to search on - no range!)",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "location_id",
+            "description": "the location id to filter on",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "returns information about a batch on a specific day at a specific location"
           },
           "400": {
             "description": "json here - can adjust response code"
