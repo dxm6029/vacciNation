@@ -105,11 +105,29 @@ function FindPatient() {
 
     function NEWVAX(event) {
         event.preventDefault();
-        let firstName = event.target.fname.value;
-        let lastName = event.target.lname.value;
-        let emailAddress = event.target.email.value;
+        let batch = event.target.batch.value;
+        console.log(`APPOINTMENT DETAILS TIMESLOT  ${appt[0].appointment_id}`);
 
-        return "";
+        return axios.put(`http://localhost:5002/Appointment/VaccineAdministered/${batch}`, {
+            "timeslot_id": appt[0].appointment_id,
+            headers: { 
+                'Content-Type': 'application/json',
+                'authorization': cookies.get('token')
+            },
+        })
+        .then((response) => {
+          if (response) {
+              console.log(response); 
+          } else {
+              console.log('API failed: No data received!');
+              return null;
+          }
+      }).catch((err) => {
+          console.log('*** API Call Failed ***');
+          console.log(err);
+          console.log(err.toString());
+          return null;
+      });
     }
 
   return (
