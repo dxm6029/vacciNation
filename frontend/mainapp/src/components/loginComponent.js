@@ -2,43 +2,11 @@ import { Link } from 'react-router-dom';
 import '../staffPages/login.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 function LoginComponent(props) {
-//   const handleSubmit = async(event) => {
-//     console.log("logging in")
-//         function setFailure() {
-//             document.getElementById("FormStatus").innerText = "Form Submission Failed, Please Try Again";
-//         }
 
-//         let username = event.target.username.value;
-//         let password = event.target.password.value;
-//         console.log(username);
-//         console.log(password);
-//         console.log(" ^ password and username ");
-//         event.preventDefault()
-//         const response = await fetch('http://192.168.1.5:5000/UserStaff/login', {
-//             method: 'POST',
-//             headers: {
-//                 'Accept': 'application/json',
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({
-//                  'username': username,
-//                  'password': password,
-//             })
-//         })
-//         const responseJSON = await response.json()
-//         console.log("response " + responseJSON);
-//         if (response.status == 202) {
-//             console.log("login successful")
-//         }
-//         if (response.status > 200) {
-//             console.log("Login failure: " + response.status)
-            
-//             return
-//         }
-
-//   }
+const cookies = new Cookies();
 
 const LOGIN = (event) => {
   event.preventDefault();
@@ -61,13 +29,18 @@ const LOGIN = (event) => {
       .then((response) => {
           if (response) {
               console.log(response);
+              cookies.set('token', response.data.token, { path: '/' });
+              console.log(cookies.get('token')); 
+              alert("You're successfully signed in!");
           } else {
               console.log('API failed: No data received!');
+              alert("There has been an error logging in, please try again.");
               return null;
           }
       }).catch((err) => {
           console.log(' API Call Failed ')
           console.log(err)
+          alert("There has been an error logging in, please try again.");
           console.log(err.toString())
           return null;
       });
@@ -88,7 +61,7 @@ return (
           </div>
           <Link to="/forgotPassword">Forgot password?</Link>
 
-          <button type="submit" value="Sign in"></button>
+          <button type="submit" value="Sign in">Sign in</button>
 
           <div id="formStatus"></div>
       </form>
