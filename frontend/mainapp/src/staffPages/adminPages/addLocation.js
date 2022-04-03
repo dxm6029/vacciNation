@@ -3,6 +3,42 @@ import { Link } from 'react-router-dom';
 import NavBar from './navBar';
 
 function AddLocation() {
+
+  const ADD = (event) => {
+    event.preventDefault();
+    let name = event.target.siteName.value;
+    let zip = event.target.zip.value;
+    let street = event.target.add.value;
+    let town = event.target.town.value;
+
+    return axios
+      .post(`http://localhost:5002/Location`, {
+        "name": name,
+        "zip": zip,
+        "street": street,
+        "city": town,
+        "state": "New York",
+
+        headers: { 
+            'Content-Type': 'application/json',
+            'authorization': cookies.get('token')
+        },
+    })
+      .then((response) => {
+          if (response) {
+              alert("Location has been added!");
+          } else {
+              console.log('API failed: No data received!');
+              return null;
+          }
+      }).catch((err) => {
+          console.log('*** API Call Failed ***')
+          console.log(err)
+          console.log(err.toString())
+          return null;
+      });
+  }
+
   return (
     <>
         <NavBar />
@@ -12,25 +48,20 @@ function AddLocation() {
                 Add Location
             </h2>
 
-            <form> 
-              <label htmlFor="town">Town:</label>
-              <input type="text" id="town" name="town"></input>
-
+            <form onSubmit={ADD}> 
               <label htmlFor="siteName">Site Name:</label>
               <input type="text" id="siteName" name="siteName"></input>
 
               <label htmlFor="add">Address:</label>
               <input type="text" id="add" name="add"></input>
 
-              <label htmlFor="active">Active:</label>
-              <input type="text" id="active" name="active"></input>
+              <label htmlFor="town">Town:</label>
+              <input type="text" id="town" name="town"></input>
 
-              <label htmlFor="vaxx">Vaccine Provided:</label>
-              <input type="text" id="vaxx" name="vaxx"></input>
+              <label htmlFor="zip">Zip:</label>
+              <input type="text" id="zip" name="zip"></input>
 
               <input type="submit" value="Add Location"></input>
-
-              <div id="formStatus"></div>
             </form>
         </div>
     </>
