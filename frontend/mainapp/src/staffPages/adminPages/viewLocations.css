@@ -72,3 +72,20 @@ h2 {
 .column {
     flex: 33.33%;
 }
+
+.regularButton {
+    position: relative;
+    color: black;
+    background-color: white;
+    border: 1px solid gray;
+    bottom: 0;
+    right: 0;
+    width: fit-content;
+    font-size: 1em;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.regularButton:hover {
+    background-color: gray;
+}

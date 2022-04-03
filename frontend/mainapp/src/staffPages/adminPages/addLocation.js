@@ -6,6 +6,7 @@ import Cookies from 'universal-cookie';
 
 function AddLocation() {
   const cookies = new Cookies();
+
   const ADD = (event) => {
     event.preventDefault();
     let name = event.target.siteName.value;

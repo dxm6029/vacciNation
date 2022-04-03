@@ -1,7 +1,7 @@
 import './viewLocations.css';
 import { Link } from 'react-router-dom';
 import NavBar from './navBar';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
@@ -10,33 +10,31 @@ function ViewLocations() {
     const cookies = new Cookies();
     const [list, setList] = useState(null);
 
-    useEffect(() => {
-      GET();
-    }, []);
+    useEffect(getLocations, []);
 
-    function GET() {
-        return axios
-          .get(`http://localhost:5002/Location`, {
-            headers: { 
-                'Content-Type': 'application/json',
-                'authorization': cookies.get('token')
-            },
-        })
-          .then((response) => {
-              if (response) {
-                  console.log(response);
-                  setList(response.data);
-              } else {
-                  console.log('API failed: No data received!');
-                  return null;
-              }
-          }).catch((err) => {
-              console.log('*** API Call Failed ***')
-              console.log(err)
-              console.log(err.toString())
-              return null;
-          });
-      }
+    function getLocations() {
+      return axios
+        .get(`http://localhost:5002/Location`, {
+          headers: { 
+              'Content-Type': 'application/json',
+              'authorization': cookies.get('token')
+          },
+      })
+        .then((response) => {
+            if (response) {
+                console.log(response);
+                setList(response.data);
+            } else {
+                console.log('API failed: No data received!');
+                return null;
+            }
+        }).catch((err) => {
+            console.log('*** API Call Failed ***')
+            console.log(err)
+            console.log(err.toString())
+            return null;
+        });
+    };
 
 
   return (
@@ -83,7 +81,11 @@ function ViewLocations() {
                         </td>
                         
                         <td>
-                          <button onClick={console.log(place.location_id)}> Edit </button>
+                          <button 
+                            className="regularButton" 
+                            onClick={() => console.log(place.location_id)}>
+                               Edit 
+                          </button>
                         </td>
                     </tr>
                   ))
