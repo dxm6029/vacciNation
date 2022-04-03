@@ -1,9 +1,11 @@
 import './viewLocations.css';
 import { Link } from 'react-router-dom';
 import NavBar from './navBar';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 function AddLocation() {
-
+  const cookies = new Cookies();
   const ADD = (event) => {
     event.preventDefault();
     let name = event.target.siteName.value;

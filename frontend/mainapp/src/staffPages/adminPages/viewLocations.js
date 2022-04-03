@@ -1,20 +1,20 @@
 import './viewLocations.css';
 import { Link } from 'react-router-dom';
 import NavBar from './navBar';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 function ViewLocations() {
     // Admin navigation
-
+    const cookies = new Cookies();
     const [list, setList] = useState(null);
 
-    const GET = (event) => {
-        event.preventDefault();
-        let name = event.target.siteName.value;
-        let zip = event.target.zip.value;
-        let street = event.target.add.value;
-        let town = event.target.town.value;
-    
+    useEffect(() => {
+      GET();
+    }, []);
+
+    function GET() {
         return axios
           .get(`http://localhost:5002/Location`, {
             headers: { 
@@ -47,11 +47,6 @@ function ViewLocations() {
             <h2>
                 Locations
             </h2>
-
-            <div className="buttonContainer">
-                <Link to="/editLocation" className='editLocation'> Edit Locations</Link>
-                <Link to="/addLocation" className='editLocation'> Add Locations</Link>
-            </div>
             
             <table className="locationsTable">
                 <thead>
@@ -60,6 +55,7 @@ function ViewLocations() {
                         <th>Town</th>
                         <th>Address</th>
                         <th>ID </th> 
+                        <th>Edit </th>
                     </tr>
                 </thead>
               <tbody>
@@ -84,6 +80,10 @@ function ViewLocations() {
 
                         <td>
                             {place.location_id} 
+                        </td>
+                        
+                        <td>
+                          <button onClick={console.log(place.location_id)}> Edit </button>
                         </td>
                     </tr>
                   ))
