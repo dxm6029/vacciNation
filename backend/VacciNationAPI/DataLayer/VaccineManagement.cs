@@ -396,7 +396,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT d.dose_id, d.supplier, d.vaccine_id, c.name as category, dis.name as disease, v.description " 
+                string query = "SELECT d.dose_id, d.supplier, d.vaccine_id, c.name as category, dis.name as disease, v.description, d.batch " 
                                + "FROM dose as d " 
                                + "LEFT JOIN vaccine as v ON d.vaccine_id = v.vaccine_id " 
                                + "LEFT JOIN vaccine_category as c ON v.category = c.category_id " 
@@ -415,6 +415,7 @@ namespace VacciNationAPI.DataLayer
                     dose.Add("category", (rdr.IsDBNull(3) ? "" : rdr.GetString(3)) );
                     dose.Add("disease", (rdr.IsDBNull(4) ? "" : rdr.GetString(4)) );
                     dose.Add("description", (rdr.IsDBNull(5) ? "" : rdr.GetString(5)) );
+                    dose.Add("batch", (rdr.IsDBNull(6) ? "" : rdr.GetString(6)));
 
                     doses.Add(dose);
                 }
@@ -496,6 +497,10 @@ namespace VacciNationAPI.DataLayer
                 if (dose.location_id != 0) {
                     query += "location_id=@location_id, ";
                 }
+                
+                if (!String.IsNullOrEmpty(dose.batch)) {
+                    query += "batch=@batch, ";
+                }
 
                 // remove trailing ','
                 if (query[query.Length - 2] == ',')
@@ -524,6 +529,11 @@ namespace VacciNationAPI.DataLayer
                     cd.Parameters.AddWithValue("@location_id", dose.location_id);
                 }
                 
+                if (!String.IsNullOrEmpty(dose.batch))
+                {
+                    cd.Parameters.AddWithValue("@batch", dose.batch);
+                }
+                
                 cd.Parameters.AddWithValue("@dose_id", dose.dose_id);
 
                 int rows = cd.ExecuteNonQuery();
@@ -549,7 +559,7 @@ namespace VacciNationAPI.DataLayer
             try{ 
                 conn = connection.OpenConnection();
 
-                string query = "SELECT d.dose_id, d.supplier, d.vaccine_id, c.name as category, dis.name as disease, v.description " 
+                string query = "SELECT d.dose_id, d.supplier, d.vaccine_id, c.name as category, dis.name as disease, v.description, d.dose " 
                                + "FROM dose as d " 
                                + "LEFT JOIN vaccine as v ON d.vaccine_id = v.vaccine_id " 
                                + "LEFT JOIN vaccine_category as c ON v.category = c.category_id " 
@@ -568,6 +578,7 @@ namespace VacciNationAPI.DataLayer
                 dose.Add("category", (rdr.IsDBNull(3) ? "" : rdr.GetString(3)) );
                 dose.Add("disease", (rdr.IsDBNull(4) ? "" : rdr.GetString(4)) );
                 dose.Add("description", (rdr.IsDBNull(5) ? "" : rdr.GetString(5)) );
+                dose.Add("batch", (rdr.IsDBNull(6) ? "" : rdr.GetString(6)));
                 rdr.Close();
 
             }catch (Exception e){Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace);}

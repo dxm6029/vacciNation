@@ -1,9 +1,42 @@
 import './viewLocations.css';
 import { Link } from 'react-router-dom';
 import NavBar from './navBar';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 function ViewLocations() {
     // Admin navigation
+    const cookies = new Cookies();
+    const [list, setList] = useState(null);
+
+    useEffect(getLocations, []);
+
+    function getLocations() {
+      return axios
+        .get(`http://localhost:5002/Location`, {
+          headers: { 
+              'Content-Type': 'application/json',
+              'authorization': cookies.get('token')
+          },
+      })
+        .then((response) => {
+            if (response) {
+                console.log(response);
+                setList(response.data);
+            } else {
+                console.log('API failed: No data received!');
+                return null;
+            }
+        }).catch((err) => {
+            console.log('*** API Call Failed ***')
+            console.log(err)
+            console.log(err.toString())
+            return null;
+        });
+    };
+
+
   return (
     <>
         <NavBar />
@@ -12,51 +45,86 @@ function ViewLocations() {
             <h2>
                 Locations
             </h2>
-
-            <div className="buttonContainer">
-                <Link to="/editLocation" className='editLocation'> Edit Locations</Link>
-                <Link to="/addLocation" className='editLocation'> Add Locations</Link>
-            </div>
             
-
-            <table class="locationsTable">
+            <table className="locationsTable">
                 <thead>
                     <tr>
+                        <th>Name</th>
                         <th>Town</th>
-                        <th>Location</th>
                         <th>Address</th>
-                        <th>Vaccines</th>
-                        <th>Active?</th>
+                        <th>ID </th> 
+                        <th>Edit </th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Rochester</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+              <tbody>
+                {list && 
+                  list.map((place, index) => (
+                    <tr 
+                      className="" 
+                      key={`location ${index}`} 
+                      //onClick={() => selectLocation(place.location_id, place.appointment_id)}
+                    >
+                        <td>
+                            {place.name} 
+                        </td>
+
+                        <td>
+                            {place.city} 
+                        </td>
+
+                        <td>
+                            {place.street}, {place.street2}
+                        </td>
+
+                        <td>
+                            {place.location_id} 
+                        </td>
+                        
+                        <td>
+                          <button 
+                            className="regularButton" 
+                            onClick={() => console.log(place.location_id)}>
+                               Edit 
+                          </button>
+                        </td>
                     </tr>
-                    <tr>
-                        <td>Webster</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Pittsford</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    
-                </tbody>
+                  ))
+                }
+              </tbody>
             </table>
+
+          
         </div>
     </>
   );
 }
 
 export default ViewLocations;
+
+/*
+
+<table id="customers">
+              <thead>
+                <tr>
+                  <th>Location</th>
+                  <th>Date and Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {list && 
+                  list.map((place, index) => (
+                    <tr 
+                      className="" 
+                      key={`location ${index}`} 
+                      onClick={() => selectLocation(place.location_id, place.appointment_id)}
+                    >
+                      <td>
+                        {place.location_name} 
+                      </td>
+
+                      <td>{place.date} </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>*/

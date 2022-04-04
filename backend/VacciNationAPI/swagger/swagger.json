@@ -24,7 +24,7 @@
     },
     {
       "name": "Report",
-      "description": "Getting important vaccination, staff, and reaction information for reporting porposes"
+      "description": "Getting important vaccination, staff, and reaction information for reporting purposes"
     },
     {
       "name": "Reminders",
@@ -39,8 +39,8 @@
       "description": "manage eligibility requirements for vaccines"
     },
     {
-      "name": "Monitoring",
-      "description": "Application status monitoring"
+      "name": "Dynamic Content",
+      "description": "manage dynamic page content"
     }
   ],
   "schemes": [
@@ -817,6 +817,43 @@
         }
       }
     },
+    "/UserStaff/logout": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "log out of staff member account",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and authorization",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
     "/UserStaff/role/{id}": {
       "get": {
         "tags": [
@@ -921,7 +958,7 @@
           {
             "in": "query",
             "name": "last_name",
-            "description": "last name of citizen",
+            "description": "first name of citizen",
             "required": true,
             "type": "string"
           },
@@ -1625,6 +1662,43 @@
         }
       }
     },
+    "/Appointment/open/date": {
+      "get": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "get all appointments for a certain date (usecase example: citizen get appointments for current day)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "description": "date value to search on - needs to be in format YYYY-MM-DD",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
     "/Appointment/date/{location_id}": {
       "get": {
         "tags": [
@@ -1737,6 +1811,13 @@
             "schema": {
               "$ref": "#/definitions/Timeslot"
             },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "vaccine_type",
+            "description": "the type of vaccine being 'taken'",
+            "type": "integer",
             "required": true
           }
         ],
@@ -1866,6 +1947,56 @@
             "schema": {
               "$ref": "#/definitions/Timeslot"
             },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "json here - can adjust response code"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Appointment/VaccineAdministered/{batch}": {
+      "put": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "updates an appointment status and batch number",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Timeslot",
+            "description": "ONLY timeslot_id, auto changes status to complete and both citizen and staff are tied to appointment",
+            "schema": {
+              "$ref": "#/definitions/Timeslot"
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "batch",
+            "description": "batch number of administered vaccine",
+            "type": "string",
             "required": true
           }
         ],
@@ -2678,7 +2809,7 @@
         "tags": [
           "Report"
         ],
-        "summary": "get all reporting insights for a specific staff member",
+        "summary": "get all reporting insights for a specific staff member including name, locations, total patients prrocessed, count of adverse reactions",
         "consumes": [
           "application/json"
         ],
@@ -2703,14 +2834,14 @@
           {
             "in": "query",
             "name": "date",
-            "description": "filters staff_id insight results by this date",
+            "description": "filters staff_id insight results by this date (from this date -> present day)",
             "type": "integer",
             "required": true
           }
         ],
         "responses": {
           "202": {
-            "description": "returns information about total vaccinations given by staff member filtered by date, type, type and date"
+            "description": "returns information about total vaccinations given by staff member filtered by staff id and date"
           },
           "400": {
             "description": "json here - can adjust response code"
@@ -2724,12 +2855,12 @@
         }
       }
     },
-    "/Report/vaccine": {
+    "/Report/location/{location_id}": {
       "get": {
         "tags": [
           "Report"
         ],
-        "summary": "get all reporting insights for vaccines",
+        "summary": "get all reporting insights for a location - includes total patients processed, total for each vaccine manufacturer, total for each sequence, total adverse reactions",
         "consumes": [
           "application/json"
         ],
@@ -2745,16 +2876,21 @@
             "required": true
           },
           {
+            "in": "path",
+            "name": "location_id",
+            "description": "the location the staff member is getting insights for"
+          },
+          {
             "in": "query",
             "name": "date",
-            "description": "filters vaccine insight results by this date",
+            "description": "filters vaccine insight results by this date (from this date -> present day)",
             "type": "integer",
             "required": true
           }
         ],
         "responses": {
           "202": {
-            "description": "returns information about total vaccinations filtered by date, type, type and date, status"
+            "description": "returns information about locations filtered by date and location id"
           },
           "400": {
             "description": "json here - can adjust response code"
@@ -2773,7 +2909,7 @@
         "tags": [
           "Report"
         ],
-        "summary": "get all reporting insights for reactions",
+        "summary": "get all reporting insights for reactions - including date, patient name, staff name, vaccine manufacturer, brand, batch number, and reaction notes",
         "consumes": [
           "application/json"
         ],
@@ -2792,6 +2928,64 @@
         "responses": {
           "202": {
             "description": "returns information about all reactions"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/Report/batch/{batch}": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "get all reporting insights for a certain batch number on a certain day at a certain location - list all patients by date and location who recieved shots from a particular batch of vaccine",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "batch",
+            "type": "string",
+            "required": true,
+            "description": "the batch number of the vaccine you are looking to search on"
+          },
+          {
+            "in": "query",
+            "name": "date",
+            "description": "the date to filter on (EXACT date to search on - no range!)",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "location_id",
+            "description": "the location id to filter on",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "returns information about a batch on a specific day at a specific location"
           },
           "400": {
             "description": "json here - can adjust response code"
@@ -3133,12 +3327,12 @@
         }
       }
     },
-    "/monitor": {
-      "get": {
+    "/DynamicContent": {
+      "post": {
         "tags": [
-          "Monitoring"
+          "Dynamic Content"
         ],
-        "summary": "Get api call response times",
+        "summary": "add dynamic content information",
         "consumes": [
           "application/json"
         ],
@@ -3149,69 +3343,264 @@
           {
             "in": "header",
             "name": "authorization",
-            "description": "Authorization Token",
+            "description": "baerer token for security and autorization",
             "type": "string",
             "required": true
           },
           {
-            "in": "query",
-            "name": "application",
-            "description": "Filter by application (i.e. \"frontend\" or \"backend\")",
-            "type": "string",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "endpoint",
-            "description": "Filter by endpoints (i.e. all endpoints that include the given string, example endpoint string \"GET /location\")",
-            "type": "string",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "minmillis",
-            "description": "Filter by minimum response time (i.e. 100 to get responses over 100 millis to return)",
-            "type": "integer",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "maxmillis",
-            "description": "Filter by maximum response time (i.e. 100 to get responses under 100 millis to return)",
-            "type": "integer",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "code",
-            "description": "Filter by http response code, negative to exclude (i.e. 403 to return only forbidden responses, -200 to exclude all accepted responses)",
-            "type": "string",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "startdate",
-            "description": "Filter by date beginning at this date",
-            "type": "string",
-            "required": false
-          },
-          {
-            "in": "query",
-            "name": "enddate",
-            "description": "Filter by date ending at this date",
-            "type": "string",
-            "required": false
+            "in": "body",
+            "name": "pageContent",
+            "description": "page content to be added",
+            "schema": {
+              "$ref": "#/definitions/PageContent"
+            },
+            "required": true
           }
         ],
         "responses": {
-          "200": {
-            "description": "A json list of response times like {\"application\": \"Backend\", \"endpoint\": \"GET /location\", \"response_time\": \"43\", \"response_code\": \"200\", \"timestamp\": \"3/14/2022 1:04:57 PM\"}"
+          "202": {
+            "description": "successful response"
           },
-          "401": {
-            "description": "Missing auth"
+          "400": {
+            "description": "json here - can adjust response code"
           },
-          "403": {
-            "description": "Bad auth"
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Dynamic Content"
+        ],
+        "summary": "get all dynamic content information",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "202": {
+            "description": "list of all page content"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/DynamicContent/{content_id}": {
+      "delete": {
+        "tags": [
+          "Dynamic Content"
+        ],
+        "summary": "remove dynamic content information",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "content_id",
+            "description": "id of content to be removed",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "successful response"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Dynamic Content"
+        ],
+        "summary": "get dynamic content information from certain id",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "content_id",
+            "description": "id of content to get",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "list of all page content with id"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/DynamicContent/label": {
+      "put": {
+        "tags": [
+          "Dynamic Content"
+        ],
+        "summary": "update dynamic content information by label",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "pageContent",
+            "description": "page content to be added - NEED LABEL",
+            "schema": {
+              "$ref": "#/definitions/PageContent"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "successful response"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Dynamic Content"
+        ],
+        "summary": "get dynamic content information from certain label",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "label",
+            "description": "label of content to get",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "list of all page content with label"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
+          }
+        }
+      }
+    },
+    "/DynamicContent/id": {
+      "put": {
+        "tags": [
+          "Dynamic Content"
+        ],
+        "summary": "update dynamic content information by id",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "baerer token for security and autorization",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "pageContent",
+            "description": "page content to be added - NEED ID",
+            "schema": {
+              "$ref": "#/definitions/PageContent"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "successful response"
+          },
+          "400": {
+            "description": "json here - can adjust response code"
+          },
+          "404": {
+            "description": "json here - can adjust response code"
+          },
+          "405": {
+            "description": "json here - can adjust response code"
           }
         }
       }
@@ -3234,6 +3623,24 @@
     }
   },
   "definitions": {
+    "PageContent": {
+      "type": "object",
+      "properties": {
+        "content_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "label": {
+          "type": "string"
+        },
+        "text_en": {
+          "type": "string"
+        },
+        "text_es": {
+          "type": "string"
+        }
+      }
+    },
     "Eligibility": {
       "type": "object",
       "properties": {
@@ -3376,6 +3783,9 @@
         "quantity": {
           "type": "integer",
           "format": "int64"
+        },
+        "batch": {
+          "type": "string"
         }
       }
     },

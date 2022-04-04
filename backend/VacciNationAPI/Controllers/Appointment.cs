@@ -163,6 +163,29 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        [HttpPut("VaccineAdministered/{batch}")] // staff assigned to appointment (permissions)
+        public IActionResult PutVaccineAdministered([FromBody] Timeslot timeslot,  [FromHeader] string authorization, string batch){
+             try{
+                string token = authorization;
+                int uid = us.checkToken(token);
+                if (uid == -1){
+                    return Unauthorized();
+                }
+
+                // should include citizen id, timeslot id, and vaccine type
+                bool result = am.updateTimeslotStatusWithBatch(timeslot, batch);
+
+                if(result){
+                    return Accepted();
+                }else {
+                    return BadRequest();
+                }
+            }
+            catch(Exception e){
+                return BadRequest();
+            }
+        }
+
         [HttpPut("AddReactions")] // add reaction to timeslot, only authorized users
         public IActionResult PutTimeslotReactions([FromBody] Timeslot timeslot,  [FromHeader] string authorization){
              
@@ -327,8 +350,8 @@ namespace VacciNationAPI.Controllers{
                     responseCode = "400";
                     return BadRequest();
                 }
-
-                List<Dictionary<string, string>> appointments = am.getAllAppointmentsByType(false, vaccineSupplier, vaccineCategory);
+                
+                List<AppointmentList> appointments = am.getAllAppointmentsByType(false, vaccineSupplier, vaccineCategory);
                 return new ObjectResult(appointments);
             }
             catch(Exception e){
@@ -357,8 +380,8 @@ namespace VacciNationAPI.Controllers{
                     responseCode = "400";
                     return BadRequest();
                 }
-
-                List<Dictionary<string, string>> appointments = am.getAllAppointmentsByType(true, vaccine_supplier, vaccineCategory);
+                
+                List<AppointmentList> appointments = am.getAllAppointmentsByType(true, vaccine_supplier, vaccineCategory);
                 return new ObjectResult(appointments);
             }
             catch(Exception e){
@@ -390,8 +413,8 @@ namespace VacciNationAPI.Controllers{
                     responseCode = "404";
                     return NotFound();
                 }
-
-                List<string> appointments = am.getAllAppointmentsForCitizen(id);
+                
+                List<AppointmentList> appointments = am.getAllAppointmentsForCitizen(id);
                 return new ObjectResult(appointments);
             }
             catch(Exception e){
@@ -403,6 +426,7 @@ namespace VacciNationAPI.Controllers{
                 monitor.RecordResponseTime("Backend", "GET /Appointment/citizen/" + id, startTime, responseCode);
             }
         }
+
 
         [HttpGet("{id}")]
         public IActionResult GetAppointmentsByID([FromHeader] string authorization, int id){
@@ -423,8 +447,8 @@ namespace VacciNationAPI.Controllers{
                     responseCode = "404";
                     return NotFound();
                 }
-
-                string appointment = am.getAppointmentsWithID(id);
+                
+                AppointmentList appointment = am.getAppointmentsWithID(id);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){
@@ -461,8 +485,8 @@ namespace VacciNationAPI.Controllers{
                     responseCode = "400";
                     return BadRequest(); 
                 }
-
-                List<string> appointment = am.getAllAppointmentsForLocation(false, location_id);
+                
+                List<AppointmentList> appointment = am.getAllAppointmentsForLocation(false, location_id);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){
@@ -491,8 +515,8 @@ namespace VacciNationAPI.Controllers{
                     responseCode = "400";
                     return BadRequest();
                 }
-
-                List<string> appointment = am.getAllAppointmentsForLocation(true, location_id);
+                
+                List<AppointmentList> appointment = am.getAllAppointmentsForLocation(true, location_id);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){
@@ -535,8 +559,8 @@ namespace VacciNationAPI.Controllers{
                     responseCode = "400";
                     return BadRequest();
                 }
-
-                List<string> appointment = am.getAllAppointmentsForLocationAndType(false, location_id, supplier, category_id);
+                
+                List<AppointmentList> appointment = am.getAllAppointmentsForLocationAndType(false, location_id, supplier, category_id);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){
@@ -575,13 +599,8 @@ namespace VacciNationAPI.Controllers{
                 if (!String.IsNullOrEmpty(HttpContext.Request.Query["category_id"])){
                     category_id = Int32.Parse(HttpContext.Request.Query["category_id"]);
                 }
-
-                if(location_id == -1 || supplier == "" || category_id == -1){
-                    responseCode = "400";
-                    return BadRequest();
-                }
-            
-                List<string> appointment = am.getAllAppointmentsForLocationAndType(true, location_id, supplier, category_id);
+                
+                List<AppointmentList> appointment = am.getAllAppointmentsForLocationAndType(true, location_id, supplier, category_id);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){
@@ -618,8 +637,39 @@ namespace VacciNationAPI.Controllers{
                     responseCode = "400";
                     return BadRequest();
                 }
+                
+                List<AppointmentList> appointment = am.getAllAppointmentsForDate(date);
+                return new ObjectResult(appointment);
+            }
+            catch(Exception e){
+                responseCode = "400";
+                return BadRequest();
+            }
+            finally
+            {
+                monitor.RecordResponseTime("Backend", "GET /Appointment/date", startTime, responseCode);
+            }
+        }
 
-                List<string> appointment = am.getAllAppointmentsForDate(date);
+         [HttpGet("open/date")]
+        public IActionResult GetAllOpenAppointmentsDate(){
+            
+            long startTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            string responseCode = "200";
+            
+            try {
+                string date = "";
+
+                if (!String.IsNullOrEmpty(HttpContext.Request.Query["date"])){
+                    date = HttpContext.Request.Query["date"];
+                }
+
+                if(date == ""){
+                    responseCode = "400";
+                    return BadRequest();
+                }
+                
+                List<AppointmentList> appointment = am.getOpenAppointmentsForDate(date);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){
@@ -656,8 +706,39 @@ namespace VacciNationAPI.Controllers{
                     responseCode = "400";
                     return BadRequest();
                 }
+                
+                List<AppointmentList> appointment = am.getAllAppointmentsForDateAndLocation(date, location_id);
+                return new ObjectResult(appointment);
+            }
+            catch(Exception e){
+                responseCode = "400";
+                return BadRequest();
+            }
+            finally
+            {
+                monitor.RecordResponseTime("Backend", "GET /Appointment/date/" + location_id, startTime, responseCode);
+            }
+        }
 
-                List<string> appointment = am.getAllAppointmentsForDateAndLocation(date, location_id);
+         [HttpGet("date/open/{location_id}")]
+        public IActionResult GetOpenAppointmentsDate(int location_id){
+ 
+            long startTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            string responseCode = "200";
+            
+            try {
+                string date = "";
+
+                 if (!String.IsNullOrEmpty(HttpContext.Request.Query["date"])){
+                    date = HttpContext.Request.Query["date"];
+                }
+
+                if(date == ""){
+                    responseCode = "400";
+                    return BadRequest();
+                }
+              
+                List<AppointmentList> appointment = am.getOpenAppointmentsForDateAndLocation(date, location_id);
                 return new ObjectResult(appointment);
             }
             catch(Exception e){

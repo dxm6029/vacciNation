@@ -10,6 +10,7 @@ import Ineligible from './pages/ineligible';
 import PersonalInfo from './pages/personalInfo';
 import Report from './pages/report';
 import SelectVaccine from './pages/selectVaccine';
+import Success from './pages/success';
 
 import LogIn from './staffPages/login';
 import ForgotPassword from './staffPages/forgotPassword';
@@ -21,6 +22,7 @@ import EditLocation from './staffPages/adminPages/editLocation';
 import ViewLocation from './staffPages/adminPages/viewLocation';
 import ViewUsers from './staffPages/adminPages/viewUsers';
 import AddUser from './staffPages/adminPages/addUser';
+import AddTimeslots from './staffPages/adminPages/addTimeslots';
 
 import NurseHome from './staffPages/nursePages/home';
 import FindPatient from './staffPages/nursePages/findPatient';
@@ -41,9 +43,10 @@ class UBRoutes extends React.Component {
                 <Route path="/faq" element={<FAQ questions={this.props.questions}/>} />
                 <Route path="/prescreening" element={<Prescreening questions={this.props.prescreeningQs}/>}/>
                 <Route path="/ineligible" element={<Ineligible />} />
-                <Route path="/personalInfo" element={<PersonalInfo />} />
+                <Route path="/personalInfo" element={<PersonalInfo/>} />
                 <Route path="/report" element={<Report />} />
                 <Route path="/select" element={<SelectVaccine />}/>
+                <Route path="/success" element={<Success />}/>
 
 
                 <Route path="/login" element={<LogIn />}/>
@@ -57,6 +60,7 @@ class UBRoutes extends React.Component {
                 <Route path="/editLocation" element={<EditLocation />}/>
                 <Route path="/viewUsers" element={<ViewUsers />}/>
                 <Route path="/addUser" element={<AddUser />}/>
+                <Route path="/addTimeslots" element={<AddTimeslots />}/>
 
 
                 <Route path="/nurseHome" element={<NurseHome />} />
