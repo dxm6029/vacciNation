@@ -14,7 +14,7 @@ namespace VacciNationAPI.Controllers
         private ApplicationMonitoringService monitor = new ApplicationMonitoringService();
         
         [HttpGet]
-        public IActionResult GetLocations([FromHeader] string authorization)
+        public IActionResult GetResponseTimes([FromHeader] string authorization)
         {
 
             long startTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
@@ -88,6 +88,41 @@ namespace VacciNationAPI.Controllers
             finally
             {
                 monitor.RecordResponseTime("Backend", "GET /monitor", startTime, responseCode);
+            }
+
+        }
+        
+        [HttpGet("audit")]
+        public IActionResult GetChangeHistory([FromHeader] string authorization)
+        {
+
+            long startTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            string responseCode = "200";
+            
+            try
+            {
+                string token = authorization;
+                int uid = us.checkToken(token);
+                if (uid == -1)
+                {
+                    responseCode = "401";
+                    return Unauthorized();
+                }
+
+                List<Dictionary<string, string>> changes;
+                changes = AuditService.GetAllChanges();
+
+                return new ObjectResult(changes);
+                
+            }
+            catch (Exception e)
+            {
+                responseCode = "400";
+                return BadRequest();
+            }
+            finally
+            {
+                monitor.RecordResponseTime("Backend", "GET /monitor/audit", startTime, responseCode);
             }
 
         }
