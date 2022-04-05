@@ -1150,16 +1150,16 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - appointment created"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           },
-          "405": {
-            "description": "json here - can adjust response code"
+          "403": {
+            "description": "failed - forbidden"
           }
         }
       },
@@ -1189,16 +1189,16 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - appointment deleted"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           },
-          "405": {
-            "description": "json here - can adjust response code"
+          "403": {
+            "description": "failed - forbidden"
           }
         }
       },
@@ -1238,16 +1238,13 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - appointment retrieved"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
@@ -1272,16 +1269,13 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - all appointments retrieved"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
@@ -1297,16 +1291,10 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - all open appointments retrieved"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           }
         }
       }
@@ -1341,16 +1329,10 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - retrieves all open appointments from supplier retrieved"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           }
         }
       }
@@ -1378,16 +1360,10 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - retrieves all open appointments at a location"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           }
         }
       }
@@ -1422,16 +1398,13 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - retrieves all appointments at a location"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
@@ -1480,16 +1453,13 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - retrieves all appointments at a location in a category"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
@@ -1538,16 +1508,13 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - retrieves all open appointments at a location with a category/supplier"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
@@ -1579,16 +1546,16 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - retrieves all appointments for citizen"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
+          },
+          "401": {
+            "description": "failed - unauthorized"
           },
           "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - citizen was not found"
           }
         }
       }
@@ -1623,16 +1590,13 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - retrieves all appointments for a date"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
@@ -1660,16 +1624,10 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - retrieves all open appointments for a date"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           }
         }
       }
@@ -1679,7 +1637,7 @@
         "tags": [
           "Appointments & Timeslots"
         ],
-        "summary": "get all appointments for a certain date (usecase example: staff get appointments for current day)",
+        "summary": "get all appointments for a certain date (usecase example: staff get appointments for current day) at a location",
         "consumes": [
           "application/json"
         ],
@@ -1711,16 +1669,13 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - retrieves all appointments for a certain date at a location"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
@@ -1755,16 +1710,16 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - retrieves appointment with ID"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
+          },
+          "401": {
+            "description": "failed - unauthorized"
           },
           "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - appointment not found"
           }
         }
       }
@@ -1798,16 +1753,13 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - signs up citizen for slot with dose"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
           "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - no vaccine available with these specifications"
           }
         }
       }
@@ -1841,16 +1793,13 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - reactions added to timeslot"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
@@ -1884,16 +1833,13 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - assigns staff to appointment"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
@@ -1927,16 +1873,13 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - status updated"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
@@ -1977,16 +1920,13 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - updated batch number and status successfully"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
