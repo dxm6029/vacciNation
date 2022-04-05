@@ -17,8 +17,7 @@ function TodaysAppointments() {
         .get(`http://localhost:5002/UserCitizen?first_name=${firstName}&last_name=${lastName}&email=${emailAddress}`)
         .then((response) => {
             if (response) {
-                setCitizenid(response.data.citizen_id);
-                getAppt(response.data.citizen_id);
+                console.log("yes");
             } else {
                 console.log('API failed: No data received!');
                 return null;
@@ -50,7 +49,7 @@ function TodaysAppointments() {
             <input type="submit" value="Search"/>
         </form>
 
-        {appt && 
+        {/* {appt && 
             appt.map((apptinfo, index) => (
                 <div key={index}>
                     Appointment ID: {apptinfo.appointment_id}
@@ -63,7 +62,7 @@ function TodaysAppointments() {
                     </form>
                 </div>
             ))
-        }
+        } */}
     </>
   );
 }
