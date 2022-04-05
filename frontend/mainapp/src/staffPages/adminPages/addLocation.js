@@ -20,7 +20,7 @@ function AddLocation() {
         "zip": zip,
         "street": street,
         "city": town,
-        "state": "New York",
+        "state": "NY"},{
 
         headers: { 
             'Content-Type': 'application/json',

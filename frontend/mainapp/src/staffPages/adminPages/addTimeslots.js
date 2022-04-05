@@ -14,9 +14,9 @@ function AddTimeslots() {
 
     return axios
       .post(`http://localhost:5002/Appointment`, {
-        "location_id": id,
-        "date": date + " " + appttime,
-
+        "location_id": parseInt(id),
+        "date": (`${date} ${appttime}`),
+        "status": 1},{
         headers: { 
             'Content-Type': 'application/json',
             'authorization': cookies.get('token')
