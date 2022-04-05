@@ -109,7 +109,7 @@ function FindPatient() {
         console.log(`APPOINTMENT DETAILS TIMESLOT  ${appt[0].appointment_id}`);
 
         return axios.put(`http://localhost:5002/Appointment/VaccineAdministered/${batch}`, {
-            "timeslot_id": appt[0].appointment_id,
+            "timeslot_id": appt[0].appointment_id}, {
             headers: { 
                 'Content-Type': 'application/json',
                 'authorization': cookies.get('token')

@@ -23,6 +23,7 @@ import ViewLocation from './staffPages/adminPages/viewLocation';
 import ViewUsers from './staffPages/adminPages/viewUsers';
 import AddUser from './staffPages/adminPages/addUser';
 import AddTimeslots from './staffPages/adminPages/addTimeslots';
+import CreateStaff from './staffPages/adminPages/createStaff';
 
 import NurseHome from './staffPages/nursePages/home';
 import FindPatient from './staffPages/nursePages/findPatient';
@@ -61,6 +62,7 @@ class UBRoutes extends React.Component {
                 <Route path="/viewUsers" element={<ViewUsers />}/>
                 <Route path="/addUser" element={<AddUser />}/>
                 <Route path="/addTimeslots" element={<AddTimeslots />}/>
+                <Route path="/createStaff" element={<CreateStaff />}/>
 
 
                 <Route path="/nurseHome" element={<NurseHome />} />
