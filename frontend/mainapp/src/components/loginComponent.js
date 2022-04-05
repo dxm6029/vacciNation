@@ -31,10 +31,7 @@ const LOGIN = (event) => {
               console.log(response);
               cookies.set('token', response.data.token, { path: '/' });
               console.log(cookies.get('token')); 
-<<<<<<< Updated upstream
               alert("You're successfully signed in!");
-=======
->>>>>>> Stashed changes
           } else {
               console.log('API failed: No data received!');
               alert("There has been an error logging in, please try again.");
