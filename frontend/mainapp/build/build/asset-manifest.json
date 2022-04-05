@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.7d19c225.css",
+    "main.js": "/static/js/main.9f4db889.js",
+    "static/js/787.ad98bcd2.chunk.js": "/static/js/787.ad98bcd2.chunk.js",
+    "static/media/background-image.jpg": "/static/media/background-image.2778ece20f74e7f49357.jpg",
+    "static/media/covidbanner2.jpg": "/static/media/covidbanner2.3ccf7664b32eeeaee5b6.jpg",
+    "index.html": "/index.html",
+    "main.7d19c225.css.map": "/static/css/main.7d19c225.css.map",
+    "main.9f4db889.js.map": "/static/js/main.9f4db889.js.map",
+    "787.ad98bcd2.chunk.js.map": "/static/js/787.ad98bcd2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7d19c225.css",
+    "static/js/main.9f4db889.js"
+  ]
+}
