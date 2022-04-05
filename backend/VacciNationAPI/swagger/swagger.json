@@ -53,7 +53,6 @@
           "Database"
         ],
         "summary": "test the ability to connect to our database",
-        "description": "",
         "produces": [
           "application/json"
         ],
@@ -73,9 +72,6 @@
           "User"
         ],
         "summary": "get a staff user by their id",
-        "consumes": [
-          "application/json"
-        ],
         "produces": [
           "application/json"
         ],
@@ -83,7 +79,7 @@
           {
             "in": "path",
             "name": "id",
-            "description": "id of staff member - could get from something like session storage or cookies?",
+            "description": "id of staff member",
             "required": true,
             "type": "string"
           },
@@ -96,14 +92,17 @@
           }
         ],
         "responses": {
+          "202": {
+            "description": "success - get staff member information"
+          },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
+          },
+          "401": {
+            "description": "failed - unauthorized"
           },
           "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - a staff member with this id does not exist"
           }
         }
       }
@@ -128,16 +127,13 @@
         ],
         "responses": {
           "202": {
-            "description": "currently have returning a json list of all staff info including their role as a string"
+            "description": "success - list of all staff info including their role as a string"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
@@ -169,16 +165,13 @@
         ],
         "responses": {
           "202": {
-            "description": "currently have returning a json list of all staff info including their role as a string"
+            "description": "success - list of all staff info including their role as a string"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
@@ -194,16 +187,10 @@
         ],
         "responses": {
           "202": {
-            "description": "currently have returning a json list of all citizen info"
+            "description": "success - list of all staff info including their role as a string"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           }
         }
       }
@@ -242,16 +229,16 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - role was assigned"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           },
-          "405": {
-            "description": "json here - can adjust response code"
+          "403": {
+            "description": "failed - forbidden (role not sufficient)"
           }
         }
       },
@@ -288,16 +275,16 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - role was removed"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           },
-          "405": {
-            "description": "json here - can adjust response code"
+          "403": {
+            "description": "failed - forbidden (role not sufficient)"
           }
         }
       }
@@ -308,6 +295,9 @@
           "User"
         ],
         "summary": "adds an address to a citizen",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ],
@@ -331,16 +321,13 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - address was added"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
           "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - citizen not found"
           }
         }
       },
@@ -363,16 +350,13 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - address was removed"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
           "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - citizen not found"
           }
         }
       }
@@ -406,16 +390,13 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - insurance was added"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
           "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - citizen not found"
           }
         }
       },
@@ -438,16 +419,13 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - insurance was removed"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
           "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - citizen not found"
           }
         }
       }
@@ -468,20 +446,20 @@
           {
             "in": "path",
             "name": "id",
-            "description": "id of citizen member - could get from something like session storage or cookies?",
+            "description": "id of citizen member",
             "required": true,
             "type": "string"
           }
         ],
         "responses": {
+          "202": {
+            "description": "success - citizen object returned"
+          },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
           "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - citizen not found"
           }
         }
       }
@@ -516,14 +494,17 @@
           }
         ],
         "responses": {
+          "202": {
+            "description": "success - staff was deleted"
+          },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
+          },
+          "401": {
+            "description": "failed - unauthorized"
           },
           "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - staff not found"
           }
         }
       },
@@ -555,14 +536,17 @@
           }
         ],
         "responses": {
+          "202": {
+            "description": "success - staff member was retrieved"
+          },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
+          },
+          "401": {
+            "description": "failed - unauthorized"
           },
           "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - staff not found"
           }
         }
       },
@@ -570,7 +554,7 @@
         "tags": [
           "User"
         ],
-        "summary": "put info for self - staff",
+        "summary": "update info for self - staff",
         "consumes": [
           "application/json"
         ],
@@ -596,14 +580,17 @@
           }
         ],
         "responses": {
+          "202": {
+            "description": "success - staff was updated"
+          },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
+          },
+          "401": {
+            "description": "failed - unauthorized"
           },
           "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - staff not found"
           }
         }
       }
@@ -613,7 +600,7 @@
         "tags": [
           "User"
         ],
-        "summary": "get a staff user",
+        "summary": "get a staff user by non-id",
         "consumes": [
           "application/json"
         ],
@@ -644,14 +631,17 @@
           }
         ],
         "responses": {
+          "202": {
+            "description": "success - staff was retrieved"
+          },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
+          },
+          "401": {
+            "description": "failed - unauthorized"
           },
           "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - staff not found"
           }
         }
       },
@@ -685,14 +675,17 @@
           }
         ],
         "responses": {
+          "202": {
+            "description": "success - staff was updated"
+          },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
+          },
+          "401": {
+            "description": "failed - unauthorized"
           },
           "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - staff not found"
           }
         }
       },
@@ -725,14 +718,17 @@
           }
         ],
         "responses": {
+          "202": {
+            "description": "success - staff was deleted"
+          },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           },
-          "405": {
-            "description": "json here - can adjust response code"
+          "403": {
+            "description": "failed - forbidden"
           }
         }
       },
@@ -766,14 +762,17 @@
           }
         ],
         "responses": {
+          "202": {
+            "description": "success - staff was added"
+          },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           },
-          "405": {
-            "description": "json here - can adjust response code"
+          "403": {
+            "description": "failed - forbidden"
           }
         }
       }
@@ -802,17 +801,14 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "probably some kind of token that contains info about user? like name or id or something?"
+          "202": {
+            "description": "success - staff credentials are authenticated, object with token returned"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
           "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - staff not found"
           }
         }
       }
@@ -839,17 +835,14 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "success"
+          "202": {
+            "description": "success - staff was logged out, token cleared"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
@@ -883,17 +876,14 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "list of roles"
+          "202": {
+            "description": "success - get list of roles for staff member"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
@@ -903,7 +893,7 @@
         "tags": [
           "User"
         ],
-        "summary": "get all roles of a self (staff member)",
+        "summary": "get all roles of self (staff member)",
         "consumes": [
           "application/json"
         ],
@@ -920,17 +910,14 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "list of roles"
+          "202": {
+            "description": "success - get ilst of roles for staff member"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
@@ -940,7 +927,7 @@
         "tags": [
           "User"
         ],
-        "summary": "get a citizen user",
+        "summary": "get a citizen user without id",
         "consumes": [
           "application/json"
         ],
@@ -971,14 +958,14 @@
           }
         ],
         "responses": {
+          "202": {
+            "description": "success - citizen was retrieved"
+          },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
           "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - citizen not found"
           }
         }
       },
@@ -1005,14 +992,11 @@
           }
         ],
         "responses": {
+          "202": {
+            "description": "success - citizen was updated"
+          },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           }
         }
       },
@@ -1051,14 +1035,11 @@
           }
         ],
         "responses": {
+          "202": {
+            "description": "success - citizen was deleted"
+          },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           }
         }
       },
@@ -1085,14 +1066,11 @@
           }
         ],
         "responses": {
+          "202": {
+            "description": "success - citizen was added"
+          },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           }
         }
       }
@@ -1128,17 +1106,14 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "json here - can adjust response code"
+          "202": {
+            "description": "success - staff password was updated"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           }
         }
       }
@@ -2878,7 +2853,9 @@
           {
             "in": "path",
             "name": "location_id",
-            "description": "the location the staff member is getting insights for"
+            "description": "the location the staff member is getting insights for",
+            "required": true,
+            "type": "integer"
           },
           {
             "in": "query",
