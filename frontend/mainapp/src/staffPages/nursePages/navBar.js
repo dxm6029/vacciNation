@@ -7,12 +7,11 @@ function NavBar() {
     <>
         <div className="nurseheader">
           <div className='name'>
-            NAME | Report adverse Reaction
+            
           </div>
            
           <div className="nursenavBar">
               <Link to="/findpatient" className='nurselink'>Patient</Link>
-              <Link to="/addVaccineEntry" className='nurselink'>Vaccination Input</Link>
           </div>
       </div>
     </>

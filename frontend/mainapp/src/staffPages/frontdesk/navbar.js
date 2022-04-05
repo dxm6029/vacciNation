@@ -11,8 +11,8 @@ function FrontDeskNavBar() {
           </div>
            
           <div className="nursenavBar">
-              <Link to="/frontdeskHome" className='nurselink'>Weekly View</Link>
-              <Link to="/frontdeskSearch" className='nurselink'>Check In Patient</Link>
+              <Link to="/frontdeskHome" className='frontdeskHome'>Weekly View</Link>
+              <Link to="/frontdeskSearch" className='frontdeskSearch'>Check In Patient</Link>
           </div>
       </div>
     </>
