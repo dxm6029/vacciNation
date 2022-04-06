@@ -2561,17 +2561,11 @@
           }
         ],
         "responses": {
-          "202": {
-            "description": "json here - can adjust response code"
+          "200": {
+            "description": "success"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           }
         }
       }
@@ -2642,17 +2636,11 @@
           }
         ],
         "responses": {
-          "202": {
-            "description": "json here - can adjust response code"
+          "200": {
+            "description": "success"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           }
         }
       },
@@ -2741,13 +2729,10 @@
             "description": "returns information about total vaccinations given by staff member filtered by staff id and date"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "Missing or invalid auth token"
           }
         }
       }
@@ -2792,13 +2777,10 @@
             "description": "returns information about locations filtered by date and location id"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "Missing or invalid auth token"
           }
         }
       }
@@ -2829,13 +2811,10 @@
             "description": "returns information about all reactions"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "Missing or invalid auth token"
           }
         }
       }
@@ -2887,13 +2866,10 @@
             "description": "returns information about a batch on a specific day at a specific location"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "Missing or invalid auth token"
           }
         }
       }
@@ -2924,13 +2900,10 @@
             "description": "successful response"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "Missing or invalid auth token"
           }
         }
       }
@@ -2970,13 +2943,10 @@
             "description": "successful response"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "Missing or invalid auth token"
           }
         }
       },
@@ -3014,13 +2984,10 @@
             "description": "successful response"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "Missing or invalid auth token"
           }
         }
       }
@@ -3058,13 +3025,7 @@
             "description": "successful response"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           }
         }
       }
@@ -3102,13 +3063,7 @@
             "description": "successful response"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           }
         }
       }
@@ -3148,13 +3103,10 @@
             "description": "successful response"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "Missing or invalid auth token"
           }
         }
       },
@@ -3192,13 +3144,10 @@
             "description": "successful response"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "Missing or invalid auth token"
           }
         }
       },
@@ -3215,13 +3164,7 @@
             "description": "dictionary structure with all eligibility objects and associated questions and answers in each language"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           }
         }
       }
@@ -3261,13 +3204,10 @@
             "description": "successful response"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "Missing or invalid auth token"
           }
         }
       },
@@ -3287,13 +3227,7 @@
             "description": "list of all page content"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           }
         }
       }
@@ -3331,13 +3265,7 @@
             "description": "successful response"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           }
         }
       },
@@ -3366,13 +3294,7 @@
             "description": "list of all page content with id"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           }
         }
       }
@@ -3412,13 +3334,10 @@
             "description": "successful response"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "Missing or invalid auth token"
           }
         }
       },
@@ -3447,13 +3366,7 @@
             "description": "list of all page content with label"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           }
         }
       }
@@ -3493,32 +3406,13 @@
             "description": "successful response"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "Bad request"
           },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "Missing or invalid auth token"
           }
         }
       }
-    }
-  },
-  "securityDefinitions": {
-    "petstore_auth": {
-      "type": "oauth2",
-      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
-      "flow": "implicit",
-      "scopes": {
-        "write:pets": "modify pets in your account",
-        "read:pets": "read your pets"
-      }
-    },
-    "api_key": {
-      "type": "apiKey",
-      "name": "api_key",
-      "in": "header"
     }
   },
   "definitions": {
