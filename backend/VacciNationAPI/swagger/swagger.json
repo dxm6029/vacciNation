@@ -1680,6 +1680,44 @@
         }
       }
     },
+    "/Appointment/date/open/{location_id}": {
+      "get": {
+        "tags": [
+          "Appointments & Timeslots"
+        ],
+        "summary": "get all open appointments for a certain date (usecase example: staff get appointments for current day) at a location",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "description": "date value to search on - needs to be in format YYYY-MM-DD",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "location_id",
+            "description": "location searching on",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "success - retrieves all open appointments for a certain date at a location"
+          },
+          "400": {
+            "description": "failed - some error was thrown"
+          }
+        }
+      }
+    },
     "/Appointment/{id}": {
       "get": {
         "tags": [
@@ -3073,7 +3111,7 @@
         "tags": [
           "Eligibility"
         ],
-        "summary": "set eligibility category information",
+        "summary": "set eligibility information",
         "consumes": [
           "application/json"
         ],

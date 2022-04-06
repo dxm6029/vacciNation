@@ -13,6 +13,7 @@ namespace VacciNationAPI.Controllers{
          User us = new User();
          AppointmentManagement am = new AppointmentManagement();
 
+        //creates available timeslot for citizen to register for
         [HttpPost]
         public IActionResult CreateTimeslot([FromBody] Timeslot timeslot,  [FromHeader] string authorization) {
             string token = authorization;
@@ -36,6 +37,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // updates an appointment with citizen id to book
         [HttpPut("Signup")] // citizen booking appointment (no permissions)
         public IActionResult PutCitizenDoseTimeslot([FromBody] Timeslot timeslot){
              try{
@@ -62,6 +64,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // updates an appointment with the staff id
         [HttpPut("AssignStaff")] // staff assigned to appointment (permissions)
         public IActionResult PutCitiznDoseTimeslot([FromBody] Timeslot timeslot,  [FromHeader] string authorization){
              try{
@@ -85,6 +88,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // updates an appointment's status
         [HttpPut("UpdateStatus")] // staff assigned to appointment (permissions)
         public IActionResult PutTimeslotStatus([FromBody] Timeslot timeslot,  [FromHeader] string authorization){
              try{
@@ -108,6 +112,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // updates an appointments status and batch number once administered
         [HttpPut("VaccineAdministered/{batch}")] // staff assigned to appointment (permissions)
         public IActionResult PutVaccineAdministered([FromBody] Timeslot timeslot,  [FromHeader] string authorization, string batch){
              try{
@@ -131,6 +136,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // updates an appointment with reactions a citizen experiences while they wait to be released after vaccine administration
         [HttpPut("AddReactions")] // add reaction to timeslot, only authorized users
         public IActionResult PutTimeslotReactions([FromBody] Timeslot timeslot,  [FromHeader] string authorization){
              try{
@@ -154,7 +160,8 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
-        // admin only?  
+        // admin only
+        // remove a timeslot
         [HttpDelete]
         public IActionResult DeleteTimeslot([FromHeader] string authorization){
             try{
@@ -194,6 +201,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get all appointments
         [HttpGet("all")]
         public IActionResult GetAllAppointments([FromHeader] string authorization){
 
@@ -212,6 +220,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get all open appointments
         [HttpGet("all/open")]
         public IActionResult GetAllOpenAppointments(){
 
@@ -224,6 +233,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get appointments of certain type
         [HttpGet]
         public IActionResult GetAllAppointmentsOfType([FromHeader] string authorization){
             string token = authorization;
@@ -256,6 +266,7 @@ namespace VacciNationAPI.Controllers{
         }
 
 
+        // gets all open appointments of a certain type
         [HttpGet("all/open/{vaccine_supplier}")]
         public IActionResult GetAllOpenAppointmentsOfType(string vaccine_supplier){
             int vaccineCategory = -1;
@@ -276,6 +287,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get all appointments for a certain citizen
         [HttpGet("citizen/{id}")]
         public IActionResult GetAllAppointmentsCitizen([FromHeader] string authorization, int id){
             string token = authorization;
@@ -299,6 +311,7 @@ namespace VacciNationAPI.Controllers{
         }
 
 
+        // get appointment by id
         [HttpGet("{id}")]
         public IActionResult GetAppointmentsByID([FromHeader] string authorization, int id){
             string token = authorization;
@@ -321,6 +334,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get all appointments for a certain location 
          [HttpGet("all/location")]
         public IActionResult GetAllAppointmentsLocation([FromHeader] string authorization){
             string token = authorization;
@@ -349,6 +363,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get all open appointments for a certain location
          [HttpGet("all/location/open")]
         public IActionResult GetAllOpenAppointmentsLocation(){
             int location_id = -1;
@@ -371,6 +386,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        //get all appointments at a certain location with a certain type
          [HttpGet("all/location/{supplier}")]
         public IActionResult GetAllAppointmentsLocationAndType([FromHeader] string authorization, string supplier){
             
@@ -407,6 +423,7 @@ namespace VacciNationAPI.Controllers{
         }
 
 
+        //get all open appointments at a certain location with a certain type
          [HttpGet("all/location/open/{supplier}")]
         public IActionResult GetAllOpenAppointmentsLocationAndType([FromHeader] string authorization, string supplier){
             
@@ -442,6 +459,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get all appointments for a certain date
          [HttpGet("date")]
         public IActionResult GetAllAppointmentsDate([FromHeader] string authorization){
             
@@ -470,6 +488,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get all open appointments for a certain date
          [HttpGet("open/date")]
         public IActionResult GetAllOpenAppointmentsDate(){
             
@@ -492,6 +511,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get all appointments for date at a certain location
          [HttpGet("date/{location_id}")]
         public IActionResult GetAllAppointmentsDate([FromHeader] string authorization, int location_id){
             
@@ -520,6 +540,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get all open appointments for date at a certain location
          [HttpGet("date/open/{location_id}")]
         public IActionResult GetOpenAppointmentsDate(int location_id){
  

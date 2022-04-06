@@ -15,7 +15,7 @@ namespace VacciNationAPI.Controllers{
         ReportManagement rm = new ReportManagement();
 
 
-        // currently set so any staff member can view insights
+        // get all reporting insights for a specific staff member 
         [HttpGet("staff/{staff_id}")]
         public IActionResult GetStaffInsights([FromHeader] string authorization, int staff_id) {
             string token = authorization;
@@ -38,7 +38,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
-        // currently set so any staff member can view insights
+        // get all reporting insights for a specific location
         [HttpGet("location/{location_id}")]
         public IActionResult GetVaccineInsights([FromHeader] string authorization, int location_id) {
             string token = authorization;
@@ -61,6 +61,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get all reporting insights for reactions
         [HttpGet("reactions")]
         public IActionResult GetReactionInsights([FromHeader] string authorization) {
             string token = authorization;
@@ -77,7 +78,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
-// works
+        // get all reporting insights for a batch
         [HttpGet("batch/{batch}")]
         public IActionResult GetBatchInsights([FromHeader] string authorization, string batch) {
             string token = authorization;

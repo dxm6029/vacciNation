@@ -8,6 +8,7 @@ namespace VacciNationAPI.Controllers{
     [Route("[controller]")]
     public class DBConnectController: Controller {
 
+        //test the ability to connect to our database
         [HttpGet]
         public string OpenAndCloseDBConnect(){
             VacciNation.Connect connection = new VacciNation.Connect();
