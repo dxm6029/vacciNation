@@ -11,7 +11,8 @@ function NavBar() {
           </div>
            
           <div className="nursenavBar">
-              <Link to="/findpatient" className='nurselink'>Patient</Link>
+              <Link to="/findPatient" className='nurselink'>Find Patient</Link>
+              <Link to="/todaysAppointments" className='nurselink'>Today's Appointments</Link>
           </div>
       </div>
     </>

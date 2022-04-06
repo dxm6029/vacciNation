@@ -33,6 +33,7 @@ import TodaysAppointments from './staffPages/nursePages/todaysAppointments';
 
 import FrontDeskHome from './staffPages/frontdesk/home';
 import FrontDeskSearch from './staffPages/frontdesk/search';
+import TodaysAppts from './staffPages/frontdesk/todaysAppts';
 
 class UBRoutes extends React.Component {
     render() {
@@ -75,6 +76,7 @@ class UBRoutes extends React.Component {
 
                 <Route path="/frontdeskHome" element={<FrontDeskHome />}/>
                 <Route path="/frontdeskSearch" element={<FrontDeskSearch />}/>
+                <Route path="/frontdeskAppts" element={<TodaysAppts />}/>
             </Routes>
         );
     }

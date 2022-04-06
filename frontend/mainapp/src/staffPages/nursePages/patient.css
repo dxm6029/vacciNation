@@ -102,3 +102,13 @@ input[type=text], input[type=date], select {
     border-radius: 10px;
     padding: 3%;
 }
+
+.appts {
+    margin-bottom: 5%;
+    width: 80%;
+}
+
+.todaysForm {
+    max-width: 80%;
+    margin-left: 10%;
+}
