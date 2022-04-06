@@ -1945,13 +1945,7 @@
             "description": "json list of all vaccine info"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           }
         }
       }
@@ -1988,16 +1982,16 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - vaccine created"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           },
-          "405": {
-            "description": "json here - can adjust response code"
+          "403": {
+            "description": "failed - forbidden"
           }
         }
       },
@@ -2029,16 +2023,16 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - vaccine updated"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           },
-          "405": {
-            "description": "json here - can adjust response code"
+          "403": {
+            "description": "failed - forbidden"
           }
         }
       },
@@ -2071,16 +2065,10 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - vaccine retrieved"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           }
         }
       }
@@ -2117,16 +2105,16 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - vaccine category created"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           },
-          "405": {
-            "description": "json here - can adjust response code"
+          "403": {
+            "description": "failed - forbidden"
           }
         }
       },
@@ -2158,16 +2146,16 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - vaccine category updated"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           },
-          "405": {
-            "description": "json here - can adjust response code"
+          "403": {
+            "description": "failed - forbidden"
           }
         }
       },
@@ -2193,16 +2181,10 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - vaccine category retrieved"
           },
           "400": {
-            "description": "json here - can adjust response code"
-          },
-          "404": {
-            "description": "json here - can adjust response code"
-          },
-          "405": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           }
         }
       }
@@ -2239,16 +2221,16 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - disease created"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           },
-          "405": {
-            "description": "json here - can adjust response code"
+          "403": {
+            "description": "failed - forbidden"
           }
         }
       },
@@ -2256,7 +2238,7 @@
         "tags": [
           "Vaccines"
         ],
-        "summary": "Update a category",
+        "summary": "Update a disease",
         "produces": [
           "application/json"
         ],
@@ -2280,16 +2262,16 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - disease updated"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           },
-          "405": {
-            "description": "json here - can adjust response code"
+          "403": {
+            "description": "failed - forbidden"
           }
         }
       },
@@ -2315,16 +2297,16 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - disease retrieved"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           },
-          "405": {
-            "description": "json here - can adjust response code"
+          "403": {
+            "description": "failed - forbidden"
           }
         }
       }
@@ -2361,16 +2343,16 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - doses created"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           },
-          "405": {
-            "description": "json here - can adjust response code"
+          "403": {
+            "description": "failed - forbidden"
           }
         }
       },
@@ -2402,16 +2384,16 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - doses updated"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           },
-          "405": {
-            "description": "json here - can adjust response code"
+          "403": {
+            "description": "failed - forbidden"
           }
         }
       },
@@ -2444,16 +2426,16 @@
         ],
         "responses": {
           "202": {
-            "description": "json here - can adjust response code"
+            "description": "success - doses retrieved"
           },
           "400": {
-            "description": "json here - can adjust response code"
+            "description": "failed - some error was thrown"
           },
-          "404": {
-            "description": "json here - can adjust response code"
+          "401": {
+            "description": "failed - unauthorized"
           },
-          "405": {
-            "description": "json here - can adjust response code"
+          "403": {
+            "description": "failed - forbidden"
           }
         }
       }
