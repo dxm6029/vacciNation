@@ -15,6 +15,7 @@ namespace VacciNationAPI.Controllers{
         User us = new User();
 
         // assumes only admin can make staff acounts
+        // add a staff user
         [HttpPost]
         public IActionResult AddStaffMember([FromBody] Staff staffInfo, [FromHeader] string authorization) {
              string token = authorization;
@@ -45,6 +46,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        //get a staff user by non-id
         [HttpGet]
         public IActionResult GetUserStaffWithoutID([FromHeader] string authorization){
             try{
@@ -79,6 +81,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get a staff user by their id
         [HttpGet("{id}")]
         public IActionResult GetUserStaffWithID(int id, [FromHeader] string authorization){
             try{
@@ -102,6 +105,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get info for self - staff member
         [HttpGet("self")]
         public IActionResult GetUserStaffWithToken([FromHeader] string authorization){
             string token = authorization;
@@ -125,6 +129,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // gets all staff members for display
         [HttpGet("all")]
         public IActionResult GetAllStaff([FromHeader] string authorization){
 
@@ -143,6 +148,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get all roles of a staff member
         [HttpGet("role/{id}")]
         public IActionResult GetStaffRole([FromHeader] string authorization, int id){
 
@@ -161,6 +167,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        //get all roles of self
         [HttpGet("role/self")]
         public IActionResult GetStaffRoleSelf([FromHeader] string authorization){
 
@@ -179,6 +186,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // changing a staff member password
         [HttpPut("password")]
         public IActionResult PutStaffPassword([FromBody] Staff staffInfo, [FromHeader] string authorization){
              try{
@@ -208,6 +216,7 @@ namespace VacciNationAPI.Controllers{
 
 
         // admin update others
+        // update a staff user
         [HttpPut]
         public IActionResult PutUserStaff([FromBody] Staff staffInfo, [FromHeader] string authorization){
             try{
@@ -236,6 +245,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        //update info for self - staff
         [HttpPut("self")]
         public IActionResult PutUserStaffSelf([FromBody] Staff staffInfo, [FromHeader] string authorization){
             try{
@@ -263,6 +273,7 @@ namespace VacciNationAPI.Controllers{
 
 
         // just for admin
+        // delete a staff member
         [HttpDelete]
         public IActionResult DeleteUserStaff([FromHeader] string authorization){
             try{
@@ -328,6 +339,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // authenticate a staff member
         [HttpPost("login")]
         public IActionResult Login([FromBody]Staff staff){
             try{
@@ -349,6 +361,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // log out of staff member account
         [HttpPost("logout")]
         public IActionResult logout([FromHeader] string authorization){
             try{
@@ -373,6 +386,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // assigns a role to a staff member
         [HttpPost("role")]
         public IActionResult AssignRole([FromHeader] string authorization){
             string token = authorization;
@@ -423,6 +437,7 @@ namespace VacciNationAPI.Controllers{
         }
 
 
+        // remove a role from a staff member
         [HttpDelete("role")]
         public IActionResult RemoveRole([FromHeader] string authorization){
             string token = authorization;
@@ -471,6 +486,7 @@ namespace VacciNationAPI.Controllers{
 
         }
 
+        // get all staff members with a certain role
         [HttpGet("all/{id}")]
         public IActionResult GetAllStaff([FromHeader] string authorization, int id){
 

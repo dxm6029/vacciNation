@@ -15,6 +15,7 @@ namespace VacciNationAPI.Controllers{
          User us = new User();
         EligibilityManagement em = new EligibilityManagement();
 
+        // set eligibility category information
         [HttpPost("Category")]
         public IActionResult AddEligibilityCategory([FromHeader] string authorization, [FromBody] Eligibility eligibility) {
             string token = authorization;
@@ -32,6 +33,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // set eligibility information 
         [HttpPost]
         public IActionResult AddEligibilityReq([FromHeader] string authorization, [FromBody] EligibilityText eligibility) {
             string token = authorization;
@@ -49,6 +51,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // update eligibility category information
         [HttpPut("Category")]
          public IActionResult UpdateEligibilityCategory([FromHeader] string authorization, [FromBody] Eligibility eligibility) {
             string token = authorization;
@@ -66,6 +69,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // update eligibility information
         [HttpPut]
         public IActionResult UpdateEligibilityReq([FromHeader] string authorization, [FromBody] EligibilityText eligibility) {
             string token = authorization;
@@ -83,6 +87,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get all eligibility information
         [HttpGet]
          public IActionResult getEligibility() {
 
@@ -95,6 +100,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // delete eligibility category
         [HttpDelete("Category/{eligibility_id}")]
          public IActionResult deleteEligibilityCategory([FromHeader] string authorization, int eligibility_id) {
 
@@ -107,6 +113,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // delete eligibility text
         [HttpDelete("{text_id}")]
          public IActionResult deleteEligibility([FromHeader] string authorization, int text_id) {
 

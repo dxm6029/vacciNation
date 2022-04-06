@@ -12,6 +12,7 @@ namespace VacciNationAPI.Controllers{
 
          User us = new User();
 
+        // add a citizen user
         [HttpPost]
         public IActionResult AddCitizen([FromBody] Citizen citizenInfo) {
             // assumes that password is hashed on the frontend
@@ -25,6 +26,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // update a citizen user
         [HttpPut]
         public IActionResult PutUserCitizen([FromBody] Citizen citizen){
             try{
@@ -43,6 +45,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // delete a citizen user
         [HttpDelete]
         public IActionResult DeleteUserCitizen(){
             try{
@@ -73,6 +76,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get a user citizen without id
         [HttpGet]
         public IActionResult GetUserStaffWithoutID(){
             try{
@@ -103,6 +107,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get a user citizen by id
         [HttpGet("{id}")]
         public IActionResult GetUserCitizenWithID(int id){
             try{
@@ -120,6 +125,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get all citizens for display
         [HttpGet("all")]
         public IActionResult GetAllCitizens(){
             try{                
@@ -131,7 +137,8 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
-        // assumes can have multiple addresses?
+        // adds an address to a citizen
+        // assumes can have multiple addresses
         [HttpPost("address/{id}")]
         public IActionResult AddAddress([FromBody] Address address, int id){
             try{     
@@ -153,6 +160,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // removes an address from a citizen
         [HttpDelete("address/{id}")]
         public IActionResult removeAddress(int id){
             // id is the citizen ID
@@ -175,7 +183,8 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
-        // assumes can have multiple insurances?
+        // assumes can have multiple insurances
+        // adds an insurance to a citizen
         [HttpPost("insurance/{id}")]
         public IActionResult AddInsurance([FromBody] Insurance insurance, int id){
             try{     
@@ -197,6 +206,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // deletes an insurance from a citizen
         [HttpDelete("insurance/{id}")]
         public IActionResult RemoveInsurance(int id){
             // id is the citizen ID

@@ -15,6 +15,8 @@ namespace VacciNationAPI.Controllers{
          User us = new User();
 
         DynamicContentManagement dcm = new DynamicContentManagement();
+
+        // add dynamic content information
         [HttpPost]
         public IActionResult AddContent([FromHeader] string authorization, [FromBody] PageContent pageContent) {
             string token = authorization;
@@ -32,6 +34,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // remove dynamic content information
         [HttpDelete("{content_id}")]
          public IActionResult deleteContent([FromHeader] string authorization, int content_id) {
 
@@ -44,6 +47,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // update dynamic content information by id
         [HttpPut("id")]
          public IActionResult UpdateContentById([FromHeader] string authorization, [FromBody] PageContent pageContent) {
             string token = authorization;
@@ -61,6 +65,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // update dynamic content information by label
         [HttpPut("label")]
          public IActionResult UpdateContentByLabel([FromHeader] string authorization, [FromBody] PageContent pageContent) {
             string token = authorization;
@@ -78,6 +83,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get dynamic content information from certain id
         [HttpGet("{content_id}")]
          public IActionResult GetContentById(int content_id) {
 
@@ -90,6 +96,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get dynamic content information from certain label
         [HttpGet("label")]
          public IActionResult GetContentByLabel() {
 
@@ -108,6 +115,7 @@ namespace VacciNationAPI.Controllers{
             }
         }
 
+        // get all dynamic content information
         [HttpGet]
         public IActionResult GetAllContent() {
 

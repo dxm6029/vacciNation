@@ -15,6 +15,7 @@ namespace VacciNationAPI.Controllers
         private LocationManagement locationManager = new LocationManagement();
         private ApplicationMonitoringService monitor = new ApplicationMonitoringService();
         
+        // get location by id, city, zip, or none (gets full list)
         [HttpGet]
         public IActionResult GetLocations()
         {
@@ -71,6 +72,7 @@ namespace VacciNationAPI.Controllers
 
         }
         
+        // create a location
         [HttpPost]
         public IActionResult CreateLocation([FromBody] Location location,  [FromHeader] string authorization) {
             
@@ -118,6 +120,7 @@ namespace VacciNationAPI.Controllers
             }
         }
         
+        // update a location
         [HttpPut]
         public IActionResult UpdateLocation([FromBody] Location location,  [FromHeader] string authorization) {
             
@@ -163,6 +166,7 @@ namespace VacciNationAPI.Controllers
 
         }
         
+        // get list of staff at this location
         [HttpGet("staff")]
         public IActionResult GetStaff(){
 
@@ -196,6 +200,7 @@ namespace VacciNationAPI.Controllers
 
         }
         
+        // assign staff member to this location
         [HttpPost("staff")]
         public IActionResult CreateStaffLocation([FromBody] StaffLocation sl,  [FromHeader] string authorization) {
             
@@ -241,6 +246,7 @@ namespace VacciNationAPI.Controllers
 
         }
         
+        // remove staff member from this location
         [HttpDelete("staff")]
         public IActionResult DeleteStaffLocation([FromBody] StaffLocation sl,  [FromHeader] string authorization) {
             
