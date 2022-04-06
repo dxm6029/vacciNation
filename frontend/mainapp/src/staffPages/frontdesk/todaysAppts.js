@@ -1,15 +1,14 @@
-import './patient.css';
-import NavBar from './navBar';
+import './search.css';
+import NavBar from './navbar';
 import axios from 'axios';
 import { useState } from 'react';
 import Cookies from 'universal-cookie';
 
-function TodaysAppointments() {
+function TodaysAppts() {
     const cookies = new Cookies();
     //find all of today's patients
 
     const [appts, setAppts] = useState(null);
-    const [citid, setCitid] = useState(null);
 
     const FIND = (event) => {
       event.preventDefault();
@@ -37,37 +36,6 @@ function TodaysAppointments() {
         });
     }
 
-    function selectCitizen(citizenId) {
-        setCitid(citizenId);
-    }
-
-    function NEWVAX(event) {
-        event.preventDefault();
-        let batch = event.target.batch.value;
-
-        return axios.put(`http://localhost:5002/Appointment/VaccineAdministered/${batch}`, {
-            "timeslot_id": citid}, {
-            headers: { 
-                'Content-Type': 'application/json',
-                'authorization': cookies.get('token')
-            },
-        })
-        .then((response) => {
-          if (response) {
-              console.log(response); 
-              alert("Vaccine successfully updated!");
-          } else {
-              console.log('API failed: No data received!');
-              return null;
-          }
-      }).catch((err) => {
-          console.log('*** API Call Failed ***');
-          console.log(err);
-          console.log(err.toString());
-          return null;
-      });
-    }
-
     return (
     <>
         <NavBar />
@@ -84,7 +52,7 @@ function TodaysAppointments() {
           <button className="regularButton" type="submit" value="Search">Search</button>
         </form>
 
-        <table className="appts" id="customers">
+        <table className="appts">
             <thead>
             <tr>
                 <th>Appointment ID</th>
@@ -101,7 +69,6 @@ function TodaysAppointments() {
                     <tr 
                     className="" 
                     key={`location ${index}`} 
-                    onClick={() => selectCitizen(info.appointment_id)}
                 >
                     <td>
                         {info.appointment_id}
@@ -127,22 +94,9 @@ function TodaysAppointments() {
             </tbody>
         </table>
 
-        {citid && 
-            <form className="patientForm" onSubmit={e => {NEWVAX(e)}}>
-                <label htmlFor="batch">Batch</label>
-                <input type="text" id="batch" name="batch" placeholder="Batch Number"/>
-
-                <input type="submit" value="Submit"/>
-            </form>
-        }
-
         
     </>
   );
 }
 
-export default TodaysAppointments;
-
-
-/*
-                    onClick={() => selectLocation(place.location_id, place.appointment_id)*/
+export default TodaysAppts;
