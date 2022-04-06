@@ -13,7 +13,7 @@ namespace VacciNationAPI.Controllers{
          User us = new User();
         ReminderManagement rm = new ReminderManagement();
 
-        // when do we want to send reminders? day before?
+        // send email reminders with appointment information to all citizens with an appointment
         [HttpGet("SendReminders")]
         public IActionResult GetReactionInsights([FromHeader] string authorization) {
             string token = authorization;
