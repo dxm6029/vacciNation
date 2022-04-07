@@ -2,6 +2,8 @@ import './viewLocations.css';
 import { Link } from 'react-router-dom';
 import NavBar from './navBar';
 
+//This will be a page to edit a specific location
+
 function EditLocation() {
   return (
     <>

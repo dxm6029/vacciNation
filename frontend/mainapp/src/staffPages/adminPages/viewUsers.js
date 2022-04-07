@@ -7,6 +7,8 @@ import { useState } from 'react';
 function ViewUsers() {
     const [value, setValue] = useState(true);
 
+    // Eventually this will have listing will all current staff users with ability to edit and delete
+
   return (
     <>
         <NavBar />

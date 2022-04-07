@@ -4,6 +4,8 @@ import Calendar from './calendar.js';
 
 function FrontDeskHome() {
     // Front desk home
+
+    // One day will hold more useful information and a better calendar
   return (
     <>
         <NavBar />
