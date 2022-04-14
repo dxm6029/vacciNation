@@ -1,6 +1,24 @@
-version: '3.1'
+version: '3'
 
 services:
+  app1:
+    build: ./build
+
+  app2:
+    build: ./build
+  
+  app3:
+    build: ./build
+
+  nginx:
+    build: ./nginx
+    ports:
+    - "8080:80"
+    depends_on:
+      - app1
+      - app2
+      - app3
+
   db:
     image: mariadb
     ports:
@@ -23,8 +41,3 @@ services:
     - "5002:80"
     - "5000:5000"
     - "5001:5001"
-  ui:
-    build: ./frontend/mainapp
-    ports:
-    - "3000:3000"
-
