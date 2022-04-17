@@ -16,7 +16,7 @@ function TodaysAppointments() {
       let id = event.target.id.value;
       let date = event.target.date.value;
       return axios
-        .get(`http://localhost:5002/Appointment/date/${id}?date=${date}`, {
+        .get(`http://68.183.124.193:5002/Appointment/date/${id}?date=${date}`, {
             headers: { 
                 'Content-Type': 'application/json',
                 'authorization': cookies.get('token')
@@ -45,7 +45,7 @@ function TodaysAppointments() {
         event.preventDefault();
         let batch = event.target.batch.value;
 
-        return axios.put(`http://localhost:5002/Appointment/VaccineAdministered/${batch}`, {
+        return axios.put(`http://68.183.124.193:5002/Appointment/VaccineAdministered/${batch}`, {
             "timeslot_id": citid}, {
             headers: { 
                 'Content-Type': 'application/json',

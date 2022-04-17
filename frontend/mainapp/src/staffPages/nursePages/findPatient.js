@@ -15,7 +15,7 @@ function FindPatient() {
 
     // function getAll( ) {
     //     return axios
-    //     .get(`http://localhost:5002/UserCitizen/all`)
+    //     .get(`http://68.183.124.193:5002/UserCitizen/all`)
     //     .then((response) => {
     //         if (response) {
     //             console.log(response); 
@@ -37,7 +37,7 @@ function FindPatient() {
       let lastName = event.target.lname.value;
       let emailAddress = event.target.email.value;
       return axios
-        .get(`http://localhost:5002/UserCitizen?first_name=${firstName}&last_name=${lastName}&email=${emailAddress}`)
+        .get(`http://68.183.124.193:5002/UserCitizen?first_name=${firstName}&last_name=${lastName}&email=${emailAddress}`)
         .then((response) => {
             if (response) {
                 setCitizenid(response.data.citizen_id);
@@ -56,7 +56,7 @@ function FindPatient() {
 
     function getAppt(citid) {
         return axios
-        .get(`http://localhost:5002/Appointment/Citizen/${citid}`, {
+        .get(`http://68.183.124.193:5002/Appointment/Citizen/${citid}`, {
             headers: { 
                 'Content-Type': 'application/json',
                 'authorization': cookies.get('token')
@@ -82,7 +82,7 @@ function FindPatient() {
 
     function getApptDetails(id){ 
         return axios
-        .get(`http://localhost:5002/Appointment/${id}`, {
+        .get(`http://68.183.124.193:5002/Appointment/${id}`, {
             headers: { 
                 'Content-Type': 'application/json',
                 'authorization': cookies.get('token')
@@ -108,7 +108,7 @@ function FindPatient() {
         let batch = event.target.batch.value;
         console.log(`APPOINTMENT DETAILS TIMESLOT  ${appt[0].appointment_id}`);
 
-        return axios.put(`http://localhost:5002/Appointment/VaccineAdministered/${batch}`, {
+        return axios.put(`http://68.183.124.193:5002/Appointment/VaccineAdministered/${batch}`, {
             "timeslot_id": appt[0].appointment_id}, {
             headers: { 
                 'Content-Type': 'application/json',

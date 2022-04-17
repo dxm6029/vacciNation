@@ -15,7 +15,7 @@ function TodaysAppts() {
       let id = event.target.id.value;
       let date = event.target.date.value;
       return axios
-        .get(`http://localhost:5002/Appointment/date/${id}?date=${date}`, {
+        .get(`http://68.183.124.193:5002/Appointment/date/${id}?date=${date}`, {
             headers: { 
                 'Content-Type': 'application/json',
                 'authorization': cookies.get('token')

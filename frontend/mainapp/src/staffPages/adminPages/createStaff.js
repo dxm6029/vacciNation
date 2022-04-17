@@ -22,7 +22,7 @@ function CreateStaff() {
     let last_name = event.target.lname.value;
 
     return axios
-      .post(`http://localhost:5002/UserStaff`, {
+      .post(`http://68.183.124.193:5002/UserStaff`, {
         "email": email,
         "username":username,
         "password": password,

@@ -18,7 +18,7 @@ function Schedule() {
     event.preventDefault();
     setDatePick(event.target.datePick.value);
 
-    return axios.get(`http://localhost:5002/Appointment/open/date?date=${event.target.datePick.value}`)
+    return axios.get(`http://68.183.124.193:5002/Appointment/open/date?date=${event.target.datePick.value}`)
       .then((response) => {
           if (response) {
               console.log(response); 
