@@ -14,7 +14,7 @@ function ViewLocations() {
 
     function getLocations() {
       return axios
-        .get(`http://localhost:5002/Location`, {
+        .get(`http://68.183.124.193:5002/Location`, {
           headers: { 
               'Content-Type': 'application/json',
               'authorization': cookies.get('token')

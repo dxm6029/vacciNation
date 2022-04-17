@@ -15,7 +15,7 @@ function AddLocation() {
     let town = event.target.town.value;
 
     return axios
-      .post(`http://localhost:5002/Location`, {
+      .post(`http://68.183.124.193:5002/Location`, {
         "name": name,
         "zip": zip,
         "street": street,

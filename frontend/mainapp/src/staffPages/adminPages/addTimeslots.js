@@ -13,7 +13,7 @@ function AddTimeslots() {
     let appttime = event.target.time.value;
 
     return axios
-      .post(`http://localhost:5002/Appointment`, {
+      .post(`http://68.183.124.193:5002/Appointment`, {
         "location_id": parseInt(id),
         "date": (`${date} ${appttime}`),
         "status": 1},{

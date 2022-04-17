@@ -14,7 +14,7 @@ const LOGIN = (event) => {
   let username = event.target.username.value;
   let password = event.target.password.value;
   return axios
-      .post("http://localhost:5002/UserStaff/login", {
+      .post("http://68.183.124.193:5002/UserStaff/login", {
               'username': username,
               'password': password,
           },

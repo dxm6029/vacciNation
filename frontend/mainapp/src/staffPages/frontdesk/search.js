@@ -19,7 +19,7 @@ function FrontDeskSearch() {
       let lastName = event.target.lname.value;
       let emailAddress = event.target.email.value;
       return axios
-        .get(`http://localhost:5002/UserCitizen?first_name=${firstName}&last_name=${lastName}&email=${emailAddress}`)
+        .get(`http://68.183.124.193:5002/UserCitizen?first_name=${firstName}&last_name=${lastName}&email=${emailAddress}`)
         .then((response) => {
             if (response) {
                 setCitizenid(response.data.citizen_id);
@@ -38,7 +38,7 @@ function FrontDeskSearch() {
 
     function getAppt(citid) {
         return axios
-        .get(`http://localhost:5002/Appointment/Citizen/${citid}`, {
+        .get(`http://68.183.124.193:5002/Appointment/Citizen/${citid}`, {
             headers: { 
                 'Content-Type': 'application/json',
                 'authorization': cookies.get('token')
@@ -64,7 +64,7 @@ function FrontDeskSearch() {
 
     function getApptDetails(id){ 
       return axios
-      .get(`http://localhost:5002/Appointment/${id}`, {
+      .get(`http://68.183.124.193:5002/Appointment/${id}`, {
           headers: { 
               'Content-Type': 'application/json',
               'authorization': cookies.get('token')

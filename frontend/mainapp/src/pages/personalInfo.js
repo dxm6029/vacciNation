@@ -31,7 +31,7 @@ function PersonalInfo() {
     setVaxId(event.target.vax.value);
 
 
-    return axios.post(`http://localhost:5002/UserCitizen`, {
+    return axios.post(`http://68.183.124.193:5002/UserCitizen`, {
       "email": emailAddress,
       "first_name": firstname,
       "last_name": lastname,
@@ -72,7 +72,7 @@ function PersonalInfo() {
   }
 
   function claimAppt() {
-    return axios.put(`http://localhost:5002/Appointment/Signup?vaccine_type=${vaxId}`, {
+    return axios.put(`http://68.183.124.193:5002/Appointment/Signup?vaccine_type=${vaxId}`, {
       "timeslot_id": parseInt(searchParams.get('appt')),
       "citizen_id": parseInt(citizenId)
     })
@@ -94,7 +94,7 @@ function PersonalInfo() {
 
 
   function getUser() {
-    return axios.get(`http://localhost:5002/UserCitizen?first_name=${fname}&last_name=${lname}&email=${email}`)
+    return axios.get(`http://68.183.124.193:5002/UserCitizen?first_name=${fname}&last_name=${lname}&email=${email}`)
       .then((response) => {
           if (response) {
               console.log(response); 
